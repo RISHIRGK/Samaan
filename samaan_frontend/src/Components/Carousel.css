@@ -1,0 +1,10 @@
+.CarouselWrapper{
+    height: 100%;
+    width: 100%;
+}
+
+.CarouselImage{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
