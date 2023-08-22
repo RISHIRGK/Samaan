@@ -11,7 +11,7 @@ const ProductCard = () => {
       <div className="absolute w-[100%] h-[30%] bg-yellow-300 -top-11   "></div>
       <div className="w-[100%] px-2 h-[34%] ring-1 bg-yellow-300 flex   items-center justify-start " >
         <div className="  flex flex-col justify-evenly items-start " > 
-          <div className=" text-[.6rem] font-bold text-white bg-black bg-opacity-25  h-[1rem] w-[3.8rem]  rounded-md px-1 flex  justify-center items-center "> <img src="" className=" w-[.7rem] h-[.7rem] bg-white  "  alt=""> </img> <span className="  " > 15 MINS</span>
+          <div className=" text-[.6rem] font-bold text-white bg-black bg-opacity-25  h-[1rem] w-[3.8rem]  rounded-md px-1 flex  justify-center items-center "> <img src="" className=" w-[.7rem] h-[.7rem] bg-white  "  alt=""/>  <span className="  " > 15 MINS</span>
            </div>
         <div>
           <p className="font-semibold leading-5 tracking-tight"  >Krack Jack 20-20</p>
