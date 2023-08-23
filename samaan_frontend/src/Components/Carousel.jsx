@@ -5,23 +5,46 @@ import I2 from './CarouselImages/image2.png'
 import I3 from './CarouselImages/image3.png'
 import I4 from './CarouselImages/image4.png'
 import I5 from './CarouselImages/image5.png'
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
+// import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+
+// new Splide( '.splide' ).mount( { AutoScroll } );
 
 const Carousel = () => {
     const images = [I1 , I2 , I3 , I4 , I5]
     const linksa = ['1' , '2' ,'3' ,'4' ,'5']
     const [Index , setIndex] = useState(0)
-    useEffect(()=>{
-        setTimeout(() => {
-            return(
-                Index < 4 ? setIndex(Index + 1) : setIndex(0)
-            )
-        }, 1000);
-    },[Index])
+    // useEffect(()=>{
+    //     setTimeout(() => {
+    //         return(
+    //             Index < 4 ? setIndex(Index + 1) : setIndex(0)
+    //         )
+    //     }, 1000);
+    // },[Index])
   return (
     <div className='CarouselWrapper'>
-        <a href={linksa[Index]}>
-        <img src={images[Index]} alt="" className='CarouselImage'/>
-        </a>
+       <Splide options ={ {
+    type         : 'loop',
+    gap          : '1rem',
+    autoplay     : true,
+    pauseOnHover : false,
+    resetProgress: false,
+    width        : '100%',
+  }} aria-label="My Favorite Images">
+
+{
+    images.map((image , index)=>{
+        return(
+            <SplideSlide>
+                <a href={linksa[index]}>
+                <img src={image} alt="" className='CarouselImage   '/>
+                </a>
+            </SplideSlide>
+        )
+    })
+}
+</Splide>
     </div>
   )
 }
