@@ -80,7 +80,7 @@ const Header = () => {
                     </button>
                 </div>
                 <div className="LogoDiv VCenter-flex">
-                    <img src={Logo} alt="" srcSet="" />
+                    <img src={Logo} className=" w-[22rem] "  alt="" srcSet="" />
                 </div>
                 <div className="SearchDiv VCenter-flex Laptop">
                     <div className="SearchBar">
