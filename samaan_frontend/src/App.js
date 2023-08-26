@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './input.css';
 import Header from './Components/Header'
 import Carousel from './Components/Carousel';
+import Footer from './Components/Footer';
+import './App.css'
 function App() {
   return (
-    <div >
-    <div className="  w-[100vw] h-[100vh]   bg-black ">
-      <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-center items-center ">
-        <div className=" w-[100%]  bg-green-400  " >
-          <Header/>
-        </div>
-        <div className=" w-[100%] h-[85%] bg-red-400 flex flex-col   ">
-          <div id="carousel" className=" w-[100%] h-[80%] bg-pink-400 ">
-            <Carousel/>
-          </div>
-
-        </div>
+   <div className="App-outer">
+      <Header/>
+      <div className="Carousel-Outer">
+        <Carousel/>
       </div>
-    </div>
+      <div className="Categories-Outer">
 
-    </div>
+      </div>
+      <Footer/>
+   </div>
   );
 }
 

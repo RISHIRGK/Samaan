@@ -8,3 +8,22 @@
     width: 100%;
     object-fit: contain;
 }
+
+Splide {
+    z-index: 1;
+}
+
+SlideSlide {
+    z-index: 2;
+}
+.splide{
+    height: 100% !important;
+}
+
+.splide__track{
+    height: 100% !important;
+}
+
+.splide__pagination__page.is-active{
+    background-color: black !important;
+}

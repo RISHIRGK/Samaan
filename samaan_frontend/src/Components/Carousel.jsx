@@ -5,25 +5,27 @@ import I2 from './CarouselImages/image2.png'
 import I3 from './CarouselImages/image3.png'
 import I4 from './CarouselImages/image4.png'
 import I5 from './CarouselImages/image5.png'
-
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
 const Carousel = () => {
-    const images = [I1 , I2 , I3 , I4 , I5]
-    const linksa = ['1' , '2' ,'3' ,'4' ,'5']
-    const [Index , setIndex] = useState(0)
-    useEffect(()=>{
-        setTimeout(() => {
-            return(
-                Index < 4 ? setIndex(Index + 1) : setIndex(0)
-            )
-        }, 1000);
-    },[Index])
-  return (
-    <div className='CarouselWrapper'>
-        <a href={linksa[Index]}>
-        <img src={images[Index]} alt="" className='CarouselImage'/>
-        </a>
-    </div>
-  )
+    const ImgandLinkObjects = [{ image: I1, link: '1' }, { image: I2, link: '2' }, { image: I3, link: '3' }, { image: I4, link: '4' }, { image: I5, link: '5' }]
+    return (
+        <div className='CarouselWrapper'>
+            <Splide>
+                {
+                    ImgandLinkObjects.map((obj,index) => {
+                        return (
+                            <SplideSlide key={index}>
+                                <a href={obj.link}>
+                                    <img src={obj.image} alt="" className="CarouselImage" />
+                                </a>
+                            </SplideSlide>
+                        )
+                    })
+                }
+            </Splide>
+        </div>
+    )
 }
 
 export default Carousel
