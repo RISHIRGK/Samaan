@@ -41,7 +41,7 @@ const ProductCard = ({imgSrc,name,price,weight,category}) => {
   </div>
 </div>
 
-  
+
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './Carousel.css'
 import I1 from './CarouselImages/image1.png'
 import I2 from './CarouselImages/image2.png'
