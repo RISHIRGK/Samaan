@@ -7,6 +7,8 @@ import axios from "axios";
 import ProductCard from "./Components/ProductCard";
 import { IoIosArrowForward } from "react-icons/io";
 import mongoose, { connect } from "mongoose";
+import Categories from "./Components/Categories";
+import Footer from "./Components/Footer";
 
 function App() {
   
@@ -49,6 +51,10 @@ function App() {
 
             </div>
           </div>
+          <div className="Categories-Outer">
+        <Categories/>
+      </div>
+      <Footer/>
           <div className=" w-[100%] h-[0%]  " ></div>
           {/* <div className=" w-[100%]  h-[20%]  ">
             <Header />
