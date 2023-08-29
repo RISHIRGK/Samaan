@@ -23,7 +23,7 @@ const Carousel = () => {
     //     }, 1000);
     // },[Index])
   return (
-    <div className='CarouselWrapper'>
+    <div className='CarouselWrapper h-[100%] w-[100%]   '>
        <Splide options ={ {
     type         : 'loop',
     gap          : '1rem',
@@ -31,7 +31,8 @@ const Carousel = () => {
     pauseOnHover : false,
     resetProgress: false,
     width        : '100%',
-  }} aria-label="My Favorite Images">
+    height       : '100%',
+  }} className=' h-[100%] w-[100%]  flex justify-center items-center  ' aria-label="My Favorite Images">
 
 {
     images.map((image , index)=>{
