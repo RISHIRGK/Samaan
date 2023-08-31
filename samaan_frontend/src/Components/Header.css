@@ -153,7 +153,7 @@ html {
 }
 
 .HoverEffectLink:hover>.HoverEffectLinkPara {
-    height: calc(100% - 3px);
+    height: calc(100% - 8px);
 }
 
 .activeCate{
@@ -161,16 +161,19 @@ html {
 }
 .activeCate::after{
     content: "";
+    display: absolute;
     width: 100%;
     height: 3px;
-    background-color: black;
+    --tw-bg-opacity: 1;
+    background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
 .HoverEffectLink:hover::after {
     content: "";
     width: 100%;
     height: 3px;
-    background-color: black;
+    --tw-bg-opacity: 1;
+    background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
 .CartDiv{
@@ -187,6 +190,8 @@ html {
     margin: 0 0;
     flex-direction: column;
     justify-content: center;
+  
+    
 }
 
 .MenuBannerUl{

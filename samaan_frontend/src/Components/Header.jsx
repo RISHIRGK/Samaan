@@ -1,11 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Header.css'
 import Logo from './Logo.png'
+import { set } from 'mongoose'
 
 const Header = () => {
     const [ToggleOn, setToggleOn] = useState(false)
+    const [showoptions, setshowoptions] = useState(false)
+    const [lis,setlis]=useState([])
+    const [searchbardata,setsearchbardata]=useState(lis)
+    const fetchdata = async () => {
+        await fetch("http://localhost:8000/api")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setlis(data?.map((item)=>{return item.name.toLowerCase()}));
+          
+          })
+          .catch((err) => console.log(err));
+        
+      };
+      React.useEffect(() => {
+    
+        fetchdata();
+      }, []);
+
     const [activeCategory, setActiveCategory] = useState(null);
     const ToggleDiv = useRef(null)
+    const searchbardataonchange=(e)=>{
+        setsearchbardata(lis.filter((item)=>{if(item.includes(e)){return true}}))
+        
+    }
     const ToggleOnOff = () => {
         if (ToggleDiv.current) {
             const currentDisplay = ToggleDiv.current.style.display;
@@ -82,8 +106,8 @@ const Header = () => {
                 <div className="LogoDiv VCenter-flex">
                     <img src={Logo} className=" w-[22rem] "  alt="" srcSet="" />
                 </div>
-                <div className="SearchDiv VCenter-flex Laptop">
-                    <div className="SearchBar">
+                <div className="SearchDiv relative VCenter-flex Laptop">
+                    <div className="SearchBar  ">
                         <div className="SearchIcon">
                             <svg width="20px" height="100%" viewBox="0 0 32 32" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
@@ -102,82 +126,50 @@ const Header = () => {
                                 </g>
                             </svg>
                         </div>
-                        <div className="SearchInput">
-                            <input type="text" placeholder="Search Items Here" />
+                        <div className="SearchInput  w-[100%] h-[100%]  ">
+                            <input type="text" onBlur={()=>{
+                                setshowoptions(false)
+                            }}  onFocus={()=>{setshowoptions(true)}}  onChange={(e)=>{searchbardataonchange(e.target.value.toLowerCase())}} placeholder="Search Items Here" />
+                            <div className={` ${showoptions ?'absolute':'hidden'} z-20 max-h-[12rem] overflow-scroll bg-white w-[100%] min-h-fit top-14 left-0 flex  shadow-lg  flex-col justify-start items-center  `} >
+                                {
+                                    searchbardata?.map((item)=>{
+                                        return(
+                                            <div className="w-[100%] text-start  pl-7 hover:bg-yellow-300 hover:shadow-md transition-all duration-500  ease-in-out    border  " >{item}</div>
+                                        )
+                                    })
+                                }
+                               {/* <div className= ' w-[100%] text-start  pl-7     border  ' >lorem</div> */}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="UpperLastDiv VCenter-flex">
-                    <div className="BecomeSupp Laptop">
-                        <a href="" className="BecomeSuppLink VCenter-flex">
-                            <p className="BecomeSuppContent VCenter-flex">Become Supplier</p>
-                        </a>
+                    <div className="BecomeSupp Laptop flex justify-center items-center ">
+                      
+                            <p className=" px-3 py-2 rounded-lg font-[500] bg-yellow-300 cursor-pointer hover:shadow-md transition-all duration-500  ease-in-out ">For Suppliers </p>
+                    
                     </div>
                     <div style={{ height: '50%', border: ' 1px solid black' }} className="Laptop"></div>
-                    <div className="ProfileDiv VCenter-flex">
-                        <a href="" className="ProfileLink HoverEffectLink VCenter-flex">
-                            <p className="ProfileContent HoverEffectLinkPara VCenter-flex">
-                                <svg className="Laptop" height="20px" width="20px" viewBox="0 0 25 25" version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
-                                    fill="#000000">
-                                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                                            <g id="Dribbble-Light-Preview" transform="translate(-380.000000, -2159.000000)"
-                                                fill="#000000">
-                                                <g id="icons" transform="translate(56.000000, 160.000000)">
-                                                    <path
-                                                        d="M334,2011 C337.785,2011 340.958,2013.214 341.784,2017 L326.216,2017 C327.042,2013.214 330.215,2011 334,2011 M330,2005 C330,2002.794 331.794,2001 334,2001 C336.206,2001 338,2002.794 338,2005 C338,2007.206 336.206,2009 334,2009 C331.794,2009 330,2007.206 330,2005 M337.758,2009.673 C339.124,2008.574 340,2006.89 340,2005 C340,2001.686 337.314,1999 334,1999 C330.686,1999 328,2001.686 328,2005 C328,2006.89 328.876,2008.574 330.242,2009.673 C326.583,2011.048 324,2014.445 324,2019 L344,2019 C344,2014.445 341.417,2011.048 337.758,2009.673"
-                                                        id="profile-[#1336]"> </path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                                <svg className="Mobile" height="20px" width="20px" viewBox="0 0 1024 1024" version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg" fill="#000000">
-                                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path
-                                            d="M725.333333 192c-89.6 0-168.533333 44.8-213.333333 115.2C467.2 236.8 388.266667 192 298.666667 192 157.866667 192 42.666667 307.2 42.666667 448c0 253.866667 469.333333 512 469.333333 512s469.333333-256 469.333333-512c0-140.8-115.2-256-256-256z"
-                                            fill="#9f2089"></path>
-                                    </g>
-                                </svg>
-                                <span className="Laptop"> Profile</span>
-                            </p>
-                        </a>
+                    <div className="ProfileDiv flex justify-center items-center VCenter-flex">
+                       
+                            <div className=" bg-yellow-300 rounded-2xl  w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out flex justify-center items-center cursor-pointer ">
+                              <img src="./user.svg" className=' w-[2.6rem] h-[2.6rem] active:w-[2.5rem] active:h-[2.5rem] '  alt="d"  />
+                              
+                                {/* <span className="Laptop"> Profile</span> */}
+                            </div>
+                        
                     </div>
                     <div className="CartDiv VCenter-flex">
-                        <a href="" className="CartLink VCenter-flex">
-                            <p className="CartContent VCenter-flex">
-                                <svg className="Laptop" width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                        <a href="/" className="CartLink VCenter-flex">
+                            <p className="CartContent bg-yellow-300 rounded-2xl  w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out  VCenter-flex">
+                                <svg  className=" laptop active:w-[27px] active:h-[27px] "  width="28px" height="28px" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"
                                         stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
-                                <svg className="Mobile" width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" stroke="#590a49">
-                                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path fillRule="evenodd" clipRule="evenodd"
-                                            d="M1.28869 2.76279C1.41968 2.36983 1.84442 2.15746 2.23737 2.28845L2.50229 2.37675C2.51549 2.38115 2.52864 2.38554 2.54176 2.38991C3.16813 2.59867 3.69746 2.7751 4.11369 2.96873C4.55613 3.17456 4.94002 3.42965 5.23112 3.83352C5.52221 4.2374 5.64282 4.68226 5.69817 5.16708C5.75025 5.62318 5.75023 6.18114 5.7502 6.84139L5.7502 9.49996C5.7502 10.9354 5.7518 11.9365 5.85335 12.6918C5.952 13.4256 6.13245 13.8142 6.40921 14.091C6.68598 14.3677 7.07455 14.5482 7.80832 14.6468C8.56367 14.7484 9.56479 14.75 11.0002 14.75H18.0002C18.4144 14.75 18.7502 15.0857 18.7502 15.5C18.7502 15.9142 18.4144 16.25 18.0002 16.25H10.9453C9.57774 16.25 8.47542 16.25 7.60845 16.1334C6.70834 16.0124 5.95047 15.7535 5.34855 15.1516C4.74664 14.5497 4.48774 13.7918 4.36673 12.8917C4.25017 12.0247 4.25018 10.9224 4.2502 9.55484L4.2502 6.883C4.2502 6.17 4.24907 5.69823 4.20785 5.33722C4.16883 4.99538 4.10068 4.83049 4.01426 4.71059C3.92784 4.59069 3.79296 4.47389 3.481 4.32877C3.15155 4.17551 2.70435 4.02524 2.02794 3.79978L1.76303 3.71147C1.37008 3.58049 1.15771 3.15575 1.28869 2.76279Z"
-                                            fill="#590a49"></path>
-                                        <path opacity="0.5"
-                                            d="M5.74512 6C5.75008 6.25912 5.75008 6.53957 5.75007 6.8414L5.75006 9.5C5.75006 10.9354 5.75166 11.9365 5.85321 12.6919C5.86803 12.8021 5.8847 12.9046 5.90326 13H16.0221C16.9815 13 17.4612 13 17.8369 12.7523C18.2126 12.5045 18.4016 12.0636 18.7795 11.1818L19.2081 10.1818C20.0176 8.29294 20.4223 7.34853 19.9777 6.67426C19.5331 6 18.5056 6 16.4507 6H5.74512Z"
-                                            fill="#590a49"></path>
-                                        <path
-                                            d="M7.5 18C8.32843 18 9 18.6716 9 19.5C9 20.3284 8.32843 21 7.5 21C6.67157 21 6 20.3284 6 19.5C6 18.6716 6.67157 18 7.5 18Z"
-                                            fill="#590a49"></path>
-                                        <path
-                                            d="M18 19.5001C18 18.6716 17.3284 18.0001 16.5 18.0001C15.6716 18.0001 15 18.6716 15 19.5001C15 20.3285 15.6716 21.0001 16.5 21.0001C17.3284 21.0001 18 20.3285 18 19.5001Z"
-                                            fill="#590a49"></path>
-                                    </g>
-                                </svg>
-                                <span className="Laptop">Cart</span>
+                                
+                                {/* <span className="Laptop">Cart</span> */}
                             </p>
                         </a>
                     </div>
