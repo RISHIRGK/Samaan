@@ -11,7 +11,7 @@ import Categories from "./Components/Categories";
 import Footer from "./Components/Footer";
 
 function App() {
-  
+
 
   return (
     <div>
@@ -21,17 +21,17 @@ function App() {
             <Header />
           </div>
           <div className=" w-[100%] md:min-h-[32rem]   " >
-            <Carousel  />
+            <Carousel />
           </div>
           <div className=" w-[100%] min-h-[27rem]  flex justify-center items-center " >
-               <div
+            <div
               id="products"
               className="  w-[100%]   flex flex-col gap-4  justify-between items-start  "
             >
-           
+
               <div className="w-[100%] h-[20%] flex justify-between px-2   md:px-8 items-center ">
                 <div>
-            
+
                   <span className=" text-xl md:text-5xl  font-[900] drop-shadow-xl    ">
                     DEALS OF THE DAY
                   </span>
@@ -45,15 +45,15 @@ function App() {
               </div>
               <div className="w-[100%] h-[80%] flex justify-between gap-8 items-center  ">
 
-          <DOD/>
-             
+                <DOD />
+
               </div>
 
             </div>
           </div>
-          
+
           <div className=" w-[100%] min-h-[15rem]  " >
-      <Footer/>
+            <Footer />
           </div>
           {/* <div className=" w-[100%]  h-[20%]  ">
             <Header />
@@ -62,7 +62,7 @@ function App() {
             <div id="carousel" className=" bg-pink-500 w-[100%] h-[70%] ">
               <Carousel />
             </div> */}
-            {/* <div className="  w-[100%]  flex flex-col  ">
+          {/* <div className="  w-[100%]  flex flex-col  ">
               <div className=" h-[10%] w-[100%] text-center  text-2xl font-bold " >Shop By Category</div>
               <div className="w-[100%] h-[90%] flex flex-wrap justify-center items-center gap-3 " >
                 <div className=" h-[12rem] w-[10rem] bg-green-500  flex flex-col " >
@@ -137,7 +137,7 @@ function App() {
               </div>
               
             </div> */}
-            {/* <div
+          {/* <div
               id="products"
               className=" ring-1 w-[100%]   flex flex-col gap-4  justify-between items-start  "
             >
@@ -163,9 +163,9 @@ function App() {
               </div>
 
             </div> */}
-          </div>
         </div>
       </div>
+    </div>
     // </div>
   );
 }
