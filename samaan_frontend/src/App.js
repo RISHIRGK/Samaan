@@ -51,9 +51,7 @@ function App() {
 
             </div>
           </div>
-          <div className="Categories-Outer ">
-        <Categories/>
-      </div>
+          
           <div className=" w-[100%] min-h-[15rem]  " >
       <Footer/>
           </div>
