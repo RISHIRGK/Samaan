@@ -6,7 +6,7 @@ import '@splidejs/react-splide/css';
 const DOD = () => {
     const [data, setdata] = React.useState();
   const fetchdata = async () => {
-    await fetch("http://localhost:8000/api")
+    await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

@@ -9,7 +9,7 @@ const Header = () => {
     const [lis,setlis]=useState([])
     const [searchbardata,setsearchbardata]=useState(lis)
     const fetchdata = async () => {
-        await fetch("http://localhost:8000/api")
+        await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/") 
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
@@ -27,8 +27,16 @@ const Header = () => {
     const [activeCategory, setActiveCategory] = useState(null);
     const ToggleDiv = useRef(null)
     const searchbardataonchange=(e)=>{
+        if(e.length<=0)
+        {
+            setshowoptions(false)
+        }
+        else
+        {
+            setshowoptions(true)
+            console.log(showoptions)
         setsearchbardata(lis.filter((item)=>{if(item.includes(e)){return true}}))
-        
+        }
     }
     const ToggleOnOff = () => {
         if (ToggleDiv.current) {
@@ -127,14 +135,14 @@ const Header = () => {
                             </svg>
                         </div>
                         <div className="SearchInput  w-[100%] h-[100%]  ">
-                            <input type="text" onBlur={()=>{
+                            <input type="text" onFocus={()=>{setshowoptions(true)}}   onChange={(e)=>{searchbardataonchange(e.target.value.toLowerCase().trim(""))}} placeholder="Search Items Here" />
+                            <div  onBlur={()=>{
                                 setshowoptions(false)
-                            }}  onFocus={()=>{setshowoptions(true)}}  onChange={(e)=>{searchbardataonchange(e.target.value.toLowerCase())}} placeholder="Search Items Here" />
-                            <div className={` ${showoptions ?'absolute':'hidden'} z-20 max-h-[12rem] overflow-scroll bg-white w-[100%] min-h-fit top-14 left-0 flex  shadow-lg  flex-col justify-start items-center  `} >
+                            }}  className={` ${showoptions ?'absolute':'hidden'} z-20 max-h-[12rem] overflow-scroll bg-white w-[100%] min-h-fit top-14 left-0 flex  shadow-lg  flex-col justify-start items-center  `} >
                                 {
                                     searchbardata?.map((item)=>{
                                         return(
-                                            <div className="w-[100%] text-start  pl-7 hover:bg-yellow-300 hover:shadow-md transition-all duration-500  ease-in-out    border  " >{item}</div>
+                                            <a href="https://google.com" className="w-[100%] text-start  pl-7 hover:bg-yellow-300 hover:shadow-md transition-all duration-500  ease-in-out    border  " >{item}</a>
                                         )
                                     })
                                 }
