@@ -9,7 +9,8 @@ const Header = () => {
     const [lis,setlis]=useState([])
     const [searchbardata,setsearchbardata]=useState(lis)
     const fetchdata = async () => {
-        await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/") 
+        // https://api-krudra9125-gmailcom.vercel.app/api/products/
+        await fetch("") 
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
