@@ -2,28 +2,33 @@ import React, { useEffect, useRef, useState } from 'react'
 import './Header.css'
 import Logo from './Logo.png'
 import { set } from 'mongoose'
+import  productDetails from '../context/productDetails'
 
 const Header = () => {
     const [ToggleOn, setToggleOn] = useState(false)
     const [showoptions, setshowoptions] = useState(false)
     const [lis,setlis]=useState([])
+    const product_data=React.useContext(productDetails)
     const [searchbardata,setsearchbardata]=useState(lis)
     const fetchdata = async () => {
         // https://api-krudra9125-gmailcom.vercel.app/api/products/
-        await fetch("") 
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            setlis(data?.map((item)=>{return item.name.toLowerCase()}));
+        // await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/") 
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     console.log(data);
+            
+        // setlis(data?.map((item)=>{return item.name.toLowerCase()}));
           
-          })
-          .catch((err) => console.log(err));
-        
+        //   })
+        //   .catch((err) => console.log(err));
+
+        setlis(product_data.product_data?.map((item)=>{return item.name.toLowerCase()}));
       };
       React.useEffect(() => {
     
         fetchdata();
-      }, []);
+  
+      }, [product_data]);
 
     const [activeCategory, setActiveCategory] = useState(null);
     const ToggleDiv = useRef(null)
@@ -36,7 +41,7 @@ const Header = () => {
         {
             setshowoptions(true)
             console.log(showoptions)
-        setsearchbardata(lis.filter((item)=>{if(item.includes(e)){return true}}))
+        setsearchbardata(lis?.filter((item)=>{if(item.includes(e)){return true}else{ return false }}))
         }
     }
     const ToggleOnOff = () => {
@@ -188,40 +193,40 @@ const Header = () => {
                 <ul className="MenuBannerUl VCenter-flex">
                     <li className="MenuBannerLi" id="First" onMouseEnter={() => handleCategoryHover(0)}
                         onMouseLeave={handleCategoryLeave}><a href="" className={`${activeCategory === 0 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Women Ethnic</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Vegetables & Fruits</p>
                         </a></li>
                     <li className="MenuBannerLi" id="Second" onMouseEnter={() => handleCategoryHover(1)}
                         onMouseLeave={handleCategoryLeave}><a href="" className={`${activeCategory === 1 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Women Western</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Dairy & Breakfast</p>
                         </a></li>
                     <li className="MenuBannerLi" id="Third" onMouseEnter={() => handleCategoryHover(2)}
                         onMouseLeave={handleCategoryLeave}>
                         <a href="" className={`${activeCategory === 2 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Men</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Munchies</p>
                         </a>
                     </li>
                     <li className="MenuBannerLi" id="Fourth" onMouseEnter={() => handleCategoryHover(3)}
                         onMouseLeave={handleCategoryLeave}><a href="" className={`${activeCategory === 3 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Kids</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Bevrages</p>
                         </a></li>
                     <li className="MenuBannerLi" id="Fifth" onMouseEnter={() => handleCategoryHover(4)}
                         onMouseLeave={handleCategoryLeave}><a href="" className={`${activeCategory === 4 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Home & Kitchen</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Instant Foods</p>
                         </a></li>
                     <li className="MenuBannerLi" id="Sixth" onMouseEnter={() => handleCategoryHover(5)}
                         onMouseLeave={handleCategoryLeave}><a href="" className={`${activeCategory === 5 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Beauty & Health</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Biscuits</p>
                         </a></li>
                     <li className="MenuBannerLi" id="Seventh" onMouseEnter={() => handleCategoryHover(6)}
                         onMouseLeave={handleCategoryLeave}>
                         <a href="" className={`${activeCategory === 6 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Jewellery & Accessories</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Sweet Tooth</p>
                         </a>
                     </li>
                     <li className="MenuBannerLi" id="Eighth" onMouseEnter={() => handleCategoryHover(7)}
                         onMouseLeave={handleCategoryLeave}>
                         <a href="" className={`${activeCategory === 7 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Bags & Footwear</p>
+                            <p className="HoverEffectLinkPara MenuBannerPara">Spreads & Sauces</p>
                         </a>
                     </li>
                     <li className="MenuBannerLi" id="Ninth" onMouseEnter={() => handleCategoryHover(8)}
@@ -234,222 +239,48 @@ const Header = () => {
                     <li className={`First MenuBannerDisplayLi SubMenu ${activeCategory === 0 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(0)}
                         onMouseLeave={handleCategoryLeave}>
                         <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Sarees</li>
-                                <li className="DisplayLi"><a href="">All Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Silk Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Cotton Silk Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Cotton Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Georgette Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Chiffon Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Satin Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Embroidered Sarees</a> </li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Sarees</li>
-                                <li className="DisplayLi"><a href="">All Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Silk Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Cotton Silk Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Cotton Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Georgette Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Chiffon Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Satin Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Embroidered Sarees</a> </li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Sarees</li>
-                                <li className="DisplayLi"><a href="">All Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Silk Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Cotton Silk Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Cotton Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Georgette Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Chiffon Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Satin Sarees</a></li>
-                                <li className="DisplayLi"><a href="">Embroidered Sarees</a> </li>
-                            </ul>
+                          <img src="./Assets/category_logos/vegetables.webp" alt="test" srcset="" />
                         </div>
                     </li>
                     <li className={`Second MenuBannerDisplayLi SubMenu ${activeCategory === 1 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(1)}
                         onMouseLeave={handleCategoryLeave}>
                         <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Topwear</li>
-                                <li className="DisplayLi"><a href="">Tops</a></li>
-                                <li className="DisplayLi"><a href="">Dresses</a></li>
-                                <li className="DisplayLi"><a href="">Sweaters</a></li>
-                                <li className="DisplayLi"><a href="">Jumpsuits</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Topwear</li>
-                                <li className="DisplayLi"><a href="">Tops</a></li>
-                                <li className="DisplayLi"><a href="">Dresses</a></li>
-                                <li className="DisplayLi"><a href="">Sweaters</a></li>
-                                <li className="DisplayLi"><a href="">Jumpsuits</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Topwear</li>
-                                <li className="DisplayLi"><a href="">Tops</a></li>
-                                <li className="DisplayLi"><a href="">Dresses</a></li>
-                                <li className="DisplayLi"><a href="">Sweaters</a></li>
-                                <li className="DisplayLi"><a href="">Jumpsuits</a></li>
-                            </ul>
+                        <img src="./Assets/category_logos/breakfast.webp" alt="test" srcset="" />
+                        <img src="./Assets/category_logos/dairy.webp" alt="test" srcset="" />
+                    
                         </div>
                     </li>
                     <li className={`Third MenuBannerDisplayLi SubMenu ${activeCategory === 2 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(2)}
                         onMouseLeave={handleCategoryLeave}>
                         <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Men Accessories</li>
-                                <li className="DisplayLi"><a href=""> All Men Accessories</a></li>
-                                <li className="DisplayLi"><a href="">Watches</a></li>
-                                <li className="DisplayLi"><a href="">Belts</a></li>
-                                <li className="DisplayLi"><a href="">Wallets</a></li>
-                                <li className="DisplayLi"><a href="">Jewellery</a></li>
-                                <li className="DisplayLi"><a href="">Sunglasses</a></li>
-                                <li className="DisplayLi"><a href="">Bags</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Men Accessories</li>
-                                <li className="DisplayLi"><a href=""> All Men Accessories</a></li>
-                                <li className="DisplayLi"><a href="">Watches</a></li>
-                                <li className="DisplayLi"><a href="">Belts</a></li>
-                                <li className="DisplayLi"><a href="">Wallets</a></li>
-                                <li className="DisplayLi"><a href="">Jewellery</a></li>
-                                <li className="DisplayLi"><a href="">Sunglasses</a></li>
-                                <li className="DisplayLi"><a href="">Bags</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Men Accessories</li>
-                                <li className="DisplayLi"><a href=""> All Men Accessories</a></li>
-                                <li className="DisplayLi"><a href="">Watches</a></li>
-                                <li className="DisplayLi"><a href="">Belts</a></li>
-                                <li className="DisplayLi"><a href="">Wallets</a></li>
-                                <li className="DisplayLi"><a href="">Jewellery</a></li>
-                                <li className="DisplayLi"><a href="">Sunglasses</a></li>
-                                <li className="DisplayLi"><a href="">Bags</a></li>
-                            </ul>
+                        <img src="./Assets/category_logos/chips.webp" alt="test" srcset="" />
+                      
                         </div>
                     </li>
                     <li className={`Fourth MenuBannerDisplayLi SubMenu ${activeCategory === 3 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(3)}
                         onMouseLeave={handleCategoryLeave}>
                         <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Toys & Accessories</li>
-                                <li className="DisplayLi"><a href="">Soft Toys</a></li>
-                                <li className="DisplayLi"><a href="">Footwear</a></li>
-                                <li className="DisplayLi"><a href="">Belts</a></li>
-                                <li className="DisplayLi"><a href="">Stationery</a></li>
-                                <li className="DisplayLi"><a href="">Watches</a></li>
-                                <li className="DisplayLi"><a href="">Bags & Backpacks</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Toys & Accessories</li>
-                                <li className="DisplayLi"><a href="">Soft Toys</a></li>
-                                <li className="DisplayLi"><a href="">Footwear</a></li>
-                                <li className="DisplayLi"><a href="">Belts</a></li>
-                                <li className="DisplayLi"><a href="">Stationery</a></li>
-                                <li className="DisplayLi"><a href="">Watches</a></li>
-                                <li className="DisplayLi"><a href="">Bags & Backpacks</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Toys & Accessories</li>
-                                <li className="DisplayLi"><a href="">Soft Toys</a></li>
-                                <li className="DisplayLi"><a href="">Footwear</a></li>
-                                <li className="DisplayLi"><a href="">Belts</a></li>
-                                <li className="DisplayLi"><a href="">Stationery</a></li>
-                                <li className="DisplayLi"><a href="">Watches</a></li>
-                                <li className="DisplayLi"><a href="">Bags & Backpacks</a></li>
-                            </ul>
+                        <img src="./Assets/category_logos/colddrinks.webp" alt="test" srcset="" />
+                        <img src="./Assets/category_logos/hotdrinks.webp" alt="test" srcset="" />
                         </div>
                     </li>
                     <li className={`Fifth MenuBannerDisplayLi SubMenu ${activeCategory === 4 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(4)}
                         onMouseLeave={handleCategoryLeave}>
                         <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Home Furnishing</li>
-                                <li className="DisplayLi"><a href="">Bedsheets</a></li>
-                                <li className="DisplayLi"><a href="">Doormats</a></li>
-                                <li className="DisplayLi"><a href="">Curtains & Sheers</a></li>
-                                <li className="DisplayLi"><a href="">Cushions & Cushion Covers</a></li>
-                                <li className="DisplayLi"><a href=""> Mattress Protectors</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Home Furnishing</li>
-                                <li className="DisplayLi"><a href="">Bedsheets</a></li>
-                                <li className="DisplayLi"><a href="">Doormats</a></li>
-                                <li className="DisplayLi"><a href="">Curtains & Sheers</a></li>
-                                <li className="DisplayLi"><a href="">Cushions & Cushion Covers</a></li>
-                                <li className="DisplayLi"><a href=""> Mattress Protectors</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Home Furnishing</li>
-                                <li className="DisplayLi"><a href="">Bedsheets</a></li>
-                                <li className="DisplayLi"><a href="">Doormats</a></li>
-                                <li className="DisplayLi"><a href="">Curtains & Sheers</a></li>
-                                <li className="DisplayLi"><a href="">Cushions & Cushion Covers</a></li>
-                                <li className="DisplayLi"><a href=""> Mattress Protectors</a></li>
-                            </ul>
+                          
                         </div>
                     </li>
                     <li className={`Sixth MenuBannerDisplayLi SubMenu ${activeCategory === 5 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(5)}
                         onMouseLeave={handleCategoryLeave}>
                         <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Wellness</li>
-                                <li className="DisplayLi"><a href="">Sanitizers</a></li>
-                                <li className="DisplayLi"><a href="">Oral Care</a></li>
-                                <li className="DisplayLi"><a href="">Feminine Hygiene</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Wellness</li>
-                                <li className="DisplayLi"><a href="">Sanitizers</a></li>
-                                <li className="DisplayLi"><a href="">Oral Care</a></li>
-                                <li className="DisplayLi"><a href="">Feminine Hygiene</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Wellness</li>
-                                <li className="DisplayLi"><a href="">Sanitizers</a></li>
-                                <li className="DisplayLi"><a href="">Oral Care</a></li>
-                                <li className="DisplayLi"><a href="">Feminine Hygiene</a></li>
-                            </ul>
+                         
                         </div>
                     </li>
                     <li className={`Seventh MenuBannerDisplayLi SubMenu ${activeCategory === 6 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(6)}
                         onMouseLeave={handleCategoryLeave}>
                         <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Jewellery</li>
-                                <li className="DisplayLi"><a href="">Jewellery Set</a></li>
-                                <li className="DisplayLi"><a href="">Earrings</a></li>
-                                <li className="DisplayLi"><a href="">Mangalsutras</a></li>
-                                <li className="DisplayLi"><a href="">Studs</a></li>
-                                <li className="DisplayLi"><a href="">Bangles</a></li>
-                                <li className="DisplayLi"><a href="">Necklaces</a></li>
-                                <li className="DisplayLi"><a href="">Rings</a></li>
-                                <li className="DisplayLi"><a href="">Anklets</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Jewellery</li>
-                                <li className="DisplayLi"><a href="">Jewellery Set</a></li>
-                                <li className="DisplayLi"><a href="">Earrings</a></li>
-                                <li className="DisplayLi"><a href="">Mangalsutras</a></li>
-                                <li className="DisplayLi"><a href="">Studs</a></li>
-                                <li className="DisplayLi"><a href="">Bangles</a></li>
-                                <li className="DisplayLi"><a href="">Necklaces</a></li>
-                                <li className="DisplayLi"><a href="">Rings</a></li>
-                                <li className="DisplayLi"><a href="">Anklets</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Jewellery</li>
-                                <li className="DisplayLi"><a href="">Jewellery Set</a></li>
-                                <li className="DisplayLi"><a href="">Earrings</a></li>
-                                <li className="DisplayLi"><a href="">Mangalsutras</a></li>
-                                <li className="DisplayLi"><a href="">Studs</a></li>
-                                <li className="DisplayLi"><a href="">Bangles</a></li>
-                                <li className="DisplayLi"><a href="">Necklaces</a></li>
-                                <li className="DisplayLi"><a href="">Rings</a></li>
-                                <li className="DisplayLi"><a href="">Anklets</a></li>
-                            </ul>
+                                               <img src="./Assets/category_logos/sweet tooth.webp" alt="test" srcset="" />
+
                         </div>
                     </li>
                     <li className={`Eighth MenuBannerDisplayLi SubMenu ${activeCategory === 7 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(7)}

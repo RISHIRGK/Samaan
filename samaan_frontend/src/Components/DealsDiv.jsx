@@ -1,21 +1,21 @@
-"use client"
 import React from 'react'
-import ProductCard from './ProductCard'
+import ProductCardTwo from './ProductCardTwo';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import productDetails from '../context/productDetails'
-const DOD = () => {
-  const product_data=React.useContext(productDetails)
+import productDetails from '../context/productDetails';
+
+const DealsDiv = ({category}) => {
+    const product_data=React.useContext(productDetails)
     const [data, setdata] = React.useState();
   const fetchdata = async () => {
     // await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
     //   .then((res) => res.json())
     //   .then((data) => {
     //     console.log(data);
-      
     //   })
     //   .catch((err) => console.log(err));
-      setdata(product_data.product_data);
+      console.log(product_data.product_data?.filter((item)=>item.category===category));
+      setdata(product_data.product_data?.filter((item)=>item.category===category));
   };
   React.useLayoutEffect(() => {
 
@@ -39,16 +39,16 @@ padding:'5rem',
  data?.map((item , id)=>{
      return(
          <SplideSlide  key={id} >
-              <ProductCard
-                    key={id}
-                    name={item.name}
-                    price={item.price}
-                    imgSrc={item.img_path}
-                    weight={item.weight}
-                    category={item.category}
+             <ProductCardTwo
+                key={id}
+                name={item.name}
+                price={item.price}
+                imgSrc={item.img_path}
+                weight={item.weight}
+                category={item.category}
 
-
-                    />
+             />
+         
          </SplideSlide>
      )
  })
@@ -57,5 +57,4 @@ padding:'5rem',
  </div>
   )
 }
-
-export default DOD
+export default DealsDiv

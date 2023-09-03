@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import Header from "./Components/Header";
 import DOD from "./Components/DOD";
 import Carousel from "./Components/Carousel";
@@ -6,15 +6,32 @@ import "./App.css";
 import axios from "axios";
 import ProductCard from "./Components/ProductCard";
 import { IoIosArrowForward } from "react-icons/io";
-import mongoose, { connect } from "mongoose";
+// import mongoose, { connect } from "mongoose";
 import Categories from "./Components/Categories";
 import Footer from "./Components/Footer";
+import ProductsDiv from "./Components/ProductsDiv";
+import productDetails from "./context/productDetails";
 
 function App() {
+const [product_data, setproduct_data] = React.useState(); 
+  useLayoutEffect(()=>{
+    const fetchdata = async () => {
+      await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setproduct_data(data);
+        })
+        .catch((err) => console.log(err));
+      
+    };
+    fetchdata();
 
+  },[])
 
   return (
     <div>
+      <productDetails.Provider value={{product_data}}>
       <div className="  w-[100%] h-[100vh]   ">
         <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center min-h-fit  ">
           <div className=" w-[100%]  md:min-h-[8rem]  z-10 " >
@@ -51,7 +68,7 @@ function App() {
 
             </div>
           </div>
-
+          <ProductsDiv title={"Dairy,Bread&Eggs"}/>
           <div className=" w-[100%] min-h-[15rem]  " >
             <Footer />
           </div>
@@ -165,6 +182,7 @@ function App() {
             </div> */}
         </div>
       </div>
+      </productDetails.Provider>
     </div>
     // </div>
   );
