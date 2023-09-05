@@ -81,7 +81,7 @@ const Header = () => {
 
     const handleClickHeaderAnchor = (index, e) => {
         e.preventDefault()
-        setActiveCategory(0)
+        setActiveCategory(index)
         setclickedoncategory(!clickedonCategory)
     }
 
