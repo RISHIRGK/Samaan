@@ -232,6 +232,7 @@ html {
     list-style: none;
     background-color: white;
     border: 0.5px solid #00000047;
+    max-width: 1468px;
 }
 
 .MenuBannerUl:hover + .MenuBannerHoverDisplayUl{
@@ -248,6 +249,11 @@ html {
     display: flex;
     gap: 10px;
     padding: 5px 5px;
+}
+
+.MenuBannerDisplayLiDiv>img{
+    height: 188px;
+    width: 128px;
 }
 
 .MenuBannerHoverDisplayUl:hover{
@@ -355,7 +361,7 @@ html {
     }
 
     .MenuBannerDisplayLi{
-        display: block;
+        display: block !important;
     }
 
     .MenuBannerHoverDisplayUl{
@@ -364,7 +370,7 @@ html {
         max-height: 100%;
         margin: 0 0;
         overflow-y: scroll;
-        display: block;
+        display: block !important;
     }
 
     .DisplayLi{
@@ -376,7 +382,7 @@ html {
     }
 
     .MenuBannerDisplayLi{
-        display: block;
+        display: block !important;
     }
 
     .MenuBannerPara{
@@ -385,7 +391,7 @@ html {
     }
 
     .SubMenu{
-        display: block;
+        display: block !important;
     }
 }
 
