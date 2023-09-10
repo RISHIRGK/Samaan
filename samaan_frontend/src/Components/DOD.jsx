@@ -1,10 +1,17 @@
 "use client"
 import React from 'react'
 import ProductCard from './ProductCard'
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+// import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 import productDetails from '../context/productDetails'
 const DOD = () => {
+  const [swiper, setSwiper] = React.useState(null);
+  
   const product_data=React.useContext(productDetails)
     const [data, setdata] = React.useState();
   const fetchdata = async () => {
@@ -17,28 +24,29 @@ const DOD = () => {
     //   .catch((err) => console.log(err));
       setdata(product_data.product_data);
   };
+  // const handleSlideChangeTransitionEnd = () => {
+  //   if (swiper) {
+  //     swiper.autoplay.start();
+  //   }
+  // };
   React.useLayoutEffect(() => {
 
     fetchdata();
   }, [product_data]);
   return (
-    <div className='CarouselWrapper'>
-    <Splide options ={ {
- type         : 'loop',
- gap          : '1rem',
- autoplay     : true,
- pauseOnHover : false,
- resetProgress: false,
-fixedWidth   : '15rem',
-pagination:false,
-width        : '100%',
-padding:'5rem',
-}} aria-label="My Favorite Images">
+
+    <Swiper  pagination={{ clickable: true }}
+      rewind={false}
+      slidesPerView={6}
+      autoplay={true}
+      // onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
+      onSlideChange={() => console.log("slide change")}
+      onSwiper={setSwiper}>
 
 {
  data?.map((item , id)=>{
      return(
-         <SplideSlide  key={id} >
+         <SwiperSlide  key={id} >
               <ProductCard
                     key={id}
                     name={item.name}
@@ -49,12 +57,12 @@ padding:'5rem',
 
 
                     />
-         </SplideSlide>
+         </SwiperSlide>
      )
  })
 }
-</Splide>
- </div>
+</Swiper>
+
   )
 }
 
