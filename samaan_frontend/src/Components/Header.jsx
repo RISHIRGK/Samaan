@@ -86,7 +86,7 @@ const Header = () => {
 
 
     return (
-        <header className='Navbar'>
+        <header className='Navbar'  >
             <div className="UpperNav VCenter-flex">
                 <div className="ToggleIconDiv VCenter-flex Mobile">
                     <button className="ToggleButton VCenter-flex" onClick={ToggleOnOff}>
@@ -120,8 +120,8 @@ const Header = () => {
                 <div className="LogoDiv VCenter-flex">
                     <img src={Logo} className=" w-[22rem] "  alt="" srcSet="" />
                 </div>
-                <div className="SearchDiv relative VCenter-flex Laptop">
-                    <div className="SearchBar  ">
+                <div className="relative SearchDiv VCenter-flex Laptop">
+                    <div className="SearchBar ">
                         <div className="SearchIcon">
                             <svg width="20px" height="100%" viewBox="0 0 32 32" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
@@ -140,7 +140,7 @@ const Header = () => {
                                 </g>
                             </svg>
                         </div>
-                        <div className="SearchInput  w-[100%] h-[100%]  ">
+                        <div className="SearchInput  w-[100%] h-[100%] z-50  ">
                             <input type="text" onFocus={()=>{setshowoptions(true)}}   onChange={(e)=>{searchbardataonchange(e.target.value.toLowerCase().trim(""))}} placeholder="Search Items Here" />
                             <div  onBlur={()=>{
                                 setshowoptions(false)
@@ -158,13 +158,13 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="UpperLastDiv VCenter-flex">
-                    <div className="BecomeSupp Laptop flex justify-center items-center ">
+                    <div className="flex items-center justify-center BecomeSupp Laptop ">
                       
                             <p className=" px-3 py-2 rounded-lg font-[500] bg-yellow-300 cursor-pointer hover:shadow-md transition-all duration-500  ease-in-out ">For Suppliers </p>
                     
                     </div>
                     <div style={{ height: '50%', border: ' 1px solid black' }} className="Laptop"></div>
-                    <div className="ProfileDiv flex justify-center items-center VCenter-flex">
+                    <div className="flex items-center justify-center ProfileDiv VCenter-flex">
                        
                             <div className=" bg-yellow-300 rounded-2xl  w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out flex justify-center items-center cursor-pointer ">
                               <img src="./user.svg" className=' w-[2.6rem] h-[2.6rem] active:w-[2.5rem] active:h-[2.5rem] '  alt="d"  />

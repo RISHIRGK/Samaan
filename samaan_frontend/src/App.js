@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import DOD from "./Components/DOD";
 import Carousel from "./Components/Carousel";
 import "./App.css";
+import "./loader.css"
 import axios from "axios";
 import ProductCard from "./Components/ProductCard";
 import { IoIosArrowForward } from "react-icons/io";
@@ -13,7 +14,7 @@ import ProductsDiv from "./Components/ProductsDiv";
 import productDetails from "./context/productDetails";
 
 function App() {
-const [product_data, setproduct_data] = React.useState(); 
+const [product_data, setproduct_data] = React.useState(null); 
   useLayoutEffect(()=>{
     const fetchdata = async () => {
       await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
@@ -41,7 +42,7 @@ const [product_data, setproduct_data] = React.useState();
             <Carousel />
           </div>
           <div className=" w-[100%] min-h-[27rem]  flex justify-center items-center " >
-            <div
+          {product_data?  <div
               id="products"
               className="  w-[100%]   flex flex-col gap-4  justify-between items-start  "
             >
@@ -61,14 +62,15 @@ const [product_data, setproduct_data] = React.useState();
                 </div>
               </div>
               <div className="w-[100%] h-[80%] flex justify-between gap-8 items-center  ">
-
+                
                 <DOD />
 
               </div>
 
-            </div>
+            </div>:<span class="loader">SAMAAN.COM</span>}
           </div>
-          <ProductsDiv title={"Dairy,Bread&Eggs"}/>
+
+          {product_data?<ProductsDiv title={"Dairy,Bread&Eggs"}/>:<span class="loader">SAMAAN.COM</span>}
           <div className=" w-[100%] min-h-[15rem]  " >
             <Footer />
           </div>
