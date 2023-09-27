@@ -3,6 +3,7 @@ import './Header.css'
 import Logo from './Logo.png'
 import { set } from 'mongoose'
 import productDetails from '../context/productDetails'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     const [ToggleOn, setToggleOn] = useState(false)
@@ -180,15 +181,17 @@ const Header = () => {
                 </div>
                 <div className="UpperLastDiv VCenter-flex">
                     <div className="flex items-center justify-center BecomeSupp Laptop ">
-
-                        <p className=" px-3 py-2 rounded-lg font-[500] bg-yellow-300 cursor-pointer hover:shadow-md transition-all duration-500  ease-in-out ">For Suppliers </p>
+                                <Link to="/supplier" >
+                        <p className=" px-3 py-2 rounded-lg font-[500] bg-yellow-300 cursor-pointer hover:shadow-md transition-all duration-500  ease-in-out ">For Suppliers </p></Link>
 
                     </div>
                     <div style={{ height: '50%', border: ' 1px solid black' }} className="Laptop"></div>
                     <div className="flex items-center justify-center ProfileDiv VCenter-flex">
 
                         <div className=" bg-yellow-300 rounded-2xl  w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out flex justify-center items-center cursor-pointer ">
+                            <Link to="/signupuser"  >
                             <img src="./user.svg" className=' w-[2.6rem] h-[2.6rem] active:w-[2.5rem] active:h-[2.5rem] ' alt="d" />
+                            </Link>
 
                             {/* <span className="Laptop"> Profile</span> */}
                         </div>

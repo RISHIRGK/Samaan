@@ -70,7 +70,10 @@ const [product_data, setproduct_data] = React.useState(null);
             </div>:<span class="loader">SAMAAN.COM</span>}
           </div>
 
-          {product_data?<ProductsDiv title={"Dairy,Bread&Eggs"}/>:<span class="loader">SAMAAN.COM</span>}
+          {product_data?<ProductsDiv title={"Dairy,Bread&Eggs"} Category="dairy" />:<span class="loader">SAMAAN.COM</span>}
+          {product_data?<ProductsDiv title={"biscuts"} Category="biscuts" />:<span class="loader">SAMAAN.COM</span>}
+          {product_data?<ProductsDiv title={"namkeen"} Category="namkeen" />:<span class="loader">SAMAAN.COM</span>}
+          {product_data?<ProductsDiv title={"Munchies"} Category="snacks" />:<span class="loader">SAMAAN.COM</span>}
           <div className=" w-[100%] min-h-[15rem]  " >
             <Footer />
           </div>

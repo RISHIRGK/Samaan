@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductCardTwo from './ProductCardTwo';
 import { Swiper, SwiperSlide } from "swiper/react";
-
+// import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 // import "swiper/css/navigation";
@@ -15,24 +15,55 @@ const DealsDiv = ({category}) => {
     const product_data=React.useContext(productDetails)
     const [data, setdata] = React.useState();
   const fetchdata = async () => {
-    // await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => console.log(err));
-      console.log(product_data.product_data?.filter((item)=>item.category===category));
-      setdata(product_data.product_data?.filter((item)=>item.category===category));
+    await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/${category}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setdata(data);
+      })    
+      .catch((err) => console.log(err));
+      
   };
   React.useLayoutEffect(() => {
 
     fetchdata();
   }, [product_data]);
+
+  const breakpoints = {
+    // when window width is >= 320px
+    320: {
+      slidesPerView: 1,
+     
+    },
+    // when window width is >= 480px
+    480: {
+      slidesPerView: 2,
+      spaceBetween: 20
+    },
+    // when window width is >= 640px
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 30
+    },
+    // when window width is >= 768px
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 40
+    },
+    // when window width is >= 1024px
+    1024: {
+      slidesPerView: 6,
+  
+    }
+  };
+
   return (
     <Swiper  pagination={{ clickable: true }}
+      breakpoints={breakpoints}
       rewind={false}
       slidesPerView={6}
       autoplay={true}
+      navigation={true}
       // onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
       onSlideChange={() => console.log("slide change")}
       onSwiper={setSwiper}>

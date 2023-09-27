@@ -3,7 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import DealsDiv from './DealsDiv.jsx';  
 
 
-const ProductsDiv = ({title}) => {
+const ProductsDiv = ({title,Category}) => {
   return (
     <div className=" w-[100%] min-h-[30rem]  flex justify-center items-center " >
     <div
@@ -26,7 +26,7 @@ const ProductsDiv = ({title}) => {
         </div>
       </div>
       <div className="w-[100%] h-[80%] flex justify-between gap-8 items-center  ">
-    <DealsDiv category="dairy" />
+    <DealsDiv category={Category} />
       
         
 

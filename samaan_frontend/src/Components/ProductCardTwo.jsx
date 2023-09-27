@@ -1,8 +1,10 @@
 import React from 'react'
 import "./divcss.css"
 const ProductCardTwo = ({imgSrc,name,price,weight,category}) => {
+    const [quantity, setquantity] = React.useState(0)
   return (
-  <div class="Card shadow-lg ">
+    <div className='flex justify-center' >
+  <div class="Card shadow-lg  ">
 <div class="CardImage">
     <img  src={imgSrc} alt=""/>
 </div>
@@ -29,11 +31,31 @@ const ProductCardTwo = ({imgSrc,name,price,weight,category}) => {
         <div class="price">
             <div class="PriceText">{price}</div>
             <div class="AddButton">
-                <button>ADD</button>
+            {quantity>0?<div className='w-[100%] h-[100%] flex justify-around' >
+          
+            
+          <div className='w-[33.33%] h-[100%]' >
+          <div className='bg-[rgb(247, 255, 249)] w-[1.4rem] h-[1.4rem] text-center font-[900] text-green-800  rounded-full cursor-pointer flex justify-center items-center border border-green-600 ' onClick={()=>{
+            if(quantity>0)
+           { setquantity(quantity-1)}
+           else{
+          setquantity(0)
+           }
+          }} ><p>-</p></div></div>
+          <div className='w-[33.33%] h-[100%]flex justify-center items-center text-center' >  {quantity}</div>
+          <div className='w-[33.33%] h-[100%] '  >
+          <div className='bg-[rgb(247, 255, 249)] w-[1.4rem] h-[1.4rem] text-center font-[900] text-green-800  rounded-full cursor-pointer flex justify-center items-center border border-green-600' onClick={()=>{
+             setquantity(quantity+1)}
+          
+          }  ><p>+</p></div></div>
+          
+        </div>:
+                <button onClick={()=>setquantity(quantity+1)} >ADD</button>}
             </div>
         </div>
     </div>
 </div>
+</div> 
 </div> 
   )
 }
