@@ -86,6 +86,7 @@ const DOD = () => {
                     weight={item.weight}
                     category={item.category}
                     className="mx-auto "
+                    productId={item.id}
 
                     />
          </SwiperSlide>

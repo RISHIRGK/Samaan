@@ -5,6 +5,8 @@ import { set } from 'mongoose'
 import productDetails from '../context/productDetails'
 import { Link } from 'react-router-dom'
 
+import { useNavigate } from 'react-router-dom'
+
 const Header = () => {
     const [ToggleOn, setToggleOn] = useState(false)
     const [showoptions, setshowoptions] = useState(false)
@@ -13,25 +15,27 @@ const Header = () => {
     const [searchbardata, setsearchbardata] = useState(lis)
     const [clickedonCategory, setclickedoncategory] = useState(false)
     const [hoverOn,sethoverOn] = useState(false)
+    const [Data, setData] = useState()
+    const navigate = useNavigate()
     const fetchdata = async () => {
-        // https://api-krudra9125-gmailcom.vercel.app/api/products/
-        // await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/") 
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
+        https://api-krudra9125-gmailcom.vercel.app/api/products/
+        await fetch("https://api-krudra9125-gmailcom.vercel.app/api/searchbarData/") 
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
 
-        // setlis(data?.map((item)=>{return item.name.toLowerCase()}));
+        setlis(data);
 
-        //   })
-        //   .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
 
-        setlis(product_data.product_data?.map((item) => { return item.name.toLowerCase() }));
+        // setlis(product_data.product_data?.map((item) => { return item.name.toLowerCase() }));
     };
     React.useEffect(() => {
 
         fetchdata();
 
-    }, [product_data]);
+    }, []);
 
     const [activeCategory, setActiveCategory] = useState(null);
     const ToggleDiv = useRef(null)
@@ -42,7 +46,7 @@ const Header = () => {
         else {
             setshowoptions(true)
             console.log(showoptions)
-            setsearchbardata(lis?.filter((item) => { if (item.includes(e)) { return true } else { return false } }))
+            setsearchbardata(lis?.filter((item) => { if (item.name.toLowerCase().includes(e)) { return true } else { return false } }))
         }
     }
     const ToggleOnOff = () => {
@@ -163,14 +167,17 @@ const Header = () => {
                             </svg>
                         </div>
                         <div className="SearchInput  w-[100%] h-[100%]  ">
-                            <input type="text" onFocus={() => { setshowoptions(true) }} onChange={(e) => { searchbardataonchange(e.target.value.toLowerCase().trim("")) }} placeholder="Search Items Here" />
-                            <div onBlur={() => {
+                            <input type="text" onFocus={() => { setshowoptions(true) }}  onBlur={() => {
                                 setshowoptions(false)
-                            }} className={` ${showoptions ? 'absolute' : 'hidden'} z-20 max-h-[12rem] overflow-scroll bg-white w-[100%] min-h-fit top-14 left-0 flex  shadow-lg  flex-col justify-start items-center  `} >
+                            }} onChange={(e) => { searchbardataonchange(e.target.value.toLowerCase().trim("")) }} placeholder="Search Items Here" />
+                            <div className={` ${showoptions ? 'absolute' : 'hidden'} z-20 max-h-[12rem] overflow-scroll bg-white w-[100%] min-h-fit top-14 left-0 flex  shadow-lg  flex-col justify-start items-center  `} >
                                 {
                                     searchbardata?.map((item) => {
                                         return (
-                                            <a href="https://google.com" className="w-[100%] text-start  pl-7 hover:bg-yellow-300 hover:shadow-md transition-all duration-500  ease-in-out    border  " >{item}</a>
+                                            <Link onMouseDownCapture={()=>{
+                                                navigate(`/onsearch/${item.id}`)
+                                                window.location.reload()
+                                            }}  className="w-[100%] text-start  pl-7 hover:bg-yellow-300 hover:shadow-md transition-all duration-500  ease-in-out    border  " >{item.name.toLowerCase()}</Link>
                                         )
                                     })
                                 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import  "../input.css"
-const ProductCard = ({imgSrc,name,price,weight,category}) => {
+import { Link } from 'react-router-dom'
+const ProductCard = ({productId,imgSrc,name,price,weight,category}) => {
   const [quantity, setquantity] = React.useState(0)
   return (
     <div>
@@ -10,15 +11,19 @@ const ProductCard = ({imgSrc,name,price,weight,category}) => {
     <div className=" w-[100%] h-[40%]  grad bg-yellow-300  rounded-tl-[2.3rem] rounded-tr-[1.4rem]  skew-y-[12deg] "  ></div>
     <div className=" w-[100%] h-[60%] bg-yellow-300 relative flex flex-col  rounded-b-3xl grad shadow-xl  "  >
       <div className="absolute z-20 w-[100%] h-[30%] bg-yellow-300 -top-11 grad    ">
+    
         <div className='absolute -top-[5.6rem] left-[5rem]  w-[9rem] h-[9rem] ' >
-          <img width={150} className='object-fill w-full h-full  aspect-video' src={imgSrc} alt={category}  />
+          <Link to={`/product/${productId}`} >
+            
+          <img width={150} className='object-contain w-full h-[144px] aspect-video' src={`https://samaan-images.s3.ap-south-1.amazonaws.com/${imgSrc.substring(2)}`} alt={category}  />
+          </Link>
         </div>
         
       </div>
       <div className="w-[100%] px-2 h-[50%]   flex    items-center justify-start " >
-        <div className="flex flex-col items-start  justify-evenly" > 
-          <div className=" text-[.6rem] font-bold text-white bg-black bg-opacity-25  h-[1rem] w-[3.8rem]  rounded-md px-1 flex  justify-center items-center "> <img src="" className=" w-[.7rem] h-[.7rem] bg-white  "  alt=""/>  <span className="" > 15 MINS</span>
-           </div>
+        <div className="flex flex-col items-start justify-evenly" > 
+          {/* <div className=" text-[.6rem] font-bold text-white bg-black bg-opacity-25  h-[1rem] w-[3.8rem]  rounded-md px-1 flex  justify-center items-center "> 
+           </div> */}
         <div>
           <p className="font-semibold leading-5 tracking-tight"  >{name}</p>
           </div>
@@ -34,7 +39,26 @@ const ProductCard = ({imgSrc,name,price,weight,category}) => {
           <span className="line-through font-[500] text-sm text-gray-700   pl-1 " >&#8377;245</span>
         </div>
         <div className=" w-[40%]  h-[50%] flex justify-center items-center " >
-          <button className="w-[70%] h-[90%]  shadow-md rounded-md bg-white text-green-800 text-xs font-bold " > ADD</button>
+        {quantity>0?<div className='w-[100%] h-[100%] flex justify-around' >
+          
+            
+            <div className='w-[33.33%] h-[100%]' >
+            <div className='bg-white w-[1.7rem] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer ' onClick={()=>{
+              if(quantity>0)
+             { setquantity(quantity-1)}
+             else{
+            setquantity(0)
+             }
+            }} >-</div></div>
+            <div className='w-[33.33%] h-[100%]flex justify-center items-center text-center' >  {quantity}</div>
+            <div className='w-[33.33%] h-[100%] '  >
+            <div className='bg-white w-[1.7em] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer ' onClick={()=>{
+               setquantity(quantity+1)}
+            
+            }  >+</div></div>
+            
+          </div>:<button className="w-[70%] h-[90%]  shadow-md rounded-md bg-white text-green-800 text-xs font-bold " onClick={()=>{setquantity(quantity+1)}} > ADD</button>}
+
         </div>
       </div>
     </div>
@@ -45,3 +69,4 @@ const ProductCard = ({imgSrc,name,price,weight,category}) => {
   
   )
 }
+export default ProductCard

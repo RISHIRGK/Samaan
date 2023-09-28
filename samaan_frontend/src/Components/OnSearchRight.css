@@ -1,4 +1,7 @@
 .RightOuter{
+    width: 100%;
+    min-width: 70rem;
+    min-height: 30rem;
     box-sizing: border-box;
     padding: 30px 10px;
     width: 100%;
