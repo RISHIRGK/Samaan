@@ -23,7 +23,7 @@ const Carousel = () => {
     //     }, 1000);
     // },[Index])
   return (
-    <div className='CarouselWrapper h-[100%] w-[100%]   '>
+    <div className='CarouselWrapper  w-[100%] h-[30rem]   '>
        <Splide options ={ {
     type         : 'loop',
     gap          : '1rem',
@@ -32,14 +32,14 @@ const Carousel = () => {
     resetProgress: false,
     width        : '100%',
     height       : '100%',
-  }} className=' h-[100%] w-[100%]  flex justify-center items-center  ' aria-label="My Favorite Images">
+  }} className='w-[100%]  flex justify-center items-center  ' aria-label="My Favorite Images">
 
 {
     images.map((image , index)=>{
         return(
             <SplideSlide>
                 <a href={linksa[index]}>
-                <img src={image} alt="" className='CarouselImage   '/>
+                <img src={image} alt="" className='CarouselImage '/>
                 </a>
             </SplideSlide>
         )

@@ -80,6 +80,7 @@ const DealsDiv = ({category}) => {
                 imgSrc={item.img_path}
                 weight={item.weight}
                 category={item.category}
+                productId={item.id}
 
              />
          

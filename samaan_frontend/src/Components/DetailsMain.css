@@ -1,0 +1,212 @@
+.DetailsOuter {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  height: fit-content;
+  padding: 10px 10px;
+  padding-top: 100px;
+  position: relative;
+  align-items: flex-start !important;
+}
+
+.DetailsImageDiv {
+  box-sizing: border-box;
+  padding: 100px 50px;
+  border-radius: 30px;
+  width: 40%;
+  position: sticky;
+  top: 128px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.ProductDetailsDiv {
+  width: 60%;
+  box-sizing: border-box;
+  padding: 10px 50px;
+}
+
+.DetailsImageOuter {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.ImageWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: fit-content;
+  height: fit-content;
+}
+
+.ImageWrap > img {
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.ProductNameHeader > h3 {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.DescHeader {
+  box-sizing: border-box;
+  padding: 20px 0;
+}
+
+.DescHeader > h3 {
+  font-weight: 700;
+  font-size: x-large;
+  margin: 10px 0;
+}
+
+.ProductInfo {
+  box-sizing: border-box;
+  padding: 20px 0;
+}
+
+.ProductInfo > h2 {
+  padding: 10px 0;
+  font-size: x-large;
+  font-weight: 700;
+}
+
+.ProductTable {
+  width: 100%;
+  padding: 5px 5px;
+}
+
+.ProductTableRow {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 0;
+  display: flex;
+}
+
+.ProductTableTd1 {
+  width: 30%;
+  font-weight: 600;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ProductTableTd2 {
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.InputIcon {
+  display: flex;
+  justify-content: space-between;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.DeliverHeader {
+  font-size: x-large;
+  font-weight: 700;
+  padding: 10px 0;
+}
+
+.DeliverDiv {
+  padding: 10px 0;
+}
+
+.EditIcon {
+  padding: 5px 5px;
+  border-radius: 50%;
+}
+
+.EditIcon:hover {
+  background-color: yellow;
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.DeliverPinCode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.DeliverPinCode > input {
+  box-sizing: border-box;
+  height: 100%;
+  width: 95%;
+  padding: 5px 10px;
+  border-radius: 10px;
+  outline: 1px solid black;
+}
+
+.DeliverPinCode > input:focus {
+  outline: 1px solid black;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.IconOk {
+  padding: 5px 5px;
+  border-radius: 50%;
+}
+
+.IconOk:hover {
+  background-color: yellow;
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.RatingsDiv {
+  padding: 10px 10px;
+  width: 100%;
+}
+
+.RatingsWrap {
+    box-sizing: border-box;
+  background-color: white;
+  width: 100%;
+  padding: 20px 20px;
+  height: 100px;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.RatingsHeader{
+    font-size: x-large;
+    font-weight: 700;
+}
+
+@media screen and (max-width:1024px) {
+    .DetailsOuter {
+        padding: 10px 10px !important;
+        padding-top: 10px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .DetailsOuter {
+        flex-wrap: wrap;
+        align-items: flex-start !important;
+        flex-direction: column;
+        justify-content: flex-start !important;
+    }
+    .DetailsImageDiv{
+        width: 100%;
+        position: static;
+        padding: 20px 20px;
+    }
+    .ProductDetailsDiv{
+        width: 100%;
+        padding: 15px 5px;
+    }
+}

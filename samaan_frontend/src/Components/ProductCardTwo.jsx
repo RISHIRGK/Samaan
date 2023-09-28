@@ -1,12 +1,15 @@
 import React from 'react'
 import "./divcss.css"
-const ProductCardTwo = ({imgSrc,name,price,weight,category}) => {
+import { Link } from 'react-router-dom'
+const ProductCardTwo = ({productId,imgSrc,name,price,weight,category}) => {
     const [quantity, setquantity] = React.useState(0)
   return (
     <div className='flex justify-center' >
   <div class="Card shadow-lg  ">
 <div class="CardImage">
-    <img  src={imgSrc} alt=""/>
+    <Link to={`/product/${productId}`} >
+    <img className='imageclass'  src={`https://samaan-images.s3.ap-south-1.amazonaws.com/${imgSrc.substring(2)}`} alt=""/>
+    </Link>
 </div>
 <div class="contentOuter">
     <div class="Timer">
@@ -21,7 +24,7 @@ const ProductCardTwo = ({imgSrc,name,price,weight,category}) => {
                 </g>
             </svg>
         </div>
-        <div class="TimerText">20 MINS</div>
+        {/* <div class="TimerText">20 MINS</div> */}
     </div>
     <div class="Desc">
         <div class="Title">
