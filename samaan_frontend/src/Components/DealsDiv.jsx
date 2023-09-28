@@ -1,34 +1,29 @@
-"use client"
 import React from 'react'
-import ProductCard from './ProductCard'
+import ProductCardTwo from './ProductCardTwo';
 import { Swiper, SwiperSlide } from "swiper/react";
-
+// import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 // import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import productDetails from '../context/productDetails'
-const DOD = () => {
-  const [swiper, setSwiper] = React.useState(null);
-  
-  const product_data=React.useContext(productDetails)
+import productDetails from '../context/productDetails';
+
+const DealsDiv = ({category}) => {
+  const [swiper, setSwiper] = React.useState(null); 
+
+    const product_data=React.useContext(productDetails)
     const [data, setdata] = React.useState();
   const fetchdata = async () => {
-    // await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
+    await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/${category}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setdata(data);
+      })    
+      .catch((err) => console.log(err));
       
-    //   })
-    //   .catch((err) => console.log(err));
-      setdata(product_data.product_data);
   };
-  // const handleSlideChangeTransitionEnd = () => {
-  //   if (swiper) {
-  //     swiper.autoplay.start();
-  //   }
-  // };
   React.useLayoutEffect(() => {
 
     fetchdata();
@@ -53,7 +48,7 @@ const DOD = () => {
     // when window width is >= 768px
     768: {
       slidesPerView: 3,
-      spaceBetween: 5
+      spaceBetween: 40
     },
     // when window width is >= 1024px
     1024: {
@@ -63,38 +58,36 @@ const DOD = () => {
   };
 
   return (
-
     <Swiper  pagination={{ clickable: true }}
-      rewind={false}
       breakpoints={breakpoints}
+      rewind={false}
       slidesPerView={6}
       autoplay={true}
-      
+      navigation={true}
       // onSlideChangeTransitionEnd={handleSlideChangeTransitionEnd}
       onSlideChange={() => console.log("slide change")}
-      onSwiper={setSwiper} >
+      onSwiper={setSwiper}>
+
 
 {
  data?.map((item , id)=>{
      return(
-         <SwiperSlide  key={id}  className='flex justify-center ' >
-              <ProductCard
-                    key={id}
-                    name={item.name}
-                    price={item.price}
-                    imgSrc={item.img_path}
-                    weight={item.weight}
-                    category={item.category}
-                    className="mx-auto "
+         <SwiperSlide  key={id} >
+             <ProductCardTwo
+                key={id}
+                name={item.name}
+                price={item.price}
+                imgSrc={item.img_path}
+                weight={item.weight}
+                category={item.category}
 
-                    />
+             />
+         
          </SwiperSlide>
      )
  })
 }
 </Swiper>
-
   )
 }
-
-export default DOD
+export default DealsDiv

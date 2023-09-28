@@ -153,7 +153,7 @@ html {
 }
 
 .HoverEffectLink:hover>.HoverEffectLinkPara {
-    height: calc(100% - 3px);
+    height: calc(100% - 8px);
 }
 
 .activeCate{
@@ -161,16 +161,19 @@ html {
 }
 .activeCate::after{
     content: "";
+    display: absolute;
     width: 100%;
     height: 3px;
-    background-color: black;
+    --tw-bg-opacity: 1;
+    background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
 .HoverEffectLink:hover::after {
     content: "";
     width: 100%;
     height: 3px;
-    background-color: black;
+    --tw-bg-opacity: 1;
+    background-color: rgb(253 224 71 / var(--tw-bg-opacity));
 }
 
 .CartDiv{
@@ -187,6 +190,8 @@ html {
     margin: 0 0;
     flex-direction: column;
     justify-content: center;
+  
+    
 }
 
 .MenuBannerUl{
@@ -228,6 +233,7 @@ html {
     list-style: none;
     background-color: white;
     border: 0.5px solid #00000047;
+    max-width: 1468px;
 }
 
 .MenuBannerUl:hover + .MenuBannerHoverDisplayUl{
@@ -244,6 +250,11 @@ html {
     display: flex;
     gap: 10px;
     padding: 5px 5px;
+}
+
+.MenuBannerDisplayLiDiv>img{
+    height: 188px;
+    width: 128px;
 }
 
 .MenuBannerHoverDisplayUl:hover{
@@ -351,7 +362,7 @@ html {
     }
 
     .MenuBannerDisplayLi{
-        display: block;
+        display: block !important;
     }
 
     .MenuBannerHoverDisplayUl{
@@ -360,7 +371,7 @@ html {
         max-height: 100%;
         margin: 0 0;
         overflow-y: scroll;
-        display: block;
+        display: block !important;
     }
 
     .DisplayLi{
@@ -372,7 +383,7 @@ html {
     }
 
     .MenuBannerDisplayLi{
-        display: block;
+        display: block !important;
     }
 
     .MenuBannerPara{
@@ -381,7 +392,7 @@ html {
     }
 
     .SubMenu{
-        display: block;
+        display: block !important;
     }
 }
 
