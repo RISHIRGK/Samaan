@@ -398,3 +398,57 @@ html {
 .active{
     display: block;
 }
+
+@media screen and (max-width:560px) {
+    .ToggleIconDiv{
+        margin-left: 0px;
+    }
+    .LogoDiv{
+        margin-left: 0px;
+    }
+    .forsupp{
+        padding: 6px 5px !important;
+        margin: 0 0 !important;
+        font-size: small !important;
+    }
+    .NavImage{
+        height: 25px !important;
+        width: 25px !important;
+    }
+    .NavImageWrapper{
+        height: fit-content !important;
+        width: fit-content !important;
+        padding: 5px 5px !important;
+        margin: 0 0 !important;
+        border-radius: 10px !important;
+    }
+    .CartDiv{
+        padding: 2px 2px !important;
+        border-radius: 10px !important;
+        height: fit-content !important;
+        background-color: yellow !important;
+        border-radius: 10px !important;
+    }
+    .CartLink{
+        height: fit-content !important;
+        width: fit-content !important;
+    }
+    .NavImageWrapper>svg{
+        height: 20px !important;
+        width: 20px !important;
+    }
+    .UpperLastDiv{
+        margin-right: 5px;
+        gap: 5px !important;
+        justify-content: flex-end !important;
+    }
+    .LogoDiv{
+        margin-right: 0px !important;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .forsupp{
+        font-size: smaller !important;
+    }
+}
