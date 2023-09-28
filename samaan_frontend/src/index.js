@@ -5,6 +5,10 @@ import App from './App';
 import { AuthProvider } from './context/Auth';
 import {BrowserRouter as Router} from "react-router-dom"
 
+import reportWebVitals from './reportWebVitals';
+
+import OnSearch from './Components/OnSearch';
+import DetailsMain from './Components/DetailsMain';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render( 
