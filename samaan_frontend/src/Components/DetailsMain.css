@@ -3,26 +3,26 @@
   width: 100%;
   min-height: 100%;
   height: fit-content;
-  padding: 10px 10px;
-  padding-top: 100px;
-  position: relative;
+  padding: 10px 100px;
   align-items: flex-start !important;
 }
 
-.DetailsImageDiv {
+.ImageWrapperDiv {
+  width: 40%;
   box-sizing: border-box;
+}
+
+.DetailsImageDiv {
   padding: 100px 50px;
   border-radius: 30px;
-  width: 40%;
-  position: sticky;
-  top: 128px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  width: 100%;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .ProductDetailsDiv {
   width: 60%;
   box-sizing: border-box;
-  padding: 10px 50px;
+  padding: 20px 50px;
 }
 
 .DetailsImageOuter {
@@ -49,8 +49,15 @@
 }
 
 .ProductNameHeader > h3 {
-  font-size: larger;
+  font-size: large;
   font-weight: 700;
+}
+
+.AddToCartWrapper {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .DescHeader {
@@ -60,8 +67,9 @@
 
 .DescHeader > h3 {
   font-weight: 700;
-  font-size: x-large;
+  font-size: medium;
   margin: 10px 0;
+  color: rgba(0, 0, 0, 0.657);
 }
 
 .ProductInfo {
@@ -71,8 +79,9 @@
 
 .ProductInfo > h2 {
   padding: 10px 0;
-  font-size: x-large;
+  font-size: medium;
   font-weight: 700;
+  color: rgba(0, 0, 0, 0.657);
 }
 
 .ProductTable {
@@ -85,20 +94,36 @@
   box-sizing: border-box;
   padding: 5px 0;
   display: flex;
+  gap: 10px;
+}
+
+.QuantityIcon{
+  font-size: x-large;
+  height: fit-content;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ProductTableTd1 {
-  width: 40%;
+  min-width: fit-content;
+  max-width: 70%;
+  width: 50%;
   font-weight: 600;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  font-size: 14px;
   flex-wrap: wrap;
 }
 
 .ProductTableTd2 {
-  width: 60%;
+  width: 50%;
   display: flex;
+  font-size: 15px;
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
@@ -172,7 +197,7 @@
 }
 
 .RatingsWrap {
-    box-sizing: border-box;
+  box-sizing: border-box;
   background-color: white;
   width: 100%;
   padding: 20px 20px;
@@ -181,64 +206,127 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
-.RatingsHeader{
-    font-size: x-large;
-    font-weight: 700;
-}
-
-.ProductPrice{
+.RatingsHeader {
+  font-size: x-large;
   font-weight: 700;
 }
 
-.ProductPrice::before{
-  content: '₹';
+.ProductPrice {
+  font-size: x-large;
+  font-weight: 700;
+}
+
+.ProductPriceDiv {
+  padding: 10px 0;
+}
+
+.ProductPrice::before {
+  content: "₹";
   margin-right: 2px;
 }
 
-.ProductPrice::after{
-  content: ' MRP';
+.ProductPrice::after {
+  content: " MRP";
   font-size: small;
   color: rgba(0, 0, 0, 0.603);
 }
 
-.AddToCartButton{
+.AddToCartButton {
+  width: 100%;
   padding: 15px 0 !important;
   display: flex !important;
+  font-size: medium !important;
   align-items: center !important;
   justify-content: space-around !important;
 }
 
-.AddGap{
+.AddToCartButton:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.AddGap {
   gap: 10px;
 }
 
-@media screen and (max-width:1024px) {
-    .DetailsOuter {
-        padding: 10px 10px !important;
-        padding-top: 10px;
-    }
+.laptopProduct {
+  display: block;
 }
 
-@media screen and (max-width:768px) {
-    .DetailsOuter {
-        flex-wrap: wrap;
-        align-items: flex-start !important;
-        flex-direction: column;
-        justify-content: flex-start !important;
-    }
-    .DetailsImageDiv{
-        width: 100%;
-        position: static;
-        padding: 20px 20px;
-    }
-    .ProductDetailsDiv{
-        width: 100%;
-        padding: 15px 5px;
-    }
-    .AddToCartButton{
-      padding: 10px 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-around !important;
-    }
+/* @media screen and (max-width: 1024px) {
+  .DetailsOuter {
+    padding: 10px 10px !important;
+    padding-top: 10px;
+  }
+} */
+
+/* @media screen and (max-width: 768px) {
+  .DetailsOuter {
+    flex-wrap: wrap;
+    align-items: flex-start !important;
+    flex-direction: column;
+    justify-content: flex-start !important;
+  }
+  .DetailsImageDiv {
+    width: 100%;
+    padding: 20px 20px;
+  }
+  .ImageWrapperDiv{
+    width: 90%;
+  }
+  .ProductDetailsDiv {
+    width: 100%;
+    padding: 15px 5px;
+  }
+  .AddToCartButton {
+    padding: 10px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+  }
+} */
+.outer {
+  margin-top: 8rem;
+}
+
+.mobileProduct {
+  display: none;
+}
+@media screen and (max-width: 1024px) {
+  .DetailsOuter {
+    padding: 10px 30px;
+  }
+
+  .outer {
+    margin-top: 3rem;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .ImageWrapperDiv {
+    width: 50%;
+  }
+  .ProductDetailsDiv {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 630px) {
+  .DetailsOuter {
+    flex-direction: column;
+  }
+
+  .ImageWrapperDiv {
+    width: 100%;
+  }
+
+  .ProductDetailsDiv {
+    width: 100%;
+  }
+
+  .mobileProduct {
+    display: block;
+  }
+
+  .laptopProduct {
+    display: none;
+  }
 }

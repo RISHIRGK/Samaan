@@ -33,34 +33,103 @@ const DetailsMain = () => {
 
   return (
     <div>
-      <div className="w-[100%] h-[100%] mt-[8rem]  ">
+      <div className="w-[100%] h-[100%] outer">
         <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center min-h-fit  ">
           <div className="DetailsOuter Vflex AroundFlex">
-            <div className="DetailsImageDiv">
-              <div className="DetailsImageOuter">
-                <div className="ImageWrap">
-                  {console.log("this is data", Data)}
-                  {Data ? (
-                    <img
-                      width={150}
-                      className="object-fill w-full h-full aspect-video"
-                      src={`https://samaan-images.s3.ap-south-1.amazonaws.com/${Data[
-                        "img_path"
-                      ].substring(2)}`}
-                      alt={"category"}
-                    />
-                  ) : (
-                    ""
-                  )}{" "}
-                </div>
-              </div>
-            </div>
-            <div className="ProductDetailsDiv">
-              <div className="ProductNameHeader">
+            <div className="ImageWrapperDiv">
+              <div className="ProductNameHeader mobileProduct" style={{padding:'10px 10px'}}>
                 <h3>{Data ? Data["name"] : ""}</h3>
               </div>
-              <div className="RatingsDiv"></div>
-              <hr />
+              <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap mobileProduct" style={{padding:'5px 10px'}}>
+                <div
+                  className="w-[100%] ProductPriceDiv"
+                  style={{ marginLeft: "5px" }}
+                >
+                  <span className="ProductPrice">
+                    {Data ? Data["price"] : ""}
+                  </span>
+                </div>
+              </div>
+              <div className="DetailsImageDiv">
+                <div className="DetailsImageOuter">
+                  <div className="ImageWrap">
+                    {console.log("this is data", Data)}
+                    {Data ? (
+                      <img
+                        width={150}
+                        className="object-fill w-full h-full aspect-video"
+                        src={`https://samaan-images.s3.ap-south-1.amazonaws.com/${Data[
+                          "img_path"
+                        ].substring(2)}`}
+                        alt={"category"}
+                      />
+                    ) : (
+                      ""
+                    )}{" "}
+                  </div>
+                </div>
+              </div>
+              <div className="w-[100%] AddToCartWrapper ">
+                {quantity > 0 ? (
+                  <div className="w-[8rem] h-[100%] flex justify-center items-center">
+                    <div className="w-[33.33%] h-[100%] flex justify-center">
+                      <div
+                        className=" bg-yellow-300  text-center font-[900] QuantityIcon text-green-800  rounded-full cursor-pointer "
+                        onClick={() => {
+                          if (quantity > 0) {
+                            setquantity(quantity - 1);
+                          } else {
+                            setquantity(0);
+                          }
+                        }}
+                      >
+                        -
+                      </div>
+                    </div>
+                    <div className="w-[33.33%] h-[100%] flex justify-center items-center text-center">
+                      {" "}
+                      {quantity}
+                    </div>
+                    <div className="w-[33.33%] h-[100%] flex justify-center ">
+                      <div
+                        className="bg-yellow-300  text-center font-[900] text-green-800  rounded-full cursor-pointer QuantityIcon "
+                        onClick={() => {
+                          setquantity(quantity + 1);
+                        }}
+                      >
+                        +
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    className="w-[7rem] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold  AddToCartButton"
+                    onClick={() => {
+                      setquantity(quantity + 1);
+                    }}
+                  >
+                    {" "}
+                    Add to cart
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="ProductDetailsDiv">
+              <div className="ProductNameHeader laptopProduct">
+                <h3>{Data ? Data["name"] : ""}</h3>
+              </div>
+              <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap laptopProduct">
+                <div
+                  className="w-[100%] ProductPriceDiv"
+                  style={{ marginLeft: "5px" }}
+                >
+                  <span className="ProductPrice">
+                    {Data ? Data["price"] : ""}
+                  </span>
+                </div>
+              </div>
+
               {/* <div className="DeliverDiv">
                 <h1 className="DeliverHeader">Deliver to</h1>
                 <div
@@ -135,64 +204,11 @@ const DetailsMain = () => {
                   </div>
                 </div>
               </div> */}
-              <hr />
 
               <div className="ProductInfo">
                 <h2>Product Information</h2>
-                <div className="w-[100%] flex flex-col md:flex-row justify-center">
-                  <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap">
-                    <div className="w-[100%] " style={{marginLeft:'5px'}}>
-                      <div className="ProductTableTd1 ">price:</div>
-                      <span className="ProductPrice">
-                        {Data ? Data["price"] : ""}
-                      </span>
-                    </div>
-                    <div className="w-[100%] ">
-                      {quantity > 0 ? (
-                        <div className="w-[8rem] h-[100%] flex justify-center">
-                          <div className="w-[33.33%] h-[100%] flex justify-center">
-                            <div
-                              className="w-[1.7em] h-[1.7rem] bg-yellow-300  text-center font-[900] text-green-800  rounded-full cursor-pointer "
-                              onClick={() => {
-                                if (quantity > 0) {
-                                  setquantity(quantity - 1);
-                                } else {
-                                  setquantity(0);
-                                }
-                              }}
-                            >
-                              -
-                            </div>
-                          </div>
-                          <div className="w-[33.33%] h-[100%] flex justify-center items-center text-center">
-                            {" "}
-                            {quantity}
-                          </div>
-                          <div className="w-[33.33%] h-[100%] flex justify-center ">
-                            <div
-                              className="bg-yellow-300 w-[1.7em] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer "
-                              onClick={() => {
-                                setquantity(quantity + 1);
-                              }}
-                            >
-                              +
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <button
-                          className="w-[7rem] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold  AddToCartButton"
-                          onClick={() => {
-                            setquantity(quantity + 1);
-                          }}
-                        >
-                          {" "}
-                          ADD
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                  <div className="w-[100%] md:w-[50%]">
+                <div className="w-[100%] flex flex-col md:flex-row justify-start">
+                  <div className="w-[100%]">
                     <div className="ProductTable">
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">BRAND</div>
@@ -223,7 +239,6 @@ const DetailsMain = () => {
                 </div>
               </div>
 
-              <hr />
               <div className="DescHeader">
                 <h3>Description</h3>
                 <p>
@@ -244,11 +259,11 @@ const DetailsMain = () => {
               </div>
             </div>
           </div>
-          <div className="RatingsDiv">
+          {/* <div className="RatingsDiv">
             <div className="RatingsWrap">
               <h1 className="RatingsHeader">Ratings & Reviews</h1>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
