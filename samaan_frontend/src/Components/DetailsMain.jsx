@@ -8,7 +8,7 @@ const DetailsMain = () => {
   const [PinCode, setPinCode] = useState("400020");
   const [EditState, setEditState] = useState(false);
   const [Data, setdata] = React.useState();
-  const [quantity, setquantity] = React.useState(0)
+  const [quantity, setquantity] = React.useState(0);
 
   const handleEditState = () => {
     setEditState(!EditState);
@@ -140,36 +140,57 @@ const DetailsMain = () => {
               <div className="ProductInfo">
                 <h2>Product Information</h2>
                 <div className="w-[100%] flex flex-col md:flex-row justify-center">
-                  <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col">
-                    <div className="w-[100%] ">
-                      <div className="ProductTableTd1 " >price:</div>
+                  <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap">
+                    <div className="w-[100%] " style={{marginLeft:'5px'}}>
+                      <div className="ProductTableTd1 ">price:</div>
                       <span className="ProductPrice">
-                        ₹{Data ? Data["price"] : ""}
+                        {Data ? Data["price"] : ""}
                       </span>
                     </div>
                     <div className="w-[100%] ">
-                      {
-                        quantity>0?<div className='w-[8rem] h-[100%] flex justify-center' >
-          
-            
-                        <div className='w-[33.33%] h-[100%] flex justify-center' >
-                        <div className='bg-yellow-300 w-[1.7rem] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer ' onClick={()=>{
-                          if(quantity>0)
-                         { setquantity(quantity-1)}
-                         else{
-                        setquantity(0)
-                         }
-                        }} >-</div></div>
-                        <div className='w-[33.33%] h-[100%] flex justify-center items-center text-center' >  {quantity}</div>
-                        <div className='w-[33.33%] h-[100%] flex justify-center '  >
-                        <div className='bg-yellow-300 w-[1.7em] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer ' onClick={()=>{
-                           setquantity(quantity+1)}
-                        
-                        }  >+</div></div>
-                        
-                      </div>:<button className="w-[7rem] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold " onClick={()=>{setquantity(quantity+1)}} > ADD</button>
-                      }
-                      </div>
+                      {quantity > 0 ? (
+                        <div className="w-[8rem] h-[100%] flex justify-center">
+                          <div className="w-[33.33%] h-[100%] flex justify-center">
+                            <div
+                              className="w-[1.7em] h-[1.7rem] bg-yellow-300  text-center font-[900] text-green-800  rounded-full cursor-pointer "
+                              onClick={() => {
+                                if (quantity > 0) {
+                                  setquantity(quantity - 1);
+                                } else {
+                                  setquantity(0);
+                                }
+                              }}
+                            >
+                              -
+                            </div>
+                          </div>
+                          <div className="w-[33.33%] h-[100%] flex justify-center items-center text-center">
+                            {" "}
+                            {quantity}
+                          </div>
+                          <div className="w-[33.33%] h-[100%] flex justify-center ">
+                            <div
+                              className="bg-yellow-300 w-[1.7em] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer "
+                              onClick={() => {
+                                setquantity(quantity + 1);
+                              }}
+                            >
+                              +
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <button
+                          className="w-[7rem] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold  AddToCartButton"
+                          onClick={() => {
+                            setquantity(quantity + 1);
+                          }}
+                        >
+                          {" "}
+                          ADD
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <div className="w-[100%] md:w-[50%]">
                     <div className="ProductTable">
