@@ -71,14 +71,15 @@ export const AuthProvider = ({children}) => {
             }
     }
 
-    let logoutUser = useCallback(() => {
+    let logoutUser =() => {
         // e.preventDefault()
         localStorage.removeItem('userAuthToken')
         setAuthTokens(null)
         setUser(null)
         setIsAuthenticated(false)
         navigate('/',{replace:true})
-    },[navigate])
+
+    }
 
     const updateToken = useCallback(async () => {
 
