@@ -15,14 +15,14 @@ const DOD = () => {
   const product_data=React.useContext(productDetails)
     const [data, setdata] = React.useState();
   const fetchdata = async () => {
-    // await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-      
-    //   })
-    //   .catch((err) => console.log(err));
-      setdata(product_data.product_data);
+    await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/sauce")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setdata(data);
+      })
+      .catch((err) => console.log(err));
+     
   };
   // const handleSlideChangeTransitionEnd = () => {
   //   if (swiper) {

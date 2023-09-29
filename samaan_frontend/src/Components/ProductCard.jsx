@@ -15,7 +15,7 @@ const ProductCard = ({productId,imgSrc,name,price,weight,category}) => {
         <div className='absolute -top-[5.6rem] left-[5rem]  w-[9rem] h-[9rem] ' >
           <Link to={`/product/${productId}`} >
             
-          <img width={150} className='object-contain w-full h-[144px] aspect-video' src={`https://samaan-images.s3.ap-south-1.amazonaws.com/${imgSrc.substring(2)}`} alt={category}  />
+          <img width={150} className='object-contain w-full h-[144px] aspect-video' src={`${imgSrc}`} alt={category}  />
           </Link>
         </div>
         

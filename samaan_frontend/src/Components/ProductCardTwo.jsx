@@ -8,7 +8,7 @@ const ProductCardTwo = ({productId,imgSrc,name,price,weight,category}) => {
   <div class="Card shadow-lg  ">
 <div class="CardImage">
     <Link to={`/product/${productId}`} >
-    <img className='imageclass'  src={`https://samaan-images.s3.ap-south-1.amazonaws.com/${imgSrc.substring(2)}`} alt=""/>
+    <img className='imageclass'  src={`${imgSrc}`} alt=""/>
     </Link>
 </div>
 <div class="contentOuter">

@@ -77,13 +77,14 @@ export const AuthProvider = ({children}) => {
         setAuthTokens(null)
         setUser(null)
         setIsAuthenticated(false)
-        navigate('/',{replace:true})
+        // navigate('/',{replace:true})
 
     }
 
     const updateToken = useCallback(async () => {
 
         // console.log(authTokens)
+    
         const response = await fetch('https://api-krudra9125-gmailcom.vercel.app/api/refreshtoken/', {
             method: 'POST',
             headers: {

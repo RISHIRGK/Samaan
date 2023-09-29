@@ -7,12 +7,12 @@ import "swiper/css";
 // import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import productDetails from '../context/productDetails';
+
 
 const DealsDiv = ({category}) => {
   const [swiper, setSwiper] = React.useState(null); 
 
-    const product_data=React.useContext(productDetails)
+
     const [data, setdata] = React.useState();
   const fetchdata = async () => {
     await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/${category}`)
@@ -27,7 +27,7 @@ const DealsDiv = ({category}) => {
   React.useLayoutEffect(() => {
 
     fetchdata();
-  }, [product_data]);
+  }, []);
 
   const breakpoints = {
     // when window width is >= 320px

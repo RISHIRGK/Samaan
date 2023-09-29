@@ -308,7 +308,7 @@ const Header = () => {
         </div>
         <div className="UpperLastDiv VCenter-flex">
 
-        {userdetails?<p>{userdetails?`Welcome,${userdetails["name"]}`:""}</p>:
+        {userdetails?<p>{authTokens?`Welcome,${userdetails["name"]}`:""}</p>:
         <div className= "bg-yellow-300 w-[7rem] h-[3rem] rounded-xl text-center flex justify-center items-center font-[700] " onClick={()=>{navigate("/signupuser")}} ><p>Login/signup</p></div>}
           <div
             style={{ height: "50%", border: " 1px solid black" }}
@@ -379,18 +379,20 @@ const Header = () => {
               </ul>
             </div>
           </div>
-          <div className=" CartDiv VCenter-flex" onClick={()=>{
-          
-          if(userdetails)
-          {
-            navigate("/cart")
-        }
-        else
-        {
-            navigate("/signupuser")
-        }
-          }}  >
-            <a href="/" className="CartLink VCenter-flex ">
+          <div className=" CartDiv VCenter-flex"
+            onClick={()=>{
+            if(userdetails)
+            {
+                navigate("/cart")
+            
+            }
+        
+            else{
+                navigate("/signupuser")
+            }
+            }}
+          >
+            <a className="CartLink VCenter-flex ">
               <p className="NavImageWrapper bg-yellow-300  rounded-2xl CartContent   w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out  VCenter-flex">
                 <svg
                   className=" laptop active:w-[27px] active:h-[27px] "

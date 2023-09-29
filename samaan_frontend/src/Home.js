@@ -33,7 +33,7 @@ const Home = () => {
   }, []);
   return (
     <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center mt-[8rem]  overflow-scroll  ">
-      <div className=" w-[100%]   ">
+      <div className=" w-[100%]    ">
         <Carousel />
       </div>
 
@@ -57,7 +57,7 @@ const Home = () => {
               </div>
             </div>
             <div className="w-[100%] h-[80%] flex justify-between gap-8 items-center  ">
-              {/* <DOD /> */}
+              <DOD />
             </div>
           </div>
         ) : (

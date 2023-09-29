@@ -23,7 +23,7 @@ const Carousel = () => {
     //     }, 1000);
     // },[Index])
   return (
-    <div className='CarouselWrapper  w-[100%] h-[30rem]   '>
+    <div className='CarouselWrapper  w-[100%] h-[28rem]  overflow-hidden   '>
        <Splide options ={ {
     type         : 'loop',
     gap          : '1rem',
@@ -39,7 +39,7 @@ const Carousel = () => {
         return(
             <SplideSlide>
                 <a href={linksa[index]}>
-                <img src={image} alt="" className='CarouselImage '/>
+                <img src={image}  alt="" className='object-cover CarouselImage'/>
                 </a>
             </SplideSlide>
         )

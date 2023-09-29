@@ -58,9 +58,7 @@ const DetailsMain = () => {
                       <img
                         width={150}
                         className="object-fill w-full h-full aspect-video"
-                        src={`https://samaan-images.s3.ap-south-1.amazonaws.com/${Data[
-                          "img_path"
-                        ].substring(2)}`}
+                        src={`${Data["img_path"]}`}
                         alt={"category"}
                       />
                     ) : (
