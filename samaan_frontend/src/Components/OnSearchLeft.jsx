@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./OnSearchLeft.css";
 const OnSearchLeft = ({data,filterFunction}) => {
   const [FilterToggle, setFilterToggle] = useState();
-  const [Sort, setSort] = useState(false);
+  // const [Sort, setSort] = useState(false);
   // const [brandfilter, setbrandfilter] = useState(null);
   const handleFilterClick = () => {
     setFilterToggle(!FilterToggle);
@@ -24,13 +24,13 @@ const OnSearchLeft = ({data,filterFunction}) => {
       setFilterToggle(false);
     }
   }, []);
-  const handleSortClick = (e) => {
-    setSort(!Sort);
-    console.log(Sort);
-  };
+  // const handleSortClick = (e) => {
+  //   setSort(!Sort);
+  //   console.log(Sort);
+  // };
   return (
     <div className="LeftOuter" style={{ position: "sticky" }}>
-      <div
+      {/* <div
         className={Sort ? "FilterButton SortActive" : "FilterButton"}
         style={FilterToggle ? { display: "none" } : { display: "inline-flex" }}
         onClick={handleSortClick}
@@ -61,7 +61,7 @@ const OnSearchLeft = ({data,filterFunction}) => {
           </g>
         </svg>
         Sort
-      </div>
+      </div> */}
       <div
         className="FilterButton"
         style={FilterToggle ? { display: "none" } : { display: "inline-flex" }}
@@ -97,7 +97,7 @@ const OnSearchLeft = ({data,filterFunction}) => {
         style={FilterToggle ? { display: "inline" } : { display: "none" }}
       >
         <div className="FilterHeaderDiv">
-          <div
+          {/* <div
             className={Sort ? "FilterButton SortActive" : "FilterButton"}
             style={
               FilterToggle ? { display: "inline-flex" } : { display: "none" }
@@ -130,7 +130,7 @@ const OnSearchLeft = ({data,filterFunction}) => {
               </g>
             </svg>
             Sort
-          </div>
+          </div> */}
           <h1 className="FilterHeading">Filters</h1>
           <div className="FilterClose" onClick={handleFilterClick}>
             <svg
@@ -190,7 +190,6 @@ const OnSearchLeft = ({data,filterFunction}) => {
             </div> */}
           </div>
         </div>
-        <div className="ApplyNow">Apply</div>
       </div>
     </div>
   );

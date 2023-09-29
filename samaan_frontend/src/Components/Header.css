@@ -303,6 +303,49 @@ html {
     display: visible;
 }
 
+.Profilesvg{
+    position: relative;
+}
+
+.PopOverUser{
+    position: absolute;
+    background-color: white;
+    top: 60px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    z-index: 11;
+    border-radius: 10px;
+}
+
+.PopOverUser>ul{
+    margin: 0 0;
+    padding: 10px 10px;
+}
+
+.PopoverLine{
+    padding: 3px 5px;
+    margin: 0 0;
+    border-radius: 3px;
+}
+
+.PopoverLine>a{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.UserNamePopOver>p{
+    padding: 5px 5px;
+    font-size: large;
+    font-weight: 700;
+}
+
+.PopoverLine:hover{
+
+    background-color: #FDE047;
+}
+
 @media screen and (max-width:1024px) {
     .Mobile{
         display: flex;
@@ -310,6 +353,11 @@ html {
 
     .Laptop{
         display: none;
+    }
+
+    .PopOverUser{
+        top: 50px;
+        right: 5px;
     }
 
     .Navbar{

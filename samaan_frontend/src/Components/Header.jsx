@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
-import './Header.css'
-import Logo from './Logo.png'
-import { set } from 'mongoose'
-import productDetails from '../context/productDetails'
-import { Link } from 'react-router-dom'
-
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from "react";
+import "./Header.css";
+import Logo from "./Logo.png";
+import { set } from "mongoose";
+import productDetails from "../context/productDetails";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthContext from '../context/Auth'
 
 const Header = () => {
@@ -26,11 +25,30 @@ const Header = () => {
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
+  const PopoverDiv = useRef(null);
+  const popoverRef = useRef(null);
+  const [popover, setpopover] = useState(false);
+  const [ToggleOn, setToggleOn] = useState(false);
+  const [showoptions, setshowoptions] = useState(false);
+  const [lis, setlis] = useState([]);
+  const product_data = React.useContext(productDetails);
+  const [searchbardata, setsearchbardata] = useState(lis);
+  const [clickedonCategory, setclickedoncategory] = useState(false);
+  const [hoverOn, sethoverOn] = useState(false);
+  const [Data, setData] = useState();
+  const navigate = useNavigate();
+  const fetchdata = async () => {
+    //api-krudra9125-gmailcom.vercel.app/api/products/
+    https: await fetch(
+      "https://api-krudra9125-gmailcom.vercel.app/api/searchbarData/"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
 
         setlis(data);
-
-          })
-          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
 
         // setlis(product_data.product_data?.map((item) => { return item.name.toLowerCase() }));
     };
@@ -64,79 +82,106 @@ const Header = () => {
 
     }, []);
 
-    const [activeCategory, setActiveCategory] = useState(null);
-    const ToggleDiv = useRef(null)
-    const searchbardataonchange = (e) => {
-        if (e.length <= 0) {
-            setshowoptions(false)
-        }
-        else {
-            setshowoptions(true)
-            console.log(showoptions)
-            setsearchbardata(lis?.filter((item) => { if (item.name.toLowerCase().includes(e)) { return true } else { return false } }))
-        }
+  const [activeCategory, setActiveCategory] = useState(null);
+  const ToggleDiv = useRef(null);
+  const searchbardataonchange = (e) => {
+    if (e.length <= 0) {
+      setshowoptions(false);
+    } else {
+      setshowoptions(true);
+      console.log(showoptions);
+      setsearchbardata(
+        lis?.filter((item) => {
+          if (item.name.toLowerCase().includes(e)) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      );
     }
-    const ToggleOnOff = () => {
-        if (ToggleDiv.current) {
-            const currentDisplay = ToggleDiv.current.style.display;
-            ToggleDiv.current.style.display = currentDisplay === 'flex' ? 'none' : 'flex';
-        }
-        setToggleOn(!ToggleOn)
+  };
+  const ToggleOnOff = () => {
+    if (ToggleDiv.current) {
+      const currentDisplay = ToggleDiv.current.style.display;
+      ToggleDiv.current.style.display =
+        currentDisplay === "flex" ? "none" : "flex";
+    }
+    setToggleOn(!ToggleOn);
+  };
+
+  const handleCategoryHover = (index) => {
+    sethoverOn(true);
+    setActiveCategory(index);
+  };
+
+  const handleCategoryLeave = () => {
+    sethoverOn(false);
+    if (clickedonCategory === false) {
+      setActiveCategory(null);
+    }
+  };
+
+  const handleSubMenuHover = (index) => {
+    sethoverOn(true);
+    setActiveCategory(index);
+  };
+
+  const handleWindowResize = () => {
+    if (ToggleDiv.current) {
+      ToggleDiv.current.style.display = "none";
+      setToggleOn(false);
+    }
+    const windowWidth = window.innerWidth;
+    ToggleDiv.current.style.display = windowWidth > 1024 ? "block" : "none";
+  };
+
+  const handleClickHeaderAnchor = (index, e) => {
+    e.preventDefault();
+    setActiveCategory(index);
+    setclickedoncategory(!clickedonCategory);
+  };
+
+  // const handleClickSubmenu = (index) => {
+  //     setActiveCategory(index);
+  // }
+
+  const handleCategoryBlur = () => {
+    setclickedoncategory(false);
+    setActiveCategory(null);
+  };
+
+  const hadleblur = () => {
+    setpopover(false);
+  };
+
+  const handlePopOver = () => {
+    setpopover(!popover);
+  };
+
+  useEffect(() => {
+    // Add event listener for window resize
+    window.addEventListener("resize", handleWindowResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (popoverRef.current && !popoverRef.current.contains(event.target) && PopoverDiv.current && !PopoverDiv.current.contains(event.target)) {
+        setpopover(false);
+      }
     }
 
-    const handleCategoryHover = (index) => {
-        sethoverOn(true)
-        setActiveCategory(index);
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
     };
-
-    const handleCategoryLeave = () => {
-        sethoverOn(false)
-        if (clickedonCategory === false) {
-            setActiveCategory(null);
-        }
-    };
-
-    const handleSubMenuHover = (index) => {
-        sethoverOn(true)
-        setActiveCategory(index);
-    };
-
-    const handleWindowResize = () => {
-        if (ToggleDiv.current) {
-            ToggleDiv.current.style.display = 'none';
-            setToggleOn(false)
-        }
-        const windowWidth = window.innerWidth;
-        ToggleDiv.current.style.display = windowWidth > 1024 ? 'block' : 'none';
-
-    };
-
-    const handleClickHeaderAnchor = (index, e) => {
-        e.preventDefault()
-        setActiveCategory(index)
-        setclickedoncategory(!clickedonCategory)
-    }
-
-    // const handleClickSubmenu = (index) => {
-    //     setActiveCategory(index);
-    // }
-
-    const handleCategoryBlur = () =>{
-        setclickedoncategory(false)
-        setActiveCategory(null)
-    }
-
-    useEffect(() => {
-        // Add event listener for window resize
-        window.addEventListener('resize', handleWindowResize);
-
-        // Clean up the event listener when the component unmounts
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    }, []);
-    console.log(activeCategory||hoverOn)
-
+  }, []);
+  console.log(activeCategory || hoverOn);
 
     return (
         <header className='Navbar'>
@@ -215,7 +260,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="UpperLastDiv VCenter-flex">
-                <p>{userdetails?`Welcome,${userdetails["name"]}`:""}</p>
+                   
                     <div style={{ height: '50%', border: ' 1px solid black' }} className="Laptop"></div>
                     <div className="flex items-center justify-center ProfileDiv VCenter-flex">
 
@@ -227,7 +272,6 @@ const Header = () => {
 
                     </div>
                     <div className=" CartDiv VCenter-flex">
-                      
                         <a href="/" className="CartLink VCenter-flex ">
                             <p className="NavImageWrapper bg-yellow-300  rounded-2xl CartContent   w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out  VCenter-flex">
                                 <svg className=" laptop active:w-[27px] active:h-[27px] " width="28px" height="28px" viewBox="0 0 24 24" fill="none"
@@ -237,165 +281,391 @@ const Header = () => {
                                         stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
 
-                                {/* <span className="Laptop">Cart</span> */}
-                            </p>
-                        </a>
-                    </div>
-                </div>
+                {/* <span className="Laptop">Cart</span> */}
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="LowerNav Laptop" id="ToggleM" ref={ToggleDiv}>
+        <ul className="MenuBannerUl VCenter-flex">
+          <li
+            className="MenuBannerLi"
+            id="First"
+            onMouseEnter={() => handleCategoryHover(0)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 0 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(0, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">
+                Vegetables & Fruits
+              </p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Second"
+            onMouseEnter={() => handleCategoryHover(1)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 1 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(1, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">
+                Dairy & Breakfast
+              </p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Third"
+            onMouseEnter={() => handleCategoryHover(2)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 2 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(2, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">Munchies</p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Fourth"
+            onMouseEnter={() => handleCategoryHover(3)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 3 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(3, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">Bevrages</p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Fifth"
+            onMouseEnter={() => handleCategoryHover(4)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 4 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(4, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">
+                Instant Foods
+              </p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Sixth"
+            onMouseEnter={() => handleCategoryHover(5)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 5 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(5, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">Biscuits</p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Seventh"
+            onMouseEnter={() => handleCategoryHover(6)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 6 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(6, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">Sweet Tooth</p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Eighth"
+            onMouseEnter={() => handleCategoryHover(7)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 7 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(7, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">
+                Spreads & Sauces
+              </p>
+            </a>
+          </li>
+          <li
+            className="MenuBannerLi"
+            id="Ninth"
+            onMouseEnter={() => handleCategoryHover(8)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 8 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(8, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">Electronics</p>
+            </a>
+          </li>
+        </ul>
+        <ul
+          className="MenuBannerHoverDisplayUl"
+          style={{ display: clickedonCategory || hoverOn ? "block" : "none" }}
+        >
+          <li
+            className={`First MenuBannerDisplayLi SubMenu ${
+              activeCategory === 0 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(0)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv">
+              <img
+                src="./Assets/category_logos/vegetables.webp"
+                alt="test"
+                srcset=""
+              />
             </div>
-            <div className="LowerNav Laptop" id="ToggleM" ref={ToggleDiv}>
-                <ul className="MenuBannerUl VCenter-flex">
-                    <li className="MenuBannerLi" id="First" onMouseEnter={() => handleCategoryHover(0)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 0 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(0, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Vegetables & Fruits</p>
-                        </a></li>
-                    <li className="MenuBannerLi" id="Second" onMouseEnter={() => handleCategoryHover(1)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 1 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(1, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Dairy & Breakfast</p>
-                        </a></li>
-                    <li className="MenuBannerLi" id="Third" onMouseEnter={() => handleCategoryHover(2)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 2 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(2, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Munchies</p>
-                        </a>
-                    </li>
-                    <li className="MenuBannerLi" id="Fourth" onMouseEnter={() => handleCategoryHover(3)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 3 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(3, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Bevrages</p>
-                        </a></li>
-                    <li className="MenuBannerLi" id="Fifth" onMouseEnter={() => handleCategoryHover(4)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 4 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(4, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Instant Foods</p>
-                        </a></li>
-                    <li className="MenuBannerLi" id="Sixth" onMouseEnter={() => handleCategoryHover(5)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 5 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(5, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Biscuits</p>
-                        </a></li>
-                    <li className="MenuBannerLi" id="Seventh" onMouseEnter={() => handleCategoryHover(6)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 6 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(6, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Sweet Tooth</p>
-                        </a>
-                    </li>
-                    <li className="MenuBannerLi" id="Eighth" onMouseEnter={() => handleCategoryHover(7)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 7 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(7, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Spreads & Sauces</p>
-                        </a>
-                    </li>
-                    <li className="MenuBannerLi" id="Ninth" onMouseEnter={() => handleCategoryHover(8)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <a href="" className={`${activeCategory === 8 ? 'activeCate' : ''} HoverEffectLink MenuBannerLink`} onClick={(e) => handleClickHeaderAnchor(8, e)} onBlur={handleCategoryBlur}>
-                            <p className="HoverEffectLinkPara MenuBannerPara">Electronics</p>
-                        </a></li>
-
-                </ul>
-                <ul className="MenuBannerHoverDisplayUl" style={{display:(clickedonCategory || hoverOn)?'block':'none'}}>
-                    <li className={`First MenuBannerDisplayLi SubMenu ${activeCategory === 0 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(0)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-                            <img src="./Assets/category_logos/vegetables.webp" alt="test" srcset="" />
-                        </div>
-                    </li>
-                    <li className={`Second MenuBannerDisplayLi SubMenu ${activeCategory === 1 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(1)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-                            <img src="./Assets/category_logos/breakfast.webp" alt="test" srcset="" />
-                            <img src="./Assets/category_logos/dairy.webp" alt="test" srcset="" />
-
-                        </div>
-                    </li>
-                    <li className={`Third MenuBannerDisplayLi SubMenu ${activeCategory === 2 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(2)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-                            <img src="./Assets/category_logos/chips.webp" alt="test" srcset="" />
-
-                        </div>
-                    </li>
-                    <li className={`Fourth MenuBannerDisplayLi SubMenu ${activeCategory === 3 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(3)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-                            <img src="./Assets/category_logos/colddrinks.webp" alt="test" srcset="" />
-                            <img src="./Assets/category_logos/hotdrinks.webp" alt="test" srcset="" />
-                        </div>
-                    </li>
-                    <li className={`Fifth MenuBannerDisplayLi SubMenu ${activeCategory === 4 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(4)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-
-                        </div>
-                    </li>
-                    <li className={`Sixth MenuBannerDisplayLi SubMenu ${activeCategory === 5 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(5)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-
-                        </div>
-                    </li>
-                    <li className={`Seventh MenuBannerDisplayLi SubMenu ${activeCategory === 6 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(6)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-                            <img src="./Assets/category_logos/sweet tooth.webp" alt="test" srcset="" />
-
-                        </div>
-                    </li>
-                    <li className={`Eighth MenuBannerDisplayLi SubMenu ${activeCategory === 7 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(7)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Men Footwear</li>
-                                <li className="DisplayLi"><a href=""> Sports Shoes</a></li>
-                                <li className="DisplayLi"><a href="">Casual Shoes</a></li>
-                                <li className="DisplayLi"><a href="">Formal Shoes</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Men Footwear</li>
-                                <li className="DisplayLi"><a href=""> Sports Shoes</a></li>
-                                <li className="DisplayLi"><a href="">Casual Shoes</a></li>
-                                <li className="DisplayLi"><a href="">Formal Shoes</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Men Footwear</li>
-                                <li className="DisplayLi"><a href=""> Sports Shoes</a></li>
-                                <li className="DisplayLi"><a href="">Casual Shoes</a></li>
-                                <li className="DisplayLi"><a href="">Formal Shoes</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li className={`Ninth MenuBannerDisplayLi SubMenu ${activeCategory === 8 ? 'active' : ''}`} onMouseEnter={() => handleSubMenuHover(8)}
-                        onMouseLeave={handleCategoryLeave}>
-                        <div className="MenuBannerDisplayLiDiv">
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Mobile & Accessories</li>
-                                <li className="DisplayLi"><a href=""> All Mobile & Accessories</a></li>
-                                <li className="DisplayLi"><a href="">Smartwatches</a></li>
-                                <li className="DisplayLi"> <a href="">Mobile Holders</a></li>
-                                <li className="DisplayLi"><a href="">Mobile cases and covers</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Mobile & Accessories</li>
-                                <li className="DisplayLi"><a href=""> All Mobile & Accessories</a></li>
-                                <li className="DisplayLi"><a href="">Smartwatches</a></li>
-                                <li className="DisplayLi"> <a href="">Mobile Holders</a></li>
-                                <li className="DisplayLi"><a href="">Mobile cases and covers</a></li>
-                            </ul>
-                            <ul className="DisplayUl">
-                                <li className="DisplayLi HeaderLi">Mobile & Accessories</li>
-                                <li className="DisplayLi"><a href=""> All Mobile & Accessories</a></li>
-                                <li className="DisplayLi"><a href="">Smartwatches</a></li>
-                                <li className="DisplayLi"> <a href="">Mobile Holders</a></li>
-                                <li className="DisplayLi"><a href="">Mobile cases and covers</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+          </li>
+          <li
+            className={`Second MenuBannerDisplayLi SubMenu ${
+              activeCategory === 1 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(1)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv">
+              <img
+                src="./Assets/category_logos/breakfast.webp"
+                alt="test"
+                srcset=""
+              />
+              <img
+                src="./Assets/category_logos/dairy.webp"
+                alt="test"
+                srcset=""
+              />
             </div>
-        </header>
-    )
-}
+          </li>
+          <li
+            className={`Third MenuBannerDisplayLi SubMenu ${
+              activeCategory === 2 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(2)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv">
+              <img
+                src="./Assets/category_logos/chips.webp"
+                alt="test"
+                srcset=""
+              />
+            </div>
+          </li>
+          <li
+            className={`Fourth MenuBannerDisplayLi SubMenu ${
+              activeCategory === 3 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(3)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv">
+              <img
+                src="./Assets/category_logos/colddrinks.webp"
+                alt="test"
+                srcset=""
+              />
+              <img
+                src="./Assets/category_logos/hotdrinks.webp"
+                alt="test"
+                srcset=""
+              />
+            </div>
+          </li>
+          <li
+            className={`Fifth MenuBannerDisplayLi SubMenu ${
+              activeCategory === 4 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(4)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv"></div>
+          </li>
+          <li
+            className={`Sixth MenuBannerDisplayLi SubMenu ${
+              activeCategory === 5 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(5)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv"></div>
+          </li>
+          <li
+            className={`Seventh MenuBannerDisplayLi SubMenu ${
+              activeCategory === 6 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(6)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv">
+              <img
+                src="./Assets/category_logos/sweet tooth.webp"
+                alt="test"
+                srcset=""
+              />
+            </div>
+          </li>
+          <li
+            className={`Eighth MenuBannerDisplayLi SubMenu ${
+              activeCategory === 7 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(7)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv">
+              <ul className="DisplayUl">
+                <li className="DisplayLi HeaderLi">Men Footwear</li>
+                <li className="DisplayLi">
+                  <a href=""> Sports Shoes</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Casual Shoes</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Formal Shoes</a>
+                </li>
+              </ul>
+              <ul className="DisplayUl">
+                <li className="DisplayLi HeaderLi">Men Footwear</li>
+                <li className="DisplayLi">
+                  <a href=""> Sports Shoes</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Casual Shoes</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Formal Shoes</a>
+                </li>
+              </ul>
+              <ul className="DisplayUl">
+                <li className="DisplayLi HeaderLi">Men Footwear</li>
+                <li className="DisplayLi">
+                  <a href=""> Sports Shoes</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Casual Shoes</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Formal Shoes</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li
+            className={`Ninth MenuBannerDisplayLi SubMenu ${
+              activeCategory === 8 ? "active" : ""
+            }`}
+            onMouseEnter={() => handleSubMenuHover(8)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <div className="MenuBannerDisplayLiDiv">
+              <ul className="DisplayUl">
+                <li className="DisplayLi HeaderLi">Mobile & Accessories</li>
+                <li className="DisplayLi">
+                  <a href=""> All Mobile & Accessories</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Smartwatches</a>
+                </li>
+                <li className="DisplayLi">
+                  {" "}
+                  <a href="">Mobile Holders</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Mobile cases and covers</a>
+                </li>
+              </ul>
+              <ul className="DisplayUl">
+                <li className="DisplayLi HeaderLi">Mobile & Accessories</li>
+                <li className="DisplayLi">
+                  <a href=""> All Mobile & Accessories</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Smartwatches</a>
+                </li>
+                <li className="DisplayLi">
+                  {" "}
+                  <a href="">Mobile Holders</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Mobile cases and covers</a>
+                </li>
+              </ul>
+              <ul className="DisplayUl">
+                <li className="DisplayLi HeaderLi">Mobile & Accessories</li>
+                <li className="DisplayLi">
+                  <a href=""> All Mobile & Accessories</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Smartwatches</a>
+                </li>
+                <li className="DisplayLi">
+                  {" "}
+                  <a href="">Mobile Holders</a>
+                </li>
+                <li className="DisplayLi">
+                  <a href="">Mobile cases and covers</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+  );
+};
 
-export default Header
+export default Header;
