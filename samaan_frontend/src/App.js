@@ -41,10 +41,10 @@ const App = () => {
       <productDetails.Provider value={{product_data}}>
       <div className="  w-[100%] h-[100vh]   ">
         <div className="w-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center min-h-fit   ">
-          <div className=" w-[100%]  md:min-h-[8rem]  z-10 " >
+          <div className=" w-[100%]  md:min-h-[8rem] top-0 fixed  z-10 " >
             <Header />
           </div>
-
+        <div className="w-[100%] h-[80vh] "  >
        <Routes>
         <Route  path='/' element={
    
@@ -58,10 +58,10 @@ const App = () => {
 
        
       </Routes>
-      <div className=" w-[100%] min-h-[15rem]  " >
+      <div className=" w-[100%] min-h-[15rem]   " >
             <Footer />
           </div>
-       
+          </div>
         </div>
       </div>
       </productDetails.Provider>

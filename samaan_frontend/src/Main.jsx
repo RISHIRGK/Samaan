@@ -1,17 +1,15 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import Header from "./Components/Header";
+import React, {  useLayoutEffect } from "react";
+
 import DOD from "./Components/DOD";
 import Carousel from "./Components/Carousel";
 import "./App.css";
 import "./loader.css"
-import axios from "axios";
-import ProductCard from "./Components/ProductCard";
+
 import { IoIosArrowForward } from "react-icons/io";
 // import mongoose, { connect } from "mongoose";
-import Categories from "./Components/Categories";
-import Footer from "./Components/Footer";
+
 import ProductsDiv from "./Components/ProductsDiv";
-import productDetails from "./context/productDetails";
+
 
 function App() {
 const [product_data, setproduct_data] = React.useState(null); 
@@ -32,13 +30,13 @@ const [product_data, setproduct_data] = React.useState(null);
 
   return (
    
-          <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center min-h-fit " >
-          <div className=" w-[100%] md:min-h-[32rem]   " >
+          <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center mt-[8rem]  overflow-scroll  " >
+          <div className=" w-[100%]   " >
             <Carousel />
           </div>
           
 
-          <div className=" w-[100%] min-h-[27rem]  flex justify-center items-center " >
+          <div className=" w-[100%] md:min-h-[27rem]   flex justify-center items-center " >
           {product_data?  <div
               id="products"
               className="  w-[100%]   flex flex-col gap-4  justify-between items-start  "
