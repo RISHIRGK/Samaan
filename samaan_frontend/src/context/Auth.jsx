@@ -8,36 +8,67 @@ export default AuthContext;
 
 export const AuthProvider = ({children}) => {
 
-    let [user, setUser] = useState(() => (localStorage.getItem('user') ? jwtDecode(localStorage.getItem('user')) : null))
+    let [user, setUser] = useState(() => (localStorage.getItem('userAuthToken') ? jwtDecode(JSON.parse(localStorage.getItem('userAuthToken'))["access"])  : null))
     let [authTokens, setAuthTokens] = useState(() => (localStorage.getItem('userAuthToken') ? JSON.parse(localStorage.getItem('userAuthToken')) : null))
     let [loading, setLoading] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const navigate = useNavigate()
 
     let loginUser = async (e) => {
-        e.preventDefault()
-        const response = await fetch('https://trakky.in:8000/api/token/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({username: e.target.username.value, password: e.target.password.value })
-        });
-        if(response.status === 401){
-            alert('Invalid Credentials')
-            return
-        }
+        e.preventDefault() 
+        const  email=e.target[0].value
+        const password=e.target[1].value
+        const response =await fetch('https://api-krudra9125-gmailcom.vercel.app/api/login/',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({email:email,password:password})
+        })
+     
         let data = await response.json();
-        
-        if(data){
-            localStorage.setItem('userAuthToken', JSON.stringify(data));
-            setAuthTokens(data)
-            setUser(jwtDecode(data.access))
+        console.log(data)
+        if(data["message"]){
+            console.log("from 201 status",data["token"])
+            localStorage.setItem('userAuthToken', JSON.stringify(data["token"]));
+            setAuthTokens(data["token"])
+            console.log("from 201 status",jwtDecode(data["token"]["access"]))
+            setUser(jwtDecode(data["token"]["access"]))
             setIsAuthenticated(true)
             navigate('/',{replace:true})
         } else {
-            alert('Something went wrong while logging in the user!')
+            alert('invalid credentials')
         }
+    }
+    let signupuser = async (e) => {
+        e.preventDefault()
+        const email=e.target[0].value
+        const name=e.target[1].value
+        const address=e.target[4].value
+        const password=e.target[2].value
+        const password2=e.target[3].value
+        if(password===password2)
+        {
+            fetch('https://api-krudra9125-gmailcom.vercel.app/api/register/',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({email:email,password:password,password2:password,tc:"True",name:name,address:address})
+            }).then(res=>res.json()).then(data=>{
+                if(data["message"]){
+                    console.log("from 201 status",data["token"])
+                    localStorage.setItem('userAuthToken', JSON.stringify(data["token"]));
+                    setAuthTokens(data["token"])
+                    console.log("from 201 status",jwtDecode(data["token"]["access"]))
+                    setUser(jwtDecode(data["token"]["access"]))
+                    setIsAuthenticated(true)
+                    navigate('/',{replace:true})
+                } 
+            else{
+                alert('EMAIL aleready exist')
+            } 
+            })
+            }
+            else{
+            alert('PASSWORD DOES NOT MATCH')
+            }
     }
 
     let logoutUser = useCallback(() => {
@@ -45,14 +76,14 @@ export const AuthProvider = ({children}) => {
         localStorage.removeItem('userAuthToken')
         setAuthTokens(null)
         setUser(null)
-        navigate('/',{replace:true})
         setIsAuthenticated(false)
+        navigate('/',{replace:true})
     },[navigate])
 
     const updateToken = useCallback(async () => {
 
         // console.log(authTokens)
-        const response = await fetch('https://trakky.in:8000/api/token/refresh/', {
+        const response = await fetch('https://api-krudra9125-gmailcom.vercel.app/api/refreshtoken/', {
             method: 'POST',
             headers: {
                 'Content-Type':'application/json'
@@ -62,13 +93,13 @@ export const AuthProvider = ({children}) => {
        
         const data = await response.json()
         if (response.status === 200) {
-            // console.log(data)
-            setAuthTokens({...authTokens, access:data.access})
+            console.log("update token ",data)
+            setAuthTokens(data)
             setUser(jwtDecode(data.access))
             setIsAuthenticated(true)
-            localStorage.setItem('salonVendorAuthTokens',JSON.stringify({...authTokens, access:data.access}))
+            localStorage.setItem('userAuthToken',JSON.stringify(data))
         } else {
-            logoutUser()
+            // logoutUser()
         }
 
         if(loading){
@@ -82,23 +113,32 @@ export const AuthProvider = ({children}) => {
         loginUser:loginUser,
         logoutUser:logoutUser,
         isAuthenticated: isAuthenticated,
+        signupuser:signupuser,
         // vendor: vendor
     }
 
     useEffect(()=>{
-        const REFRESH_INTERVAL = 1000 * 60 * 15 // 15 minutes
+
+        if(loading)
+        {
+            updateToken()
+        }
+        else{
+
+        const REFRESH_INTERVAL = 1000 * 60 * 4 // 15 minutes
         let interval = setInterval(()=>{
             if(authTokens){
                 updateToken()
             }
         }, REFRESH_INTERVAL)
         return () => clearInterval(interval)
+    }
 
     },[authTokens, loading , updateToken])
 
     return(
         <AuthContext.Provider value={contextData}>
-            {children}
+            {loading?null:children}
         </AuthContext.Provider>
     )
 }

@@ -18,12 +18,15 @@ import Footer from "./Components/Footer";
 import ProductsDiv from "./Components/ProductsDiv";
 import Cart from "./Components/Cart";
 import productDetails from "./context/productDetails";
+import { AuthProvider } from "./context/Auth";
 import Home from "./Home";
 const App = () => {
   const [user, setUser] = React.useState(null);
 
   return (
     <div className="  w-[100%] h-[100vh]   ">
+      <AuthProvider>
+        
       <Routes>
         <Route to="/" element={<Main />}>
           <Route path="/" element={<Home />} />
@@ -33,6 +36,7 @@ const App = () => {
         <Route path="/signupuser" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      </AuthProvider>
     </div>
   );
 };

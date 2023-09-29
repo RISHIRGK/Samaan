@@ -1,6 +1,7 @@
-import React ,{useState}from 'react'
-
+import React ,{useState,useContext}from 'react'
+import AuthContext from '../../context/Auth'
 const Signupform = () =>{ 
+  const {loginUser,signupuser}=useContext(AuthContext)
   const [loginform, setloginform] = React.useState(false)
   const [forgotpasswordform, setforgotpasswordform] = React.useState(false)
   const [password, setpassword] = React.useState('')
@@ -95,14 +96,14 @@ const Signupform = () =>{
           {loginform?<div className="w-[100%] h-[21rem] flex justify-center items-center ">
             <div className="w-[80%] h-[21rem] flex justify-center items-center flex-col ">
               {!forgotpasswordform?(<div>
-                <form onSubmit={handlelogin} >
+                <form onSubmit={loginUser} >
               <div className="w-[100%] h-[4rem] flex justify-center items-center ">
                 <input className='w-[80%] h-[3rem] border border-black rounded-xl pl-2' type="text" required={true} pattern='[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' placeholder='Email' />
               </div>
               <div className="w-[100%] h-[4rem] flex justify-center items-center ">
                 <input className='w-[80%] h-[3rem] border border-black rounded-xl pl-2' type="text" placeholder='Password' required={true}  />
               </div>
-              <div onClick={()=>{setforgotpasswordform(true)}} className=' cursor-pointer flex justify-center ' >
+              <div onClick={()=>{setforgotpasswordform(true)}} className='flex justify-center cursor-pointer ' >
                 <p >Forgot Password?</p>
               </div>
               <div className="w-[100%] h-[4rem] flex justify-center items-center ">
@@ -122,7 +123,7 @@ const Signupform = () =>{
             </div>
             </div>:(<div className="w-[100%] h-[21rem] flex justify-center items-center ">
             <div className="w-[80%] h-[21rem] flex justify-center items-center flex-col ">
-              <form  onSubmit={handlesignup} >
+              <form  onSubmit={signupuser} >
               <div className="w-[100%] h-[3rem] flex justify-center items-center ">
                 <input className='w-[80%] h-[2.5rem] border border-black rounded-lg pl-2' type="email" placeholder='Email' required={true} pattern='[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' />
                 </div>

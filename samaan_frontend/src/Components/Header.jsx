@@ -6,9 +6,12 @@ import productDetails from '../context/productDetails'
 import { Link } from 'react-router-dom'
 
 import { useNavigate } from 'react-router-dom'
+import AuthContext from '../context/Auth'
 
 const Header = () => {
+    const {authTokens}=React.useContext(AuthContext)
     const [ToggleOn, setToggleOn] = useState(false)
+    const [userdetails,setuserdetails]=useState()
     const [showoptions, setshowoptions] = useState(false)
     const [lis, setlis] = useState([])
     const product_data = React.useContext(productDetails)
@@ -18,7 +21,7 @@ const Header = () => {
     const [Data, setData] = useState()
     const navigate = useNavigate()
     const fetchdata = async () => {
-        https://api-krudra9125-gmailcom.vercel.app/api/products/
+        // https://api-krudra9125-gmailcom.vercel.app/api/products/
         await fetch("https://api-krudra9125-gmailcom.vercel.app/api/searchbarData/") 
           .then((res) => res.json())
           .then((data) => {
@@ -31,6 +34,30 @@ const Header = () => {
 
         // setlis(product_data.product_data?.map((item) => { return item.name.toLowerCase() }));
     };
+    const fetchuserdetails=async()=>{
+        await fetch("https://api-krudra9125-gmailcom.vercel.app/api/userDetails/",
+        {
+            method:'GET',
+            headers:{'Content-Type':'application/json',
+            authorization:`Bearer ${authTokens["access"]}`,
+        },
+            
+        }
+        ) 
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+
+      setuserdetails(data);
+
+        })
+        .catch((err) => console.log(err));
+
+    }
+    React.useEffect(()=>{
+        console.log("auth tokens",authTokens)
+        if(authTokens!==null){ fetchuserdetails()}
+    },[authTokens])
     React.useEffect(() => {
 
         fetchdata();
@@ -188,7 +215,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="UpperLastDiv VCenter-flex">
-                   
+                <p>{userdetails?`Welcome,${userdetails["name"]}`:""}</p>
                     <div style={{ height: '50%', border: ' 1px solid black' }} className="Laptop"></div>
                     <div className="flex items-center justify-center ProfileDiv VCenter-flex">
 
@@ -200,6 +227,7 @@ const Header = () => {
 
                     </div>
                     <div className=" CartDiv VCenter-flex">
+                      
                         <a href="/" className="CartLink VCenter-flex ">
                             <p className="NavImageWrapper bg-yellow-300  rounded-2xl CartContent   w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out  VCenter-flex">
                                 <svg className=" laptop active:w-[27px] active:h-[27px] " width="28px" height="28px" viewBox="0 0 24 24" fill="none"
