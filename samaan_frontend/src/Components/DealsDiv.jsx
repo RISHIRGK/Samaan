@@ -7,21 +7,47 @@ import "swiper/css";
 // import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-
+import CartContext from '../context/CartContext';
+import AuthContext from '../context/Auth';
 
 const DealsDiv = ({category}) => {
   const [swiper, setSwiper] = React.useState(null); 
-
-
     const [data, setdata] = React.useState();
+    const { authTokens} = React.useContext(AuthContext);
   const fetchdata = async () => {
-    await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/${category}`)
+    if(authTokens)
+    {
+      console.log("catogary with authtoken")
+    await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/${category}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens["access"]}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setdata(data);
       })    
       .catch((err) => console.log(err));
+    }
+    else{
+      await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/${category}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setdata(data);
+      })    
+      .catch((err) => console.log(err));
+    }
       
   };
   React.useLayoutEffect(() => {
@@ -81,6 +107,7 @@ const DealsDiv = ({category}) => {
                 weight={item.weight}
                 category={item.category}
                 productId={item.id}
+                cartquantity={item.quantity}
 
              />
          

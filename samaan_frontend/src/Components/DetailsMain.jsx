@@ -1,15 +1,34 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-
+import AuthContext from "../context/Auth";
 import "./DetailsMain.css";
-
+import { useNavigate } from "react-router-dom";
 const DetailsMain = () => {
   const { id } = useParams();
+  const { authTokens } = React.useContext(AuthContext);
   const [PinCode, setPinCode] = useState("400020");
   const [EditState, setEditState] = useState(false);
   const [Data, setdata] = React.useState();
   const [quantity, setquantity] = React.useState(0);
-
+  const navigate = useNavigate();
+  const changequantaty=async(q)=>{
+    if(authTokens && Data){
+        const response = await fetch(
+          "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${authTokens["access"]}`,
+            },
+            body:JSON.stringify({product:Data["id"],quantity:q})
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+       
+      };
+}
   const handleEditState = () => {
     setEditState(!EditState);
   };
@@ -19,13 +38,36 @@ const DetailsMain = () => {
   };
 
   const fetchdata = async () => {
-    await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/product/${id}`)
+    if (authTokens) {
+    await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/product/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authTokens["access"]}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setdata(data);
+        setquantity(data["quantity"])
       })
       .catch((err) => console.log(err));
+    }
+    else{ 
+
+      await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/product/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setdata(data);
+        setquantity(data["quantity"])
+        
+      })
+      .catch((err) => console.log(err));
+    }
+    
   };
   React.useLayoutEffect(() => {
     fetchdata();
@@ -76,8 +118,10 @@ const DetailsMain = () => {
                         onClick={() => {
                           if (quantity > 0) {
                             setquantity(quantity - 1);
+                            changequantaty(-1);
                           } else {
                             setquantity(0);
+                            
                           }
                         }}
                       >
@@ -93,6 +137,7 @@ const DetailsMain = () => {
                         className="bg-yellow-300  text-center font-[900] text-green-800  rounded-full cursor-pointer QuantityIcon "
                         onClick={() => {
                           setquantity(quantity + 1);
+                          changequantaty(1);
                         }}
                       >
                         +
@@ -102,9 +147,9 @@ const DetailsMain = () => {
                 ) : (
                   <button
                     className="w-[7rem] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold  AddToCartButton"
-                    onClick={() => {
-                      setquantity(quantity + 1);
-                    }}
+                    onClick={()=>{ if (authTokens){ setquantity(quantity+1);changequantaty(1)}else{
+                      navigate("/signupuser")
+                    }}  }
                   >
                     {" "}
                     Add to cart

@@ -1,8 +1,31 @@
 import React from 'react'
 import  "../input.css"
 import { Link } from 'react-router-dom'
-const ProductCard = ({productId,imgSrc,name,price,weight,category}) => {
-  const [quantity, setquantity] = React.useState(0)
+import AuthContext from '../context/Auth'
+import { useNavigate } from 'react-router-dom'
+const ProductCard = ({cartquantity,productId,imgSrc,name,price,weight,category}) => {
+  const [quantity, setquantity] = React.useState(cartquantity!==undefined?cartquantity:0)
+  // console.log("quantity",quantity,"name",name)
+  const {authTokens}=React.useContext(AuthContext)
+  const navigate=useNavigate()
+  const changequantaty=async(q)=>{
+      if(authTokens["access"]){
+          const response = await fetch(
+            "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authTokens["access"]}`,
+              },
+              body:JSON.stringify({product:productId,quantity:q})
+            }
+          );
+          const data = await response.json();
+          console.log(data);
+         
+        };
+  }
   return (
     <div>
    
@@ -45,7 +68,7 @@ const ProductCard = ({productId,imgSrc,name,price,weight,category}) => {
             <div className='w-[33.33%] h-[100%]' >
             <div className='bg-white w-[1.7rem] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer ' onClick={()=>{
               if(quantity>0)
-             { setquantity(quantity-1)}
+             { setquantity(quantity-1) ; changequantaty(-1)}
              else{
             setquantity(0)
              }
@@ -53,11 +76,13 @@ const ProductCard = ({productId,imgSrc,name,price,weight,category}) => {
             <div className='w-[33.33%] h-[100%]flex justify-center items-center text-center' >  {quantity}</div>
             <div className='w-[33.33%] h-[100%] '  >
             <div className='bg-white w-[1.7em] h-[1.7rem] text-center font-[900] text-green-800  rounded-full cursor-pointer ' onClick={()=>{
-               setquantity(quantity+1)}
+               setquantity(quantity+1) ; changequantaty(1)}
             
             }  >+</div></div>
             
-          </div>:<button className="w-[70%] h-[90%]  shadow-md rounded-md bg-white text-green-800 text-xs font-bold " onClick={()=>{setquantity(quantity+1)}} > ADD</button>}
+          </div>:<button className="w-[70%] h-[90%]  shadow-md rounded-md bg-white text-green-800 text-xs font-bold " onClick={()=>{ if (authTokens){ setquantity(quantity+1);changequantaty(1)}else{
+            navigate("/signupuser")
+          }}  } > ADD</button>}
 
         </div>
       </div>

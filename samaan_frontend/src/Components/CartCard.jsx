@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./CartCard.css";
 import logo from "./Test.png";
-const CartCard = () => {
+const CartCard = ({Quantity,imagsrc,name,price}) => {
   const [QuantityEditState, setQuantityEditState] = useState(false);
-  const [quantity, setquantity] = useState(2)
+  const [quantity, setquantity] = useState(Quantity)
   const handleQuantityEdit = () => {
     setQuantityEditState(!QuantityEditState);
   };
@@ -14,14 +14,14 @@ const CartCard = () => {
     <div className="CartCardOuter">
       <div className="CartCardWrapper">
         <div className="ImageCart">
-          <img src={logo} alt="" srcset="" />
+          <img src={imagsrc} alt="" srcset="" />
         </div>
         <div className="CartDetails">
           <div className="ProductNameCart">
-            <h3>Product Name</h3>
+            <h3>{name}</h3>
           </div>
           <div className="PriceCart">
-            <p>230</p>
+            <p>{price*quantity}</p>
           </div>
           <div className="QuantityCart">
             <p
@@ -29,7 +29,7 @@ const CartCard = () => {
                 QuantityEditState ? { display: "flex" } : { display: "none" }
               }
             >
-              <input type="number" value={quantity}  onChange={handleQuantityChange} style={{padding:'0 5px'}} />
+              <input type="number" value={Quantity}  onChange={handleQuantityChange} style={{padding:'0 5px'}} />
             </p>
             <p
               style={

@@ -1,4 +1,4 @@
-"use client"
+
 import React from 'react'
 import ProductCard from './ProductCard'
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,21 +9,48 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import productDetails from '../context/productDetails'
+import AuthContext from '../context/Auth';
 const DOD = () => {
   const [swiper, setSwiper] = React.useState(null);
-  
+  const { authTokens} = React.useContext(AuthContext);
   const product_data=React.useContext(productDetails)
     const [data, setdata] = React.useState();
-  const fetchdata = async () => {
-    await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/sauce")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setdata(data);
+    const fetchdata = async () => {
+      if(authTokens)
+      {
+        console.log("catogary with authtoken")
+      await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/chocolate`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens["access"]}`,
+        },
       })
-      .catch((err) => console.log(err));
-     
-  };
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setdata(data);
+        })    
+        .catch((err) => console.log(err));
+      }
+      else{
+        await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/products/chocolate`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setdata(data);
+        })    
+        .catch((err) => console.log(err));
+      }
+        
+    };
   // const handleSlideChangeTransitionEnd = () => {
   //   if (swiper) {
   //     swiper.autoplay.start();
@@ -87,6 +114,7 @@ const DOD = () => {
                     category={item.category}
                     className="mx-auto "
                     productId={item.id}
+                    cartquantity={item.quantity}
 
                     />
          </SwiperSlide>

@@ -19,18 +19,18 @@ import ProductsDiv from "./Components/ProductsDiv";
 import productDetails from "./context/productDetails";
 const Home = () => {
   const [product_data, setproduct_data] = React.useState(null);
-  useLayoutEffect(() => {
-    const fetchdata = async () => {
-      await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setproduct_data(data);
-        })
-        .catch((err) => console.log(err));
-    };
-    fetchdata();
-  }, []);
+  // useLayoutEffect(() => {
+  //   const fetchdata = async () => {
+  //     await fetch("https://api-krudra9125-gmailcom.vercel.app/api/products/")
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         setproduct_data(data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   };
+  //   // fetchdata();
+  // }, []);
   return (
     <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center mt-[8rem]  overflow-scroll  ">
       <div className=" w-[100%]    ">
@@ -38,7 +38,7 @@ const Home = () => {
       </div>
 
       <div className=" w-[100%] md:min-h-[27rem]   flex justify-center items-center ">
-        {product_data ? (
+      
           <div
             id="products"
             className="  w-[100%]   flex flex-col gap-4  justify-between items-start  "
@@ -60,31 +60,22 @@ const Home = () => {
               <DOD />
             </div>
           </div>
-        ) : (
-          <span class="loader">SAMAAN.COM</span>
-        )}
+       
+        
       </div>
 
-      {product_data ? (
+       
         <ProductsDiv title={"Dairy,Bread&Eggs"} Category="dairy" />
-      ) : (
-        <span class="loader">SAMAAN.COM</span>
-      )}
-      {product_data ? (
+      
+     
         <ProductsDiv title={"biscuts"} Category="biscuts" />
-      ) : (
-        <span class="loader">SAMAAN.COM</span>
-      )}
-      {product_data ? (
+     
+     
         <ProductsDiv title={"namkeen"} Category="namkeen" />
-      ) : (
-        <span class="loader">SAMAAN.COM</span>
-      )}
-      {product_data ? (
+     
+     
         <ProductsDiv title={"Munchies"} Category="snacks" />
-      ) : (
-        <span class="loader">SAMAAN.COM</span>
-      )}
+     
     </div>
   );
 };

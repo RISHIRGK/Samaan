@@ -231,7 +231,9 @@ const Header = () => {
           </button>
         </div>
         <div className="LogoDiv VCenter-flex">
+          <Link to="/" >
           <img src={Logo} className=" w-[22rem] " alt="" srcSet="" />
+          </Link>
         </div>
         <div className="relative SearchDiv VCenter-flex Laptop">
           <div className="SearchBar ">
@@ -384,6 +386,7 @@ const Header = () => {
             if(userdetails)
             {
                 navigate("/cart")
+                window.location.reload()
             
             }
         

@@ -18,25 +18,51 @@ import Footer from "./Components/Footer";
 import ProductsDiv from "./Components/ProductsDiv";
 import Cart from "./Components/Cart";
 import productDetails from "./context/productDetails";
-import { AuthProvider } from "./context/Auth";
+import AuthContext from "./context/Auth";
+
+import CartContext from './context/CartContext';
+
 import Home from "./Home";
 const App = () => {
   const [user, setUser] = React.useState(null);
+  const [cart,setCart]=React.useState([])
+  const { authTokens} = React.useContext(AuthContext);
+  const fetchCart = async () => {
+    if(authTokens){
+    const response = await fetch(
+      "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens["access"]}`,
+        },
+      }
+    );
+    const data = await response.json();
+    console.log("cartfrom context fetch ",data);
+    setCart(data);
+  };
 
+}
+  React.useEffect(() => {
+    fetchCart();
+  }, [authTokens]);
   return (
     <div className="  w-[100%] h-[100vh]   ">
-      <AuthProvider>
-        
+
+        <CartContext.Provider value={cart}>
       <Routes>
         <Route to="/" element={<Main />}>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<DetailsMain />} />
           <Route path="/onsearch/:id" element={<OnSearch />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/signupuser" element={<Signup />} />
-        <Route path="/cart" element={<Cart />} />
+      
       </Routes>
-      </AuthProvider>
+    </CartContext.Provider>
     </div>
   );
 };

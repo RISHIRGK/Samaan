@@ -17,6 +17,7 @@ import Categories from "./Components/Categories";
 import Footer from "./Components/Footer";
 import ProductsDiv from "./Components/ProductsDiv";
 import productDetails from "./context/productDetails";
+import Cart from "./Components/Cart";
 import Home from "./Home";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<DetailsMain />} />
           <Route path="/onsearch/:id" element={<OnSearch />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <div className=" w-[100%] min-h-[15rem]   ">
           <Footer />
