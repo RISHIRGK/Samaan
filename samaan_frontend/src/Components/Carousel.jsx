@@ -23,7 +23,7 @@ const Carousel = () => {
     //     }, 1000);
     // },[Index])
   return (
-    <div className='CarouselWrapper  w-[100%] h-[28rem]  overflow-hidden   '>
+    <div className='CarouselWrapper  w-[100%] md:h-[28rem]  overflow-hidden   '>
        <Splide options ={ {
     type         : 'loop',
     gap          : '1rem',

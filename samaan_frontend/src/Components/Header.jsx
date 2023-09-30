@@ -5,13 +5,13 @@ import { set } from "mongoose";
 import productDetails from "../context/productDetails";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import AuthContext from '../context/Auth'
+import AuthContext from "../context/Auth";
 
 const Header = () => {
-    const {authTokens,logoutUser}=React.useContext(AuthContext)
-   
-    const [userdetails,setuserdetails]=useState()
-    const PopoverDiv = useRef(null);
+  const { authTokens, logoutUser } = React.useContext(AuthContext);
+
+  const [userdetails, setuserdetails] = useState();
+  const PopoverDiv = useRef(null);
   const popoverRef = useRef(null);
   const [popover, setpopover] = useState(false);
   const [ToggleOn, setToggleOn] = useState(false);
@@ -23,13 +23,10 @@ const Header = () => {
   const [hoverOn, sethoverOn] = useState(false);
   const [Data, setData] = useState();
   const navigate = useNavigate();
-  
-  
+
   const fetchdata = async () => {
     //api-krudra9125-gmailcom.vercel.app/api/products/
-     await fetch(
-      "https://api-krudra9125-gmailcom.vercel.app/api/searchbarData/"
-    )
+    await fetch("https://api-krudra9125-gmailcom.vercel.app/api/searchbarData/")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -38,37 +35,33 @@ const Header = () => {
       })
       .catch((err) => console.log(err));
 
-        // setlis(product_data.product_data?.map((item) => { return item.name.toLowerCase() }));
-    };
-    const fetchuserdetails=async()=>{
-        await fetch("https://api-krudra9125-gmailcom.vercel.app/api/userDetails/",
-        {
-            method:'GET',
-            headers:{'Content-Type':'application/json',
-            authorization:`Bearer ${authTokens["access"]}`,
-        },
-            
-        }
-        ) 
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+    // setlis(product_data.product_data?.map((item) => { return item.name.toLowerCase() }));
+  };
+  const fetchuserdetails = async () => {
+    await fetch("https://api-krudra9125-gmailcom.vercel.app/api/userDetails/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${authTokens["access"]}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
 
-      setuserdetails(data);
-
-        })
-        .catch((err) => console.log(err));
-
+        setuserdetails(data);
+      })
+      .catch((err) => console.log(err));
+  };
+  React.useEffect(() => {
+    console.log("auth tokens", authTokens);
+    if (authTokens !== null) {
+      fetchuserdetails();
     }
-    React.useEffect(()=>{
-        console.log("auth tokens",authTokens)
-        if(authTokens!==null){ fetchuserdetails()}
-    },[authTokens])
-    React.useEffect(() => {
-
-        fetchdata();
-
-    }, []);
+  }, [authTokens]);
+  React.useEffect(() => {
+    fetchdata();
+  }, []);
 
   const [activeCategory, setActiveCategory] = useState(null);
   const ToggleDiv = useRef(null);
@@ -159,7 +152,12 @@ const Header = () => {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (popoverRef.current && !popoverRef.current.contains(event.target) && PopoverDiv.current && !PopoverDiv.current.contains(event.target)) {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target) &&
+        PopoverDiv.current &&
+        !PopoverDiv.current.contains(event.target)
+      ) {
         setpopover(false);
       }
     }
@@ -171,8 +169,8 @@ const Header = () => {
   }, []);
   console.log(activeCategory || hoverOn);
 
-    return (
-        <header className="Navbar">
+  return (
+    <header className="Navbar">
       <div className="UpperNav VCenter-flex">
         <div className="ToggleIconDiv VCenter-flex Mobile">
           <button className="ToggleButton VCenter-flex" onClick={ToggleOnOff}>
@@ -231,8 +229,8 @@ const Header = () => {
           </button>
         </div>
         <div className="LogoDiv VCenter-flex">
-          <Link to="/" >
-          <img src={Logo} className=" w-[22rem] " alt="" srcSet="" />
+          <Link to="/">
+            <img src={Logo} className=" w-[22rem] " alt="" srcSet="" />
           </Link>
         </div>
         <div className="relative SearchDiv VCenter-flex Laptop">
@@ -309,16 +307,27 @@ const Header = () => {
           </div>
         </div>
         <div className="UpperLastDiv VCenter-flex">
-
-        {userdetails?<p>{authTokens?`Welcome,${userdetails["name"]}`:""}</p>:
-        <div className= "bg-yellow-300 w-[7rem] h-[3rem] rounded-xl text-center flex justify-center items-center font-[700] " onClick={()=>{navigate("/signupuser")}} ><p>Login/signup</p></div>}
+          {userdetails ? (
+            <p>{authTokens ? `Welcome,${userdetails["name"]}` : ""}</p>
+          ) : (
+            <div
+              className="bg-yellow-300 w-[7rem] h-[3rem] rounded-xl text-center flex justify-center items-center font-[700] "
+              onClick={() => {
+                navigate("/signupuser");
+              }}
+            >
+              <p>Login/signup</p>
+            </div>
+          )}
           <div
             style={{ height: "50%", border: " 1px solid black" }}
             className="Laptop"
           ></div>
           <div className="flex items-center justify-center ProfileDiv VCenter-flex">
             <div
-              className={`NavImageWrapper Profilesvg bg-yellow-300 rounded-2xl  w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out ${userdetails?"flex":"hidden"} justify-center items-center cursor-pointer `}
+              className={`NavImageWrapper Profilesvg bg-yellow-300 rounded-2xl  w-[3rem] h-[3rem]  hover:shadow-md transition-all duration-500  ease-in-out ${
+                userdetails ? "flex" : "hidden"
+              } justify-center items-center cursor-pointer `}
               onClick={handlePopOver}
               onBlur={hadleblur}
               ref={popoverRef}
@@ -337,14 +346,17 @@ const Header = () => {
               ref={PopoverDiv}
             >
               <ul>
-                <li className="UserNamePopOver"  >
-                  <p>{userdetails?`${userdetails["name"]}`:""}</p>
+                <li className="UserNamePopOver">
+                  <p>{userdetails ? `${userdetails["name"]}` : ""}</p>
                 </li>
+
                 <li className="PopoverLine">
-                  <a href="">Change Password</a>
-                </li>
-                <li className="PopoverLine">
-                  <div onClick={()=>{logoutUser();  window.location.reload()}}>
+                  <div
+                    onClick={() => {
+                      logoutUser();
+                      window.location.reload();
+                    }}
+                  >
                     <svg
                       width="10px"
                       height="10px"
@@ -381,18 +393,15 @@ const Header = () => {
               </ul>
             </div>
           </div>
-          <div className=" CartDiv VCenter-flex"
-            onClick={()=>{
-            if(userdetails)
-            {
-                navigate("/cart")
-                window.location.reload()
-            
-            }
-        
-            else{
-                navigate("/signupuser")
-            }
+          <div
+            className=" CartDiv VCenter-flex"
+            onClick={() => {
+              if (userdetails) {
+                navigate("/cart");
+                window.location.reload();
+              } else {
+                navigate("/signupuser");
+              }
             }}
           >
             <a className="CartLink VCenter-flex ">
@@ -422,6 +431,23 @@ const Header = () => {
       </div>
       <div className="LowerNav Laptop" id="ToggleM" ref={ToggleDiv}>
         <ul className="MenuBannerUl VCenter-flex">
+        <li
+            className="MenuBannerLi"
+            id="Third"
+            onMouseEnter={() => handleCategoryHover(2)}
+            onMouseLeave={handleCategoryLeave}
+          >
+            <a
+              href=""
+              className={`${
+                activeCategory === 2 ? "activeCate" : ""
+              } HoverEffectLink MenuBannerLink`}
+              onClick={(e) => handleClickHeaderAnchor(2, e)}
+              onBlur={handleCategoryBlur}
+            >
+              <p className="HoverEffectLinkPara MenuBannerPara">Munchies</p>
+            </a>
+          </li> 
           <li
             className="MenuBannerLi"
             id="First"
@@ -460,23 +486,7 @@ const Header = () => {
               </p>
             </a>
           </li>
-          <li
-            className="MenuBannerLi"
-            id="Third"
-            onMouseEnter={() => handleCategoryHover(2)}
-            onMouseLeave={handleCategoryLeave}
-          >
-            <a
-              href=""
-              className={`${
-                activeCategory === 2 ? "activeCate" : ""
-              } HoverEffectLink MenuBannerLink`}
-              onClick={(e) => handleClickHeaderAnchor(2, e)}
-              onBlur={handleCategoryBlur}
-            >
-              <p className="HoverEffectLinkPara MenuBannerPara">Munchies</p>
-            </a>
-          </li>
+          
           <li
             className="MenuBannerLi"
             id="Fourth"
@@ -547,7 +557,7 @@ const Header = () => {
               <p className="HoverEffectLinkPara MenuBannerPara">Sweet Tooth</p>
             </a>
           </li>
-          <li
+          {/* <li
             className="MenuBannerLi"
             id="Eighth"
             onMouseEnter={() => handleCategoryHover(7)}
@@ -565,8 +575,8 @@ const Header = () => {
                 Spreads & Sauces
               </p>
             </a>
-          </li>
-          <li
+          </li> */}
+          {/* <li
             className="MenuBannerLi"
             id="Ninth"
             onMouseEnter={() => handleCategoryHover(8)}
@@ -582,7 +592,7 @@ const Header = () => {
             >
               <p className="HoverEffectLinkPara MenuBannerPara">Electronics</p>
             </a>
-          </li>
+          </li> */}
         </ul>
         <ul
           className="MenuBannerHoverDisplayUl"
@@ -799,5 +809,5 @@ const Header = () => {
       </div>
     </header>
   );
-        };
+};
 export default Header;
