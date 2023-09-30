@@ -497,7 +497,7 @@ const Header = () => {
               <p className="HoverEffectLinkPara MenuBannerPara">Sweet Tooth</p>
             </a>
           </li>
-          <li
+          {/* <li
             className="MenuBannerLi"
             id="Eighth"
             onMouseEnter={() => handleCategoryHover(7)}
@@ -515,7 +515,7 @@ const Header = () => {
                 Spreads & Sauces
               </p>
             </a>
-          </li>
+          </li> */}
           <li
             className="MenuBannerLi"
             id="Ninth"
