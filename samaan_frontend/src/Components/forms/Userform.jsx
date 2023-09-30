@@ -1,6 +1,6 @@
 import React ,{useState,useContext}from 'react'
 import AuthContext from '../../context/Auth'
-const Signupform = () =>{ 
+const Userform = () =>{ 
   const {loginUser,signupuser}=useContext(AuthContext)
   const [loginform, setloginform] = React.useState(false)
   const [forgotpasswordform, setforgotpasswordform] = React.useState(false)
@@ -162,4 +162,4 @@ const Signupform = () =>{
   );
 }
 
-export default Signupform
+export default Userform

@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Main from "./Main";
-import Signup from "./Components/forms/Signupform";
+import Signup from "./Components/forms/Userform";
 import OnSearch from "./Components/OnSearch";
 import DetailsMain from "./Components/DetailsMain";
 import Header from "./Components/Header";
