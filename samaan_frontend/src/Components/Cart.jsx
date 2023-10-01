@@ -3,6 +3,7 @@ import CartCard from "./CartCard";
 import "./Cart.css";
 import AuthContext from "../context/Auth";
 import { set } from "mongoose";
+import { SkeletonCart } from "./Skeletons/Skeletons";
 const Cart = () => {
   const { authTokens} = React.useContext(AuthContext);
   const [cartdata, setCartdata] = React.useState([]);
@@ -26,6 +27,7 @@ const Cart = () => {
 
 }
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     fetchCart();
   }, []);
   React.useEffect(() => {
@@ -49,7 +51,10 @@ const Cart = () => {
             {cartdata.length!==0?cartdata.map((item) => {
              
               return (<CartCard name={item["product"]["name"]} price={item["product"]["price"]}   imagsrc={item["product"]["img_path"]} Quantity={item["quantity"]} />);
-            }):<p className="text-2xl font-bold">No Selected Items</p>}
+            }):[1,1,1,1,1].map((item) => {
+                                         
+              return <SkeletonCart/>
+            }                                                                                                           )}          
           </div>
         </div>
         <div className="SubtotalOuter">

@@ -70,6 +70,8 @@ const DetailsMain = () => {
     
   };
   React.useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    
     fetchdata();
   }, [id]);
 
