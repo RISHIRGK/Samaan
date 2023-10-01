@@ -26,7 +26,7 @@ function App() {
       <div className=" w-[100%]  md:min-h-[8rem] top-0 fixed  z-10 ">
         <Header />
       </div>
-      <div className="w-[100%] h-[80vh] ">
+      <div className="w-[100%]  ">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<DetailsMain />} />

@@ -82,9 +82,9 @@ const DetailsMain = () => {
               <div className="ProductNameHeader mobileProduct" style={{padding:'10px 10px'}}>
                 <h3>{Data ? Data["name"] : ""}</h3>
               </div>
-              <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap mobileProduct" style={{padding:'5px 10px'}}>
+              <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap" style={{padding:'5px 10px'}}>
                 <div
-                  className="w-[100%] ProductPriceDiv"
+                  className="w-[100%] ProductPriceDiv mobileProduct"
                   style={{ marginLeft: "5px" }}
                 >
                   <span className="ProductPrice">
@@ -146,7 +146,7 @@ const DetailsMain = () => {
                   </div>
                 ) : (
                   <button
-                    className="w-[7rem] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold  AddToCartButton"
+                    className="w-[100%] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold  AddToCartButton"
                     onClick={()=>{ if (authTokens){ setquantity(quantity+1);changequantaty(1)}else{
                       navigate("/signupuser")
                     }}  }
@@ -164,7 +164,7 @@ const DetailsMain = () => {
               </div>
               <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap laptopProduct">
                 <div
-                  className="w-[100%] ProductPriceDiv"
+                  className="w-[100%] ProductPriceDiv laptopProduct"
                   style={{ marginLeft: "5px" }}
                 >
                   <span className="ProductPrice">

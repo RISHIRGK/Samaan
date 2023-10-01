@@ -311,7 +311,7 @@ const Header = () => {
             <p>{authTokens ? `Welcome,${userdetails["name"]}` : ""}</p>
           ) : (
             <div
-              className="bg-yellow-300 w-[7rem] h-[3rem] rounded-xl text-center flex justify-center items-center font-[700] "
+              className="bg-yellow-300 hover:shadow-md w-[7rem] h-[3rem]  transition-all duration-500  rounded-xl text-center flex justify-center items-center font-[700] cursor-pointer"
               onClick={() => {
                 navigate("/signupuser");
               }}

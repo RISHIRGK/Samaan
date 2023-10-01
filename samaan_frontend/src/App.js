@@ -23,6 +23,7 @@ import AuthContext from "./context/Auth";
 import CartContext from './context/CartContext';
 
 import Home from "./Home";
+import ForgetPass from "./Components/forms/ForgetPass";
 const App = () => {
   const [user, setUser] = React.useState(null);
   const [cart,setCart]=React.useState([])
