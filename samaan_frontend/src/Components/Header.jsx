@@ -17,7 +17,7 @@ const Header = () => {
   const [ToggleOn, setToggleOn] = useState(false);
   const [showoptions, setshowoptions] = useState(false);
   const [lis, setlis] = useState([]);
-  const product_data = React.useContext(productDetails);
+ 
   const [searchbardata, setsearchbardata] = useState(lis);
   const [clickedonCategory, setclickedoncategory] = useState(false);
   const [hoverOn, sethoverOn] = useState(false);
@@ -397,7 +397,7 @@ const Header = () => {
             onClick={() => {
               if (userdetails) {
                 navigate("/cart");
-                window.location.reload();
+              
               } else {
                 navigate("/signupuser");
               }
