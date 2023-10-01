@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import CartContext from '../context/CartContext';
 import AuthContext from '../context/Auth';
+import {SkeletonCardTwo} from './Skeletons/Skeletons';
 
 const DealsDiv = ({category}) => {
   const [swiper, setSwiper] = React.useState(null); 
@@ -95,25 +96,30 @@ const DealsDiv = ({category}) => {
       onSwiper={setSwiper}>
 
 
-{
- data?.map((item , id)=>{
-     return(
-         <SwiperSlide  key={id} >
-             <ProductCardTwo
-                key={id}
-                name={item.name}
-                price={item.price}
-                imgSrc={item.img_path}
-                weight={item.weight}
-                category={item.category}
-                productId={item.id}
-                cartquantity={item.quantity}
-
-             />
-         
-         </SwiperSlide>
-     )
- })
+{data?.length > 0 ? 
+  data?.map((item, id) => {
+    return (
+      <SwiperSlide key={id}>
+        <ProductCardTwo
+          key={id}
+          name={item.name}
+          price={item.price}
+          imgSrc={item.img_path}
+          weight={item.weight}
+          category={item.category}
+          productId={item.id}
+          cartquantity={item.quantity}
+        />
+      </SwiperSlide>
+    );
+  }) : 
+  [1, 1, 1, 1, 1, 1, 1, 1].map((item, id) => {
+    return (
+      <SwiperSlide key={id}>
+        <SkeletonCardTwo />
+      </SwiperSlide>
+    );
+  })
 }
 </Swiper>
   )

@@ -17,7 +17,7 @@ const Header = () => {
   const [ToggleOn, setToggleOn] = useState(false);
   const [showoptions, setshowoptions] = useState(false);
   const [lis, setlis] = useState([]);
-  const product_data = React.useContext(productDetails);
+ 
   const [searchbardata, setsearchbardata] = useState(lis);
   const [clickedonCategory, setclickedoncategory] = useState(false);
   const [hoverOn, sethoverOn] = useState(false);
@@ -48,7 +48,6 @@ const Header = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
         setuserdetails(data);
       })
       .catch((err) => console.log(err));
@@ -311,7 +310,7 @@ const Header = () => {
             <p>{authTokens ? `Welcome,${userdetails["name"]}` : ""}</p>
           ) : (
             <div
-              className="bg-yellow-300 w-[7rem] h-[3rem] rounded-xl text-center flex justify-center items-center font-[700] "
+              className="bg-yellow-300 hover:shadow-md w-[7rem] h-[3rem]  transition-all duration-500  rounded-xl text-center flex justify-center items-center font-[700] cursor-pointer"
               onClick={() => {
                 navigate("/signupuser");
               }}
@@ -398,7 +397,7 @@ const Header = () => {
             onClick={() => {
               if (userdetails) {
                 navigate("/cart");
-                window.location.reload();
+              
               } else {
                 navigate("/signupuser");
               }
