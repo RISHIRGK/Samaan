@@ -48,7 +48,6 @@ const Header = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
         setuserdetails(data);
       })
       .catch((err) => console.log(err));

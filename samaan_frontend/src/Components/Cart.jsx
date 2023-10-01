@@ -38,7 +38,7 @@ const Cart = () => {
   }, [cartdata])
 
   return (
-    <div className="w-[100%] min-h-[100vh]">
+    <div className="w-[100%] min-h-[100vh] mt-[8rem]">
       <div className="responsive w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-row justify-start  min-h-fit  ">
         <div className="CartOuter">
           <div className="CartHeader">
@@ -46,10 +46,10 @@ const Cart = () => {
           </div>
           <hr />
           <div className="CartWrapper">
-            {cartdata?.map((item) => {
+            {cartdata.length!==0?cartdata.map((item) => {
              
               return (<CartCard name={item["product"]["name"]} price={item["product"]["price"]}   imagsrc={item["product"]["img_path"]} Quantity={item["quantity"]} />);
-            })}
+            }):<p className="text-2xl font-bold">No Selected Items</p>}
           </div>
         </div>
         <div className="SubtotalOuter">
