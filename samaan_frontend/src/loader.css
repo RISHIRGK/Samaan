@@ -9,7 +9,7 @@
 
   }
   .loader::after {
-    content: 'SAMAAN.COM';
+
     position: absolute;
     left: 0;
     top: 0;

@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, useCallback } from 'react'
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom'
 import "../loader.css"
+import Loader from '../Components/loader/Loader';
 const AuthContext = createContext()
 
 export default AuthContext;
@@ -140,7 +141,7 @@ export const AuthProvider = ({children}) => {
 
     return(
         <AuthContext.Provider value={contextData}>
-            {loading?<div  className='w-[100vw] h-[100vh] flex justify-center items-center '> <span class="loader">SAMAAN.COM</span></div>:children}
+            {loading?<div  className='w-[100vw] h-[100vh] flex justify-center items-center '> <Loader/></div>:children}
         </AuthContext.Provider>
     )
 }
