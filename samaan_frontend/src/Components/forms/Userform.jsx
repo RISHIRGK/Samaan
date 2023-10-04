@@ -159,7 +159,7 @@ const Userform = () => {
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                                 onClick={() => setseepass(!seepass)}
-                                className="cursor-pointer pr-1"
+                                className="pr-1 cursor-pointer"
                               >
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                 <g
@@ -229,7 +229,7 @@ const Userform = () => {
                             setloginform(false);
                             setforgotpasswordform(true);
                           }}
-                          className="underline cursor-pointer font-medium"
+                          className="font-medium underline cursor-pointer"
                           style={{ color: "#FF725E" }}
                         >
                           Click here
@@ -240,7 +240,7 @@ const Userform = () => {
                     <div className="w-[100%] flex flex-col items-center justify-center">
                       <div className="w-[90%] md:w-[70%] flex">
                         <div
-                          className="border border-black rounded-2xl cursor-pointer hover:shadow-lg"
+                          className="border border-black cursor-pointer rounded-2xl hover:shadow-lg"
                           onClick={() => setforgotpasswordform(false)}
                         >
                           <svg
@@ -324,6 +324,7 @@ const Userform = () => {
                         type="email"
                         placeholder="Email"
                         required={true}
+                        name="email"
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                         style={{ borderColor: "#455A64" }}
                       />
@@ -335,6 +336,7 @@ const Userform = () => {
                           type={seepass2 ? "text" : "password"}
                           placeholder="Enter Your Password"
                           required={true}
+                          name="password"
                           onChange={(e) => {
                             setpassword(e.target.value);
                           }}
@@ -349,7 +351,7 @@ const Userform = () => {
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                             onClick={() => setseepass2(!seepass2)}
-                            className="cursor-pointer pr-1"
+                            className="pr-1 cursor-pointer"
                           >
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g
@@ -404,6 +406,8 @@ const Userform = () => {
                           className="w-[100%] h-[100%] rounded-xl outline-none pl-2"
                           type={seepass3 ? "text" : "password"}
                           placeholder="Confirm Password"
+                          name="password2"
+                          
                           required={true}
                           onChange={(e) => {
                             setpassword2(e.target.value);
@@ -419,7 +423,7 @@ const Userform = () => {
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                             onClick={() => setseepass3(!seepass3)}
-                            className="cursor-pointer pr-1"
+                            className="pr-1 cursor-pointer"
                           >
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g
@@ -484,7 +488,7 @@ const Userform = () => {
                               setloginform(true);
                               setforgotpasswordform(false);
                             }}
-                            className="underline cursor-pointer font-medium"
+                            className="font-medium underline cursor-pointer"
                             style={{ color: "#FF725E" }}
                           >
                             login now
@@ -502,6 +506,7 @@ const Userform = () => {
                         type="text"
                         placeholder="Name"
                         required={true}
+                        name="name"
                         pattern="^[a-zA-Z]{4,}$"
                         style={{ borderColor: "#455A64" }}
                       />
@@ -511,6 +516,7 @@ const Userform = () => {
                         className="w-[100%] h-[2.5rem] flex justify-center items-center border border-black pl-2 rounded-lg"
                         placeholder="enter your address"
                         required={true}
+                        name="address"
                         style={{ borderColor: "#455A64" }}
                       ></textarea>
                     </div>
@@ -529,7 +535,7 @@ const Userform = () => {
                           setloginform(true);
                           setforgotpasswordform(false);
                         }}
-                        className="underline cursor-pointer font-medium"
+                        className="font-medium underline cursor-pointer"
                         style={{ color: "#FF725E" }}
                       >
                         login now

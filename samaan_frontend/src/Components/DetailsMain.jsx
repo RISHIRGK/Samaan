@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../context/Auth";
 import "./DetailsMain.css";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { Skeletonprice,SkeletonImage } from "./Skeletons/Skeletons";
+
 import { useNavigate } from "react-router-dom";
 const DetailsMain = () => {
   const { id } = useParams();
@@ -82,7 +86,7 @@ const DetailsMain = () => {
           <div className="DetailsOuter Vflex AroundFlex">
             <div className="ImageWrapperDiv">
               <div className="ProductNameHeader mobileProduct" style={{padding:'10px 10px'}}>
-                <h3>{Data ? Data["name"] : ""}</h3>
+                <h3>{Data ? Data["name"] : "" }</h3>
               </div>
               <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap" style={{padding:'5px 10px'}}>
                 <div
@@ -90,10 +94,11 @@ const DetailsMain = () => {
                   style={{ marginLeft: "5px" }}
                 >
                   <span className="ProductPrice">
-                    {Data ? Data["price"] : ""}
+                    {Data?.price ? Data["price"] :<Skeletonprice/>}
                   </span>
                 </div>
               </div>
+ 
               <div className="DetailsImageDiv">
                 <div className="DetailsImageOuter">
                   <div className="ImageWrap">
@@ -106,7 +111,7 @@ const DetailsMain = () => {
                         alt={"category"}
                       />
                     ) : (
-                      ""
+                     <Skeleton className="rounded-3xl w-[230px] h-[200px] md:w-[360px] md:h-[360px]" />
                     )}{" "}
                   </div>
                 </div>
@@ -162,7 +167,7 @@ const DetailsMain = () => {
 
             <div className="ProductDetailsDiv">
               <div className="ProductNameHeader laptopProduct">
-                <h3>{Data ? Data["name"] : ""}</h3>
+                <h3>{Data ? Data["name"] : <Skeleton  width={60} height={20} />}</h3>
               </div>
               <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap laptopProduct">
                 <div
@@ -170,7 +175,7 @@ const DetailsMain = () => {
                   style={{ marginLeft: "5px" }}
                 >
                   <span className="ProductPrice">
-                    {Data ? Data["price"] : ""}
+                    {Data ? Data["price"] : <Skeleton  width={60} height={20} />}
                   </span>
                 </div>
               </div>
@@ -258,25 +263,25 @@ const DetailsMain = () => {
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">BRAND</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["brand"] : ""}
+                          {Data ? Data["brand"] : <Skeleton  width={60} height={20} />}
                         </div>
                       </div>
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">WEIGHT</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["weight"] : ""}
+                          {Data ? Data["weight"] : <Skeleton  width={60} height={20} />}
                         </div>
                       </div>
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">FLAVOUR</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["flavour"] : ""}
+                          {Data ? Data["flavour"] :  <Skeleton  width={60} height={20} />}
                         </div>
                       </div>
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">CATEGORY</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["category"] : ""}
+                          {Data ? Data["category"] :  <Skeleton  width={60} height={20} />}
                         </div>
                       </div>
                     </div>
