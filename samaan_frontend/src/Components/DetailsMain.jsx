@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../context/Auth";
 import "./DetailsMain.css";
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { Skeletonprice,SkeletonImage } from "./Skeletons/Skeletons";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { Skeletonprice, SkeletonImage } from "./Skeletons/Skeletons";
 
 import { useNavigate } from "react-router-dom";
 const DetailsMain = () => {
@@ -15,24 +15,23 @@ const DetailsMain = () => {
   const [Data, setdata] = React.useState();
   const [quantity, setquantity] = React.useState(0);
   const navigate = useNavigate();
-  const changequantaty=async(q)=>{
-    if(authTokens && Data){
-        const response = await fetch(
-          "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${authTokens["access"]}`,
-            },
-            body:JSON.stringify({product:Data["id"],quantity:q})
-          }
-        );
-        const data = await response.json();
-        console.log(data);
-       
-      };
-}
+  const changequantaty = async (q) => {
+    if (authTokens && Data) {
+      const response = await fetch(
+        "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens["access"]}`,
+          },
+          body: JSON.stringify({ product: Data["id"], quantity: q }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+    }
+  };
   const handleEditState = () => {
     setEditState(!EditState);
   };
@@ -43,39 +42,39 @@ const DetailsMain = () => {
 
   const fetchdata = async () => {
     if (authTokens) {
-    await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/product/${id}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authTokens["access"]}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setdata(data);
-        setquantity(data["quantity"])
-      })
-      .catch((err) => console.log(err));
+      await fetch(
+        `https://api-krudra9125-gmailcom.vercel.app/api/product/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens["access"]}`,
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setdata(data);
+          setquantity(data["quantity"]);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      await fetch(
+        `https://api-krudra9125-gmailcom.vercel.app/api/product/${id}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setdata(data);
+          setquantity(data["quantity"]);
+        })
+        .catch((err) => console.log(err));
     }
-    else{ 
-
-      await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/product/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setdata(data);
-        setquantity(data["quantity"])
-        
-      })
-      .catch((err) => console.log(err));
-    }
-    
   };
   React.useLayoutEffect(() => {
     window.scrollTo(0, 0);
-    
+
     fetchdata();
   }, [id]);
 
@@ -85,37 +84,42 @@ const DetailsMain = () => {
         <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center min-h-fit  ">
           <div className="DetailsOuter Vflex AroundFlex">
             <div className="ImageWrapperDiv">
-              <div className="ProductNameHeader mobileProduct" style={{padding:'10px 10px'}}>
-                <h3>{Data ? Data["name"] : "" }</h3>
+              <div
+                className="ProductNameHeader mobileProduct"
+                style={{ padding: "10px 10px" }}
+              >
+                <h3>{Data ? Data["name"] : ""}</h3>
               </div>
-              <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap" style={{padding:'5px 10px'}}>
+              <div
+                className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap"
+                style={{ padding: "5px 10px" }}
+              >
                 <div
                   className="w-[100%] ProductPriceDiv mobileProduct"
                   style={{ marginLeft: "5px" }}
                 >
                   <span className="ProductPrice">
-                    {Data?.price ? Data["price"] :<Skeletonprice/>}
+                    {Data?.price ? Data["price"] : <Skeletonprice />}
                   </span>
                 </div>
               </div>
- 
-              <div className="DetailsImageDiv">
-                <div className="DetailsImageOuter">
-                  <div className="ImageWrap">
-                    {console.log("this is data", Data)}
-                    {Data ? (
+              {Data ? (
+                <div className="DetailsImageDiv">
+                  <div className="DetailsImageOuter">
+                    <div className="ImageWrap">
+                      {console.log("this is data", Data)}
                       <img
                         width={150}
                         className="object-fill w-full h-full aspect-video"
                         src={`${Data["img_path"]}`}
                         alt={"category"}
                       />
-                    ) : (
-                     <Skeleton className="rounded-3xl w-[230px] h-[200px] md:w-[360px] md:h-[360px]" />
-                    )}{" "}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <Skeleton className="h-[400px] min-w-[300px] w-[100%] rounded-[30px]" />
+              )}{" "}
               <div className="w-[100%] AddToCartWrapper ">
                 {quantity > 0 ? (
                   <div className="w-[8rem] h-[100%] flex justify-center items-center">
@@ -128,7 +132,6 @@ const DetailsMain = () => {
                             changequantaty(-1);
                           } else {
                             setquantity(0);
-                            
                           }
                         }}
                       >
@@ -154,9 +157,14 @@ const DetailsMain = () => {
                 ) : (
                   <button
                     className="w-[100%] h-[90%]  shadow-md rounded-md bg-yellow-300 text-green-800 text-xs font-bold  AddToCartButton"
-                    onClick={()=>{ if (authTokens){ setquantity(quantity+1);changequantaty(1)}else{
-                      navigate("/signupuser")
-                    }}  }
+                    onClick={() => {
+                      if (authTokens) {
+                        setquantity(quantity + 1);
+                        changequantaty(1);
+                      } else {
+                        navigate("/signupuser");
+                      }
+                    }}
                   >
                     {" "}
                     Add to cart
@@ -167,7 +175,9 @@ const DetailsMain = () => {
 
             <div className="ProductDetailsDiv">
               <div className="ProductNameHeader laptopProduct">
-                <h3>{Data ? Data["name"] : <Skeleton  width={60} height={20} />}</h3>
+                <h3>
+                  {Data ? Data["name"] : <Skeleton width={60} height={20} />}
+                </h3>
               </div>
               <div className=" w-[100%] md:w-[50%] flex justify-center items-center flex-col AddGap laptopProduct">
                 <div
@@ -175,7 +185,7 @@ const DetailsMain = () => {
                   style={{ marginLeft: "5px" }}
                 >
                   <span className="ProductPrice">
-                    {Data ? Data["price"] : <Skeleton  width={60} height={20} />}
+                    {Data ? Data["price"] : <Skeleton width={60} height={20} />}
                   </span>
                 </div>
               </div>
@@ -263,25 +273,41 @@ const DetailsMain = () => {
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">BRAND</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["brand"] : <Skeleton  width={60} height={20} />}
+                          {Data ? (
+                            Data["brand"]
+                          ) : (
+                            <Skeleton width={60} height={20} />
+                          )}
                         </div>
                       </div>
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">WEIGHT</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["weight"] : <Skeleton  width={60} height={20} />}
+                          {Data ? (
+                            Data["weight"]
+                          ) : (
+                            <Skeleton width={60} height={20} />
+                          )}
                         </div>
                       </div>
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">FLAVOUR</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["flavour"] :  <Skeleton  width={60} height={20} />}
+                          {Data ? (
+                            Data["flavour"]
+                          ) : (
+                            <Skeleton width={60} height={20} />
+                          )}
                         </div>
                       </div>
                       <div className="ProductTableRow">
                         <div className="ProductTableTd1">CATEGORY</div>
                         <div className="ProductTableTd2">
-                          {Data ? Data["category"] :  <Skeleton  width={60} height={20} />}
+                          {Data ? (
+                            Data["category"]
+                          ) : (
+                            <Skeleton width={60} height={20} />
+                          )}
                         </div>
                       </div>
                     </div>
