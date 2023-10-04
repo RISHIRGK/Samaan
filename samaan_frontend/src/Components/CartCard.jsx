@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import "./CartCard.css";
 import logo from "./Test.png";
-const CartCard = ({Quantity,imagsrc,name,price}) => {
+const CartCard = ({ Quantity, imagsrc, name, price, changequantity }) => {
   const [QuantityEditState, setQuantityEditState] = useState(false);
-  const [quantity, setquantity] = useState(Quantity)
+  const [quantity, setquantity] = useState(Quantity);
+  const [prevQuantity, setprevQuantity] = useState(price * Quantity);
   const handleQuantityEdit = () => {
+    console.log(QuantityEditState);
+    if (QuantityEditState) {
+      console.log(prevQuantity);
+      console.log(price * quantity - prevQuantity);
+      changequantity(price * quantity - prevQuantity);
+      setprevQuantity(price * quantity);
+    }
     setQuantityEditState(!QuantityEditState);
   };
   const handleQuantityChange = (e) => {
-    setquantity(e.target.value)
-  }
+    setquantity(e.target.value);
+  };
   return (
     <div className="CartCardOuter">
       <div className="CartCardWrapper">
@@ -21,7 +29,7 @@ const CartCard = ({Quantity,imagsrc,name,price}) => {
             <h3>{name}</h3>
           </div>
           <div className="PriceCart">
-            <p>{price*quantity}</p>
+            <p>{price * quantity}</p>
           </div>
           <div className="QuantityCart">
             <p
@@ -29,7 +37,12 @@ const CartCard = ({Quantity,imagsrc,name,price}) => {
                 QuantityEditState ? { display: "flex" } : { display: "none" }
               }
             >
-              <input type="number" value={Quantity}  onChange={handleQuantityChange} style={{padding:'0 5px'}} />
+              <input
+                type="number"
+                value={quantity}
+                onChange={handleQuantityChange}
+                style={{ padding: "0 5px" }}
+              />
             </p>
             <p
               style={

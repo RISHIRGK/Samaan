@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./OnSearchLeft.css";
+import Skeleton from "react-loading-skeleton";
 const OnSearchLeft = ({data,filterFunction}) => {
   const [FilterToggle, setFilterToggle] = useState();
   // const [Sort, setSort] = useState(false);
@@ -159,7 +160,7 @@ const OnSearchLeft = ({data,filterFunction}) => {
         <div>
           <h2 className="FilterSubHeading">Brands</h2>
           <div className="form-check">
-            {data?.map((item) => {
+            {data ? data?.map((item) => {
               return(
                 <div className="FilterCheckbox">
                   <input className="form-check-input" type="radio" name='brand' onClick={()=>{
@@ -171,7 +172,11 @@ const OnSearchLeft = ({data,filterFunction}) => {
                 </div>
               )
               
-              })}
+              }): [1,1,1,1,1].map(item => {
+                return(
+                  <Skeleton height='20px' width='100%' className="FilterCheckbox" style={{display:'block'}}/>
+                )}
+              )}
             {/* <div className="FilterCheckbox">
               <input Name="form-check-input" type="checkbox" value="" id="" />
               <label htmlFor="">Brand1</label>
