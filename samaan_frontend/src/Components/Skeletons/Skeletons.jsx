@@ -41,7 +41,7 @@ const SkeletonCart = () => {
         <div className="CartCardOuter">
         <div className="CartCardWrapper">
           <div className="ImageCart">
-            <Skeleton width={160} height={160}   />
+            <Skeleton width={160} height={170}   />
           </div>
           <div className="CartDetails">
             <div className="ProductNameCart">
@@ -64,5 +64,13 @@ const SkeletonCart = () => {
   
     )
 }
+const Skeletonprice = () => {
+    return(<Skeleton  width={40} height={20}  />  )
+}
+const SkeletonImage = () => { 
+    return(
+        <Skeleton width={150} height={150}   />
+    )
+}
 
-export {SkeletonCardTwo,SkeletonCart}
+export {SkeletonCardTwo,SkeletonCart,Skeletonprice,SkeletonImage}

@@ -42,10 +42,10 @@ export const AuthProvider = ({children}) => {
     let signupuser = async (e) => {
         e.preventDefault()
         const email=e.target[0].value
-        const name=e.target[1].value
+        const name=e.target[3].value
         const address=e.target[4].value
-        const password=e.target[2].value
-        const password2=e.target[3].value
+        const password=e.target[1].value
+        const password2=e.target[2].value
         if(password===password2)
         {
             fetch('https://api-krudra9125-gmailcom.vercel.app/api/register/',{
