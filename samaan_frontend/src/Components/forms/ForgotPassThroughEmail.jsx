@@ -1,12 +1,39 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 const ForgetPassThroughEmail = () => {
     const params=useParams()
+    const navigate=useNavigate()
     console.log(params)
   const [loginUser, setloginUser] = useState();
   const [seepass, setseepass] = useState(false);
   const [seepass1, setseepass1] = useState(false);
+  const handlesubmit = async(e) => {
+    e.preventDefault();
+    try {
+      const password=e.target.password.value
+      console.log(password)
+      const response=await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/password-reset-confirm/${params.a}/${params.b}`,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({"password":password})
+      })
+      const data=await response.json()
+      if(data["errors"])
+      {
+        navigate("/signupuser")
+        alert("linked expired please try again")
+      }
+      else{
+        navigate("/signupuser")
+        alert("password changed successfully")
+      }
+    } catch (error) {
+      
+    }
+  };
 
   return (
     <div className="w-[100vw] h-[100vh] flex flex-row justify-center items-center  ">
@@ -26,14 +53,15 @@ const ForgetPassThroughEmail = () => {
                 <h1 className="flex text-3xl font-bold flex-nowrap">Enter New Password</h1>
               </div>
             </div>
-            <form onSubmit={loginUser} className="w-[100%]">
+            <form onSubmit={handlesubmit} className="w-[100%]">
              
               <div className="w-[100%] h-[4rem] flex justify-center items-center ">
                 <div className="w-[100%] h-[3rem] flex items-center border border-black rounded-xl ">
                   <input
                     className="w-[100%] h-[100%] rounded-xl outline-none pl-2"
                     type={seepass1 ? "text" : "password"}
-                    placeholder="Confirm Password"
+                    placeholder="new password"
+                    name="password"
                     required={true}
                   />
                   {seepass1 ? (
