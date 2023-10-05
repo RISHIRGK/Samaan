@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import AuthContext from "../../context/Auth";
-import { Form } from "react-router-dom";
+import { Form,useNavigate } from "react-router-dom";
 const Userform = () => {
+  const navigate = useNavigate();
   const { loginUser, signupuser } = useContext(AuthContext);
   const [loginform, setloginform] = React.useState(false);
   const [forgotpasswordform, setforgotpasswordform] = React.useState(false);
@@ -79,6 +80,8 @@ const Userform = () => {
           alert("user not found");
         } else {
           console.log(data);
+          navigate("/")
+          alert("email sent");
         }
       });
   };
