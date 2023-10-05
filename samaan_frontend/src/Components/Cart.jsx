@@ -5,39 +5,46 @@ import AuthContext from "../context/Auth";
 import { set } from "mongoose";
 import { SkeletonCart } from "./Skeletons/Skeletons";
 const Cart = () => {
-  const { authTokens} = React.useContext(AuthContext);
+  const { authTokens } = React.useContext(AuthContext);
   const [cartdata, setCartdata] = React.useState([]);
-  const [total,setTotal] = React.useState(0)
+  const [FetchState, setFetchState] = React.useState(false);
+  const [total, setTotal] = React.useState(0);
   const fetchCart = async () => {
-    if(authTokens){
-    const response = await fetch(
-      "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authTokens["access"]}`,
-        },
-      }
-    );
-    const data = await response.json();
-
-    setCartdata(data);
+    if (authTokens) {
+      const response = await fetch(
+        "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens["access"]}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setFetchState(true);
+      setCartdata(data);
+    }
   };
-
-}
   React.useEffect(() => {
     window.scrollTo(0, 0);
     fetchCart();
   }, []);
   React.useEffect(() => {
-    let sum = 0
-    cartdata?.map((item)=>{
-      sum = sum + (item["product"]["price"]*item["quantity"])
-      return null
-    })
-    setTotal(sum)
-  }, [cartdata])
+    let sum = 0;
+    cartdata?.map((item) => {
+      console.log(sum,item["product"]["price"],item["quantity"]);
+      sum = sum + item["product"]["price"] * item["quantity"];
+      return null;
+    });
+    console.log(sum);
+    setTotal(sum);
+  }, [cartdata]);
+
+  const changeSubtotal = (value)=>{
+    const newtotal = total + value
+    setTotal(newtotal)
+  }
 
   return (
     <div className="w-[100%] min-h-[100vh] mt-[8rem]">
@@ -48,13 +55,27 @@ const Cart = () => {
           </div>
           <hr />
           <div className="CartWrapper">
-            {cartdata.length!==0?cartdata.map((item) => {
-             
-              return (<CartCard name={item["product"]["name"]} price={item["product"]["price"]}   imagsrc={item["product"]["img_path"]} Quantity={item["quantity"]} />);
-            }):[1,1,1,1,1].map((item) => {
-                                         
-              return <SkeletonCart/>
-            }                                                                                                           )}          
+            {FetchState ? (
+              cartdata.length !== 0 ? (
+                cartdata.map((item) => {
+                  return (
+                    <CartCard
+                      name={item["product"]["name"]}
+                      price={item["product"]["price"]}
+                      imagsrc={item["product"]["img_path"]}
+                      Quantity={item["quantity"]}
+                      changequantity = {changeSubtotal}
+                    />
+                  );
+                })
+              ) : (
+                <h1 style={{fontSize:'xx-large'}}>No Items Added</h1>
+              )
+            ) : (
+              [1, 1, 1, 1, 1].map((item) => {
+                return <SkeletonCart />;
+              })
+            )}
           </div>
         </div>
         <div className="SubtotalOuter">
@@ -64,9 +85,7 @@ const Cart = () => {
                 Subtotal : <span>{total}</span>
               </p>
             </div>
-            <button>
-                Proceed To Buy
-            </button>
+            <button>Proceed To Buy</button>
           </div>
         </div>
       </div>
