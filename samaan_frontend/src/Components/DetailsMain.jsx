@@ -7,13 +7,19 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Skeletonprice, SkeletonImage } from "./Skeletons/Skeletons";
 
 import { useNavigate } from "react-router-dom";
+import UserReviews from "./UserReviews";
 const DetailsMain = () => {
   const { id } = useParams();
   const { authTokens } = React.useContext(AuthContext);
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
   const [PinCode, setPinCode] = useState("400020");
   const [EditState, setEditState] = useState(false);
   const [Data, setdata] = React.useState();
   const [quantity, setquantity] = React.useState(0);
+  const [AvgRating, setAgRating] = React.useState(3);
+  const [AddReviewState,setAddReviewState] = React.useState(false)
+  const [ReviewText,setReviewText] = React.useState()
   const navigate = useNavigate();
   const changequantaty = async (q) => {
     if (authTokens && Data) {
@@ -77,6 +83,15 @@ const DetailsMain = () => {
 
     fetchdata();
   }, [id]);
+
+  const handleAddReview = (e) => {
+    e.preventDefault();
+    if (AddReviewState){
+      // write add review code
+      
+    }
+    setAddReviewState(!AddReviewState)
+  }
 
   return (
     <div>
@@ -326,20 +341,77 @@ const DetailsMain = () => {
                   itaque dicta pariatur dolore, earum blanditiis nesciunt, cum
                   dignissimos quae neque labore consequatur explicabo impedit
                   laudantium recusandae numquam accusantium nihil vitae, facere
-                  similique ipsum! Accusantium, itaque nostrum quae autem illum
-                  ipsa rerum ullam aspernatur sapiente necessitatibus! Labore
-                  quas expedita sint reiciendis itaque eaque explicabo.
-                  Consectetur aperiam debitis, accusamus aspernatur est natus
-                  omnis accusantium, tempora nam quibusdam soluta?
                 </p>
               </div>
             </div>
           </div>
-          {/* <div className="RatingsDiv">
+          <div className="RatingsDiv">
             <div className="RatingsWrap">
-              <h1 className="RatingsHeader">Ratings & Reviews</h1>
+              <div className="RatingsStarDivWrap">
+                <div className="RatigsStars">
+                  <h1 className="H1Ratings CustomerHeader">Ratings & Reviews</h1>
+                  <h1 className="AverageStars">4.8</h1>
+                  <div>
+                    {[...Array(5)].map((star, index) => {
+                      index += 1;
+                      return (
+                        <button
+                          type="button"
+                          key={index}
+                          className={
+                            index <= AvgRating
+                              ? "StarButton on"
+                              : "StarButton off"
+                          }
+                        >
+                          <span className="star">&#9733;</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="writeReview">
+                    <h1>Write a Review</h1>
+                    <p>Help others make an informed decision!</p>
+                    <div className="UserTakingReview">
+                      {[...Array(5)].map((star, index) => {
+                        index += 1;
+                        return (
+                          <button
+                            type="button"
+                            key={index}
+                            className={
+                              index <= (hover || rating)
+                                ? "UserStarReview on"
+                                : "UserStarReview off"
+                            }
+                            onClick={() => setRating(index)}
+                            onMouseEnter={() => setHover(index)}
+                            onMouseLeave={() => setHover(rating)}
+                          >
+                            <span className="starReview">&#9733;</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="InputReview" style={AddReviewState?{display:'block'}:{display:'none'}}>
+                      <textarea name="" id="" cols="30" rows="5" value={ReviewText} onChange={(e)=>setReviewText(e.target.value)}></textarea>
+                    </div>
+                    <button className="WriteReviewButton" onClick={handleAddReview}>
+                      {AddReviewState?'Add Review':'Write a Review'}
+                    </button>
+                  </div>
+                </div>
+                <div className="UserReviewsDiv">
+                  <h1 style={{ fontSize: "xx-large", fontWeight: "700" }} className="CustomerHeader">
+                    Reviews from customers
+                  </h1>
+                  <UserReviews />
+                  <UserReviews />
+                  <UserReviews />
+                </div>
+              </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

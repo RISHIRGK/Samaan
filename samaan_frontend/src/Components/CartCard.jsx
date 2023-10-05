@@ -1,23 +1,49 @@
 import React, { useState } from "react";
 import "./CartCard.css";
-import logo from "./Test.png";
-const CartCard = ({ Quantity, imagsrc, name, price, changequantity }) => {
-  const [QuantityEditState, setQuantityEditState] = useState(false);
+import AuthContext from "../context/Auth";
+// import logo from "./Test.png";
+const CartCard = ({
+  productId,
+  Quantity,
+  imagsrc,
+  name,
+  price,
+  changequantity,
+}) => {
+  // const [QuantityEditState, setQuantityEditState] = useState(false);
   const [quantity, setquantity] = useState(Quantity);
-  const [prevQuantity, setprevQuantity] = useState(price * Quantity);
-  const handleQuantityEdit = () => {
-    console.log(QuantityEditState);
-    if (QuantityEditState) {
-      console.log(prevQuantity);
-      console.log(price * quantity - prevQuantity);
-      changequantity(price * quantity - prevQuantity);
-      setprevQuantity(price * quantity);
+  // const [prevQuantity, setprevQuantity] = useState(price * Quantity);
+  // const handleQuantityEdit = () => {
+  //   console.log(QuantityEditState);
+  //   if (QuantityEditState) {
+  //     console.log(prevQuantity);
+  //     console.log(price * quantity - prevQuantity);
+  //     changequantity(price * quantity - prevQuantity);
+  //     setprevQuantity(price * quantity);
+  //   }
+  //   setQuantityEditState(!QuantityEditState);
+  // };
+  const { authTokens } = React.useContext(AuthContext);
+  const changequantaty = async (q) => {
+    if (authTokens["access"]) {
+      const response = await fetch(
+        "https://api-krudra9125-gmailcom.vercel.app/api/cart/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens["access"]}`,
+          },
+          body: JSON.stringify({ product: productId, quantity: q }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
     }
-    setQuantityEditState(!QuantityEditState);
   };
-  const handleQuantityChange = (e) => {
-    setquantity(e.target.value);
-  };
+  // const handleQuantityChange = (e) => {
+  //   setquantity(e.target.value);
+  // };
   return (
     <div className="CartCardOuter">
       <div className="CartCardWrapper">
@@ -31,8 +57,8 @@ const CartCard = ({ Quantity, imagsrc, name, price, changequantity }) => {
           <div className="PriceCart">
             <p>{price * quantity}</p>
           </div>
-          <div className="QuantityCart">
-            <p
+          <div className="QuantityCart" style={{ padding: "0px 0px" }}>
+            {/* <p
               style={
                 QuantityEditState ? { display: "flex" } : { display: "none" }
               }
@@ -51,7 +77,7 @@ const CartCard = ({ Quantity, imagsrc, name, price, changequantity }) => {
             >
               {quantity}
             </p>
-            <div className="EditQuantity" onClick={handleQuantityEdit}>
+            <div className="" onClick={handleQuantityEdit}>
               <svg
                 width="20px"
                 height="20px"
@@ -109,6 +135,47 @@ const CartCard = ({ Quantity, imagsrc, name, price, changequantity }) => {
                   </g>{" "}
                 </g>
               </svg>
+            </div> */}
+            <div
+              className="w-[100%] AddToCartWrapper "
+              style={{ display: "block", padding: "0px 0px" }}
+            >
+              <div className="w-[8rem] h-[100%] flex justify-center items-center MobileSizeCart">
+                <div className="w-[33.33%] h-[100%] flex justify-center">
+                  <div
+                    className=" bg-yellow-300  text-center font-[900] QuantityIcon text-green-800  rounded-full cursor-pointer pillsMobile"
+                    onClick={() => {
+                      if (quantity > 0) {
+                        setquantity(quantity - 1);
+                        //  changequantaty(-1);
+                        changequantity(-price);
+                        changequantaty(-1)
+                      } else {
+                        setquantity(0);
+                      }
+                    }}
+                  >
+                    -
+                  </div>
+                </div>
+                <div className="w-[33.33%] h-[100%] flex justify-center items-center text-center">
+                  {" "}
+                  {quantity}
+                </div>
+                <div className="w-[33.33%] h-[100%] flex justify-center ">
+                  <div
+                    className="bg-yellow-300  text-cent er font-[900] text-green-800  rounded-full cursor-pointer QuantityIcon pillsMobile"
+                    onClick={() => {
+                      setquantity(quantity + 1);
+                      //  changequantaty(1);
+                      changequantity(price);
+                      changequantaty(1)
+                    }}
+                  >
+                    +
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

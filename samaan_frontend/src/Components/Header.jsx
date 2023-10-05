@@ -307,10 +307,10 @@ const Header = () => {
         </div>
         <div className="UpperLastDiv VCenter-flex">
           {userdetails ? (
-            <p>{authTokens ? `Welcome,${userdetails["name"]}` : ""}</p>
+            <p className="DisappearMobile">{authTokens ? `Welcome,${userdetails["name"]}` : ""}</p>
           ) : (
             <div
-              className="bg-yellow-300 hover:shadow-md w-[7rem] h-[3rem]  transition-all duration-500  rounded-xl text-center flex justify-center items-center font-[700] cursor-pointer"
+              className="bg-yellow-300 hover:shadow-md w-[7rem] h-[3rem]  transition-all duration-500  rounded-xl text-center flex justify-center items-center font-[700] cursor-pointer MobileStyleLoginButton"
               onClick={() => {
                 navigate("/signupuser");
               }}
