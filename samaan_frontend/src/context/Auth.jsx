@@ -85,7 +85,10 @@ export const AuthProvider = ({children}) => {
     const updateToken = useCallback(async () => {
 
         // console.log(authTokens)
-    
+    try {
+        
+        if(authTokens){
+   
         const response = await fetch('https://api-krudra9125-gmailcom.vercel.app/api/refreshtoken/', {
             method: 'POST',
             headers: {
@@ -103,9 +106,12 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem('userAuthToken',JSON.stringify(data))
         } else {
             // logoutUser()
-        }
+        }}
+    } catch (error) {
+        console.log(error)
+    }
 
-        if(loading){
+        if(loading){ 
             setLoading(false)
         }
     },[authTokens, loading, logoutUser])
