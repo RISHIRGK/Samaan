@@ -19,11 +19,12 @@ import ProductsDiv from "./Components/ProductsDiv";
 import Cart from "./Components/Cart";
 import productDetails from "./context/productDetails";
 import AuthContext from "./context/Auth";
-
+import ForgetPass from "./Components/forms/ForgetPass";
+import ForgetPassThroughEmail from "./Components/forms/ForgotPassThroughEmail";
 import CartContext from './context/CartContext';
 
 import Home from "./Home";
-import ForgetPass from "./Components/forms/ForgetPass";
+
 const App = () => {
   const [user, setUser] = React.useState(null);
   const [cart,setCart]=React.useState([])
@@ -61,6 +62,8 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/signupuser" element={<Signup />} />
+        <Route path="/forgotpassword" element={<ForgetPass />} />
+        <Route path="/forgotpasswordemail/:a/:b" element={<ForgetPassThroughEmail />} />
       
       </Routes>
     </CartContext.Provider>

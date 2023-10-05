@@ -1,9 +1,46 @@
 import React, { useState } from "react";
+import AuthContext from "../../context/Auth";
+import { redirect,useNavigate } from "react-router-dom";
 
 const ForgetPass = () => {
+  const { authTokens} = React.useContext(AuthContext);
+  const navigate = useNavigate();
   const [loginUser, setloginUser] = useState();
   const [seepass, setseepass] = useState(false);
   const [seepass1, setseepass1] = useState(false);
+  const handlesubmit = async(e) => {
+    e.preventDefault();
+   const  old_password = e.target.old_password.value;
+   const  new_password = e.target.new_password.value;
+   try {
+      const response = await fetch(
+        "https://api-krudra9125-gmailcom.vercel.app/api/changepassword/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens["access"]}`,
+          },
+          body: JSON.stringify({
+            "old_password":old_password,
+            "new_password":new_password
+          }),
+        }
+      );
+      const data = await response.json();
+      if(data["error"])
+      {
+        alert(data["error"])
+      }
+      else{
+        navigate("/") 
+        window.location.reload()
+        alert("Password Changed Successfully")
+      }
+   } catch (error) {
+    
+   }
+  }
 
   return (
     <div className="w-[100vw] h-[100vh] flex flex-row justify-center items-center  ">
@@ -23,13 +60,14 @@ const ForgetPass = () => {
                 <h1 className="flex text-3xl font-bold flex-nowrap">Enter Password</h1>
               </div>
             </div>
-            <form onSubmit={loginUser} className="w-[100%]">
+            <form onSubmit={handlesubmit} className="w-[100%]">
               <div className="w-[100%] h-[4rem] flex justify-center items-center ">
                 <div className="w-[100%] h-[3rem] flex items-center border border-black rounded-xl ">
                   <input
                     className="w-[100%] h-[100%] rounded-xl outline-none pl-2"
                     type={seepass ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder="Enter Old Password"
+                    name="old_password"
                     required={true}
                   />
                   {seepass ? (
@@ -40,7 +78,7 @@ const ForgetPass = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       onClick={() => setseepass(!seepass)}
-                      className="cursor-pointer pr-1"
+                      className="pr-1 cursor-pointer"
                     >
                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                       <g id="SVGRepo_tracerCarrier"
@@ -93,7 +131,8 @@ const ForgetPass = () => {
                   <input
                     className="w-[100%] h-[100%] rounded-xl outline-none pl-2"
                     type={seepass1 ? "text" : "password"}
-                    placeholder="Confirm Password"
+                    placeholder="Enter New Password"
+                    name="new_password"
                     required={true}
                   />
                   {seepass1 ? (
@@ -104,7 +143,7 @@ const ForgetPass = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       onClick={() => setseepass1(!seepass1)}
-                      className="cursor-pointer pr-1"
+                      className="pr-1 cursor-pointer"
                     >
                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                       <g
