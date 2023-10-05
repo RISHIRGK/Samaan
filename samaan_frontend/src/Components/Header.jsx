@@ -348,6 +348,9 @@ const Header = () => {
                 <li className="UserNamePopOver">
                   <p>{userdetails ? `${userdetails["name"]}` : ""}</p>
                 </li>
+                <li className="UserNamePopOver">
+                  <Link to={"/forgotpassword"} >Change Password</Link>
+                </li>
 
                 <li className="PopoverLine">
                   <div
