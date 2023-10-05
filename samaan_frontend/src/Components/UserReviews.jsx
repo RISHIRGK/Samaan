@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-const UserReviews = () => {
-  const [rating, setRating] = useState(0);
+
+const UserReviews = ({index,review}) => {
+  const [rating, setRating] = useState(review?.rating);
   const [hover, setHover] = useState(0);
   return (
     <div className="UserReviewOuter">
@@ -15,9 +16,9 @@ const UserReviews = () => {
               className={
                 index <= (hover || rating) ? "StarReview on" : "StarReview off"
               }
-              onClick={() => setRating(index)}
-              onMouseEnter={() => setHover(index)}
-              onMouseLeave={() => setHover(rating)}
+              // onClick={() => setRating(index)}
+              // onMouseEnter={() => setHover(index)}
+              // onMouseLeave={() => setHover(rating)}
             >
               <span className="starReview">&#9733;</span>
             </button>
@@ -26,10 +27,10 @@ const UserReviews = () => {
       </div>
       <div className="UserReviewHeader">
         <div className="UserPhoto"></div>
-        <p className="UserName">Username Here</p>
+        <p className="UserName">{review?.username}</p>
       </div>
       <div className="UserReviewStatement">
-        <p>description goes here</p>
+        <p>{review?.comment}</p>
       </div>
     </div>
   );
