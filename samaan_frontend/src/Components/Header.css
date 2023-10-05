@@ -493,10 +493,20 @@ html {
     .LogoDiv{
         margin-right: 0px !important;
     }
+    .MobileStyleLoginButton{
+        padding: 6px 6px !important;
+        height: fit-content !important;
+    }
+    .MobileStyleLoginButton>p{
+        font-size: small;
+    }
 }
 
 @media screen and (max-width:425px) {
     .forsupp{
         font-size: smaller !important;
+    }
+    .DisappearMobile{
+        display: none;
     }
 }

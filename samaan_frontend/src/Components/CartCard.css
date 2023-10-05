@@ -135,4 +135,27 @@
   .CartDetails {
     padding: 20px 0px;
   }
+  .AddToCartWrapper{
+    height: 2rem;
+  }
+  .ProductNameCart>h3{
+    font-size: medium;
+  }
+  .PriceCart>p{
+    font-size: small;
+  }
+
+  .MobileSizeCart{
+    height: 2rem !important;
+  }
+
+  .pillsMobile{
+    max-height: 100% !important;
+  }
+  .CartDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

@@ -24,8 +24,10 @@ const Cart = () => {
       const data = await response.json();
       setFetchState(true);
       setCartdata(data);
+      console.log(data);
     }
   };
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
     fetchCart();
@@ -60,6 +62,7 @@ const Cart = () => {
                 cartdata.map((item) => {
                   return (
                     <CartCard
+                      productId= {item["product"]['id']}
                       name={item["product"]["name"]}
                       price={item["product"]["price"]}
                       imagsrc={item["product"]["img_path"]}
