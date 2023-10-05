@@ -13,7 +13,7 @@ const ForgetPassThroughEmail = () => {
     try {
       const password=e.target.password.value
       console.log(password)
-      const response=await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/password-reset-confirm/${params.a}/${params.b}`,{
+      const response=await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/password-reset-confirm/${params.a}/${params.b}/`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
