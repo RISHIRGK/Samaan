@@ -180,6 +180,7 @@ const DetailsMain = () => {
   }, [id]);
   
 
+
   return (
     <div>
       <div className="w-[100%] h-[100%] outer">
@@ -489,7 +490,10 @@ const DetailsMain = () => {
                   </div>
                 </div>
                 <div className="UserReviewsDiv">
-                  <h1 style={{ fontSize: "xx-large", fontWeight: "700" }} className="CustomerHeader">
+                  <h1
+                    style={{ fontSize: "xx-large", fontWeight: "700" }}
+                    className="CustomerHeader"
+                  >
                     Reviews from customers
                   </h1>
                   
@@ -499,6 +503,7 @@ const DetailsMain = () => {
                   {/* <UserReviews />
                   <UserReviews />
                   <UserReviews /> */}
+               
                 </div>
               </div>
             </div>

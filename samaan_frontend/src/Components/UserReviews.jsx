@@ -3,6 +3,9 @@ import React, { useState } from "react";
 
 const UserReviews = ({index,review}) => {
   const [rating, setRating] = useState(review?.rating);
+
+const UserReviews = ({index,review}) => {
+  const [rating, setRating] = useState(review?.rating);
   const [hover, setHover] = useState(0);
   return (
     <div className="UserReviewOuter">
@@ -19,6 +22,9 @@ const UserReviews = ({index,review}) => {
               // onClick={() => setRating(index)}
               // onMouseEnter={() => setHover(index)}
               // onMouseLeave={() => setHover(rating)}
+              // onClick={() => setRating(index)}
+              // onMouseEnter={() => setHover(index)}
+              // onMouseLeave={() => setHover(rating)}
             >
               <span className="starReview">&#9733;</span>
             </button>
@@ -28,9 +34,13 @@ const UserReviews = ({index,review}) => {
       <div className="UserReviewHeader">
         <div className="UserPhoto"></div>
         <p className="UserName">{review?.username}</p>
+        <p className="UserName">{review?.username}</p>
       </div>
       <div className="UserReviewStatement">
         <p>{review?.comment}</p>
+      </div>
+      <div className="ReviewDate">
+        <p>{new Date(review?.created_at).toLocaleString()}</p>
       </div>
     </div>
   );
