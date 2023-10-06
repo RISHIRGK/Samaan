@@ -17,7 +17,7 @@ const Header = () => {
   const [ToggleOn, setToggleOn] = useState(false);
   const [showoptions, setshowoptions] = useState(false);
   const [lis, setlis] = useState([]);
- 
+
   const [searchbardata, setsearchbardata] = useState(lis);
   const [clickedonCategory, setclickedoncategory] = useState(false);
   const [hoverOn, sethoverOn] = useState(false);
@@ -307,7 +307,9 @@ const Header = () => {
         </div>
         <div className="UpperLastDiv VCenter-flex">
           {userdetails ? (
-            <p className="DisappearMobile">{authTokens ? `Welcome,${userdetails["name"]}` : ""}</p>
+            <p className="DisappearMobile">
+              {authTokens ? `Welcome,${userdetails["name"]}` : ""}
+            </p>
           ) : (
             <div
               className="bg-yellow-300 hover:shadow-md w-[7rem] h-[3rem]  transition-all duration-500  rounded-xl text-center flex justify-center items-center font-[700] cursor-pointer MobileStyleLoginButton"
@@ -400,7 +402,6 @@ const Header = () => {
             onClick={() => {
               if (userdetails) {
                 navigate("/cart");
-              
               } else {
                 navigate("/signupuser");
               }
@@ -433,7 +434,7 @@ const Header = () => {
       </div>
       <div className="LowerNav Laptop" id="ToggleM" ref={ToggleDiv}>
         <ul className="MenuBannerUl VCenter-flex">
-        <li
+          <li
             className="MenuBannerLi"
             id="Third"
             onMouseEnter={() => handleCategoryHover(2)}
@@ -449,7 +450,7 @@ const Header = () => {
             >
               <p className="HoverEffectLinkPara MenuBannerPara">Munchies</p>
             </a>
-          </li> 
+          </li>
           <li
             className="MenuBannerLi"
             id="First"
@@ -488,7 +489,7 @@ const Header = () => {
               </p>
             </a>
           </li>
-          
+
           <li
             className="MenuBannerLi"
             id="Fourth"
@@ -627,11 +628,19 @@ const Header = () => {
                 src="./Assets/category_logos/breakfast.webp"
                 alt="test"
                 srcset=""
+                onClick={() => {
+                  navigate("/onsearch/86");
+                  navigate(0);
+                }}
               />
               <img
                 src="./Assets/category_logos/dairy.webp"
                 alt="test"
                 srcset=""
+                onClick={() => {
+                  navigate("/onsearch/103");
+                  navigate(0);
+                }}
               />
             </div>
           </li>
@@ -647,6 +656,10 @@ const Header = () => {
                 src="./Assets/category_logos/chips.webp"
                 alt="test"
                 srcset=""
+                onClick={() => {
+                  navigate("/onsearch/44");
+                  navigate(0);
+                }}
               />
             </div>
           </li>
@@ -667,6 +680,10 @@ const Header = () => {
                 src="./Assets/category_logos/hotdrinks.webp"
                 alt="test"
                 srcset=""
+                onClick={() => {
+                  navigate("/onsearch/90");
+                  navigate(0);
+                }}
               />
             </div>
           </li>
@@ -700,6 +717,10 @@ const Header = () => {
                 src="./Assets/category_logos/sweet tooth.webp"
                 alt="test"
                 srcset=""
+                onClick={() => {
+                  navigate("/onsearch/156");
+                  navigate(0);
+                }}
               />
             </div>
           </li>
