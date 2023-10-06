@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 
-const UserReviews = ({index,review}) => {
-  const [rating, setRating] = useState(review?.rating);
+
 
 const UserReviews = ({index,review}) => {
   const [rating, setRating] = useState(review?.rating);
@@ -34,7 +33,7 @@ const UserReviews = ({index,review}) => {
       <div className="UserReviewHeader">
         <div className="UserPhoto"></div>
         <p className="UserName">{review?.username}</p>
-        <p className="UserName">{review?.username}</p>
+
       </div>
       <div className="UserReviewStatement">
         <p>{review?.comment}</p>
