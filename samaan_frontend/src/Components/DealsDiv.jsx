@@ -115,7 +115,7 @@ const DealsDiv = ({category}) => {
   }) : 
   [1, 1, 1, 1, 1, 1, 1, 1].map((item, id) => {
     return (
-      <SwiperSlide key={id}>
+      <SwiperSlide key={id} style={{display:'flex',justifyContent:'center'}}>
         <SkeletonCardTwo />
       </SwiperSlide>
     );
