@@ -192,7 +192,7 @@
 }
 
 .RatingsDiv {
-  padding: 10px 30px;
+  padding: 10px 100px;
   width: 100%;
 }
 
@@ -215,9 +215,9 @@
 
 .RatigsStars{
   box-sizing: border-box;
-  width: 50%;
+  width: 40%;
   box-sizing: border-box;
-  padding: 10px 50px;
+  padding: 10px 10px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -241,10 +241,10 @@
 }
 
 .UserReviewsDiv{
-  width: 50%;
+  width: 60%;
   display: flex;
   gap: 10px;
-  padding: 10px 0px;
+  padding: 10px 50px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
@@ -279,7 +279,6 @@
 .RatingsStarDivWrap{
   display: flex;
   justify-content: space-between;
-  gap: 20px;
 }
 
 .writeReview{
@@ -424,6 +423,10 @@
   .outer {
     margin-top: 3rem;
   }
+  
+  .RatingsDiv{
+    padding: 10px 30px;
+  }
 }
 
 @media screen and (max-width: 850px) {
@@ -454,6 +457,15 @@
   .laptopProduct {
     display: none;
   }
+
+  .RatigsStars{
+    flex-direction: column !important;
+    padding: 20px 50px !important;
+  }
+
+  .writeReview{
+    padding: 20px 10px !important;
+  }
 }
 
 .UserReviewOuter{
@@ -470,7 +482,7 @@
   }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:880px) {
   .RatingsStarDivWrap{
     flex-wrap: wrap;
     padding: 20px 50px;
@@ -478,9 +490,34 @@
   .RatigsStars{
     width: 100%;
   }
+
+  .RatingsWrap{
+    padding: 10px 0px;
+  }
+
+  .RatingsStarDivWrap{
+    padding: 10px 10px;
+  }
+
+  .H1Ratings{
+    font-size: x-large;
+  }
+
   .UserReviewsDiv{
     width: 100%;
+    padding: 40px 10px;
   }
+  .RatigsStars{
+    flex-direction: row;
+    padding: 0px 0px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .writeReview{
+    padding: 0px 10px;
+  }
+
+
 }
 
 .InputReview>textarea{
@@ -491,6 +528,10 @@
   font-size: large;
   font-weight: 500;
   border-radius: 20px;
+}
+
+.ReviewTextArea{
+  max-width: 100%;
 }
 
 @media screen and (max-width:580px) {
@@ -509,4 +550,9 @@
   .CustomerHeader{
     font-size: x-large !important;
   }
+}
+
+.ReviewDate>p{
+  font-size: smaller;
+  color: rgba(0, 0, 0, 0.518);
 }

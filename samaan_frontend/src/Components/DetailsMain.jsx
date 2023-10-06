@@ -5,12 +5,12 @@ import "./DetailsMain.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Skeletonprice, SkeletonImage } from "./Skeletons/Skeletons";
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import UserReviews from "./UserReviews";
 const DetailsMain = () => {
   const { id } = useParams();
-  const [method,setMethod] = React.useState("POST")
+  const [method, setMethod] = React.useState("POST");
   const { authTokens } = React.useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -19,10 +19,10 @@ const DetailsMain = () => {
   const [Data, setdata] = React.useState();
   const [quantity, setquantity] = React.useState(0);
   const [AvgRating, setAgRating] = React.useState(3);
-  const [AddReviewState,setAddReviewState] = React.useState(false)
-  const [ReviewText,setReviewText] = React.useState()
-  const [Reviews,setReviews] = React.useState([])
-  const [averagereview,setaveragereview] = React.useState(0)
+  const [AddReviewState, setAddReviewState] = React.useState(false);
+  const [ReviewText, setReviewText] = React.useState();
+  const [Reviews, setReviews] = React.useState([]);
+  const [averagereview, setaveragereview] = React.useState(0);
   const navigate = useNavigate();
   const changequantaty = async (q) => {
     if (authTokens && Data) {
@@ -48,29 +48,30 @@ const DetailsMain = () => {
   const handlePincodeChange = (e) => {
     setPinCode(e.target.value);
   };
-  
-  const getReviews=async()=>{
-    if (id){
-    const response =await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/review/${id}`,{
-      method:"GET",
-      headers:{
-        "Content-Type":"application/json"
+
+  const getReviews = async () => {
+    if (id) {
+      const response = await fetch(
+        `https://api-krudra9125-gmailcom.vercel.app/api/review/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setReviews(data);
+      console.log("reviews", data);
+      let sum = 0;
+      if (data.length > 0) {
+        data.map((review) => {
+          sum += review.rating;
+        });
+        setaveragereview(sum / data.length);
       }
-    })
-    const data=await response.json()
-    setReviews(data)
-    console.log("reviews",data)
-    let sum=0
-    if (data.length>0){
-    data.map((review)=>{
-      sum+=review.rating
-      
-    })
-    setaveragereview(sum/data.length)
-  }
-  }
-  
-  }
+    }
+  };
 
   const fetchdata = async () => {
     if (authTokens) {
@@ -105,80 +106,79 @@ const DetailsMain = () => {
     }
   };
 
-
-  const handleAddReview = async(e) => {
+  const handleAddReview = async (e) => {
     e.preventDefault();
-    if(authTokens)
-    {
-    if(rating>0)
-    {
-      const userid=jwtDecode(authTokens["access"])["user_id"]
-      const response=await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/review/${id}`,{
-        method:method,
-        headers:{
-          "Content-Type":"application/json",
-          Authorization: `Bearer ${authTokens["access"]}`,
-        },
-        body:JSON.stringify({"rating":rating,"comment":ReviewText,"user":userid})
-      })
-      const data= await response.json()
-   
-      if(data["message"]==='review added successfully')
-      {
-        alert("review added/updated successfully")
-        getReviews()
+    if (authTokens) {
+      if (rating > 0) {
+        const userid = jwtDecode(authTokens["access"])["user_id"];
+        const response = await fetch(
+          `https://api-krudra9125-gmailcom.vercel.app/api/review/${id}`,
+          {
+            method: method,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authTokens["access"]}`,
+            },
+            body: JSON.stringify({
+              rating: rating,
+              comment: ReviewText,
+              user: userid,
+            }),
+          }
+        );
+        const data = await response.json();
+
+        if (data["message"] === "review added successfully") {
+          alert("review added/updated successfully");
+          getReviews();
+        } else {
+          alert("something went wrong please try again later");
+        }
+      } else {
+        alert("please give rating");
       }
-      else{
-        alert("something went wrong please try again later")
-      }
+    } else {
+      navigate("/signupuser");
     }
-    else{
-      alert("please give rating")
-    }
-  }
-    else{
-      navigate("/signupuser")
-    }
-    if (AddReviewState){
+    if (AddReviewState) {
       // write add review code
-      
     }
-    setAddReviewState(!AddReviewState)
-  }
-  const getuserreviewstatus=async()=>{
-    if(authTokens){
-      const userid=jwtDecode(authTokens["access"])["user_id"]
-      const response=await fetch(`https://api-krudra9125-gmailcom.vercel.app/api/review/${id}`,{
-        method:"GET",
-        headers:{
-          "Content-Type":"application/json",
-          Authorization: `Bearer ${authTokens["access"]}`,
-        },
-      })
-      const data=await response.json()
-      if(data["message"]==='no reviews')
-      {
-        console.log("no reviews")
-        setMethod("POST")
-        setRating(0)
-        setReviewText("")
-        
+    setAddReviewState(!AddReviewState);
+  };
+  const getuserreviewstatus = async () => {
+    if (authTokens) {
+      const userid = jwtDecode(authTokens["access"])["user_id"];
+      const response = await fetch(
+        `https://api-krudra9125-gmailcom.vercel.app/api/review/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authTokens["access"]}`,
+          },
+        }
+      );
+      const data = await response.json();
+      if (data["message"] === "no reviews") {
+        console.log("no reviews");
+        setMethod("POST");
+        setRating(0);
+        setReviewText("");
+      } else {
+        setMethod("PATCH");
+        setRating(data["rating"]);
+        setReviewText(data["comment"]);
       }
-      else{
-        setMethod("PATCH")
-        setRating(data["rating"])
-        setReviewText(data["comment"])
-      }
-    }}
-  
+    }
+  };
+
   React.useLayoutEffect(() => {
     window.scrollTo(0, 0);
 
     fetchdata();
-    getReviews()
-    getuserreviewstatus()
+    getReviews();
+    getuserreviewstatus();
   }, [id]);
-  
 
   return (
     <div>
@@ -436,25 +436,29 @@ const DetailsMain = () => {
             <div className="RatingsWrap">
               <div className="RatingsStarDivWrap">
                 <div className="RatigsStars">
-                  <h1 className="H1Ratings CustomerHeader">Ratings & Reviews</h1>
-                  <h1 className="AverageStars">{averagereview}</h1>
                   <div>
-                    {[...Array(5)].map((star, index) => {
-                      index += 1;
-                      return (
-                        <button
-                          type="button"
-                          key={index}
-                          className={
-                            index <= averagereview
-                              ? "StarButton on"
-                              : "StarButton off"
-                          }
-                        >
-                          <span className="star">&#9733;</span>
-                        </button>
-                      );
-                    })}
+                    <h1 className="H1Ratings CustomerHeader">
+                      Ratings & Reviews
+                    </h1>
+                    <h1 className="AverageStars">{averagereview}</h1>
+                    <div>
+                      {[...Array(5)].map((star, index) => {
+                        index += 1;
+                        return (
+                          <button
+                            type="button"
+                            key={index}
+                            className={
+                              index <= averagereview
+                                ? "StarButton on"
+                                : "StarButton off"
+                            }
+                          >
+                            <span className="star">&#9733;</span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                   <div className="writeReview">
                     <h1>Write a Review</h1>
@@ -480,22 +484,42 @@ const DetailsMain = () => {
                         );
                       })}
                     </div>
-                    <div className="InputReview" >
-                      <textarea name="" id="" cols="30" rows="5" value={ReviewText} onChange={(e)=>setReviewText(e.target.value)}></textarea>
+                    <div className="InputReview">
+                      <textarea
+                      className="ReviewTextArea"
+                        name=""
+                        id=""
+                        cols="15"
+                        rows="2"
+                        value={ReviewText}
+                        onChange={(e) => setReviewText(e.target.value)}
+                      ></textarea>
                     </div>
-                    <button className="WriteReviewButton" onClick={handleAddReview}>
-                     {method==="PATCH"?"Edit The Review":"Post The Review"}
+                    <button
+                      className="WriteReviewButton"
+                      onClick={handleAddReview}
+                    >
+                      {method === "PATCH"
+                        ? "Edit The Review"
+                        : "Post The Review"}
                     </button>
                   </div>
                 </div>
                 <div className="UserReviewsDiv">
-                  <h1 style={{ fontSize: "xx-large", fontWeight: "700" }} className="CustomerHeader">
+                  <h1
+                    style={{ fontSize: "xx-large", fontWeight: "700" }}
+                    className="CustomerHeader"
+                  >
                     Reviews from customers
                   </h1>
-                  
-                {Reviews.length>0 ? Reviews.map((review,index)=>{
-                  return <UserReviews key={index} review={review}/>
-                }):<h1>No Reviews Available</h1>}
+
+                  {Reviews.length > 0 ? (
+                    Reviews.map((review, index) => {
+                      return <UserReviews key={index} review={review} />;
+                    })
+                  ) : (
+                    <h1>No Reviews Available</h1>
+                  )}
                   {/* <UserReviews />
                   <UserReviews />
                   <UserReviews /> */}

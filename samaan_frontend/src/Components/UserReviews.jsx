@@ -32,6 +32,9 @@ const UserReviews = ({index,review}) => {
       <div className="UserReviewStatement">
         <p>{review?.comment}</p>
       </div>
+      <div className="ReviewDate">
+        <p>{new Date(review?.created_at).toLocaleString()}</p>
+      </div>
     </div>
   );
 };
