@@ -125,12 +125,21 @@ const DetailsMain = () => {
    
       if(data["message"]==='review added successfully')
       {
-        alert("review added/updated successfully")
+        alert("review added successfully")
         getReviews()
+        getuserreviewstatus()
       }
-      else{
-        alert("something went wrong please try again later")
-      }
+    else if(data["message"]==='review updated successfully'){
+      alert("review updated successfully")
+        getReviews()
+        getuserreviewstatus()
+        
+        
+    }
+    else
+    {
+      alert("something went wrong")
+    }
     }
     else{
       alert("please give rating")

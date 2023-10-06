@@ -123,6 +123,7 @@ export const AuthProvider = ({children}) => {
         logoutUser:logoutUser,
         isAuthenticated: isAuthenticated,
         signupuser:signupuser,
+        updateToken:updateToken,
         // vendor: vendor
     }
 

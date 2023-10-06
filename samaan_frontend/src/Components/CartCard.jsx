@@ -9,6 +9,7 @@ const CartCard = ({
   name,
   price,
   changequantity,
+ 
 }) => {
   // const [QuantityEditState, setQuantityEditState] = useState(false);
   const [quantity, setquantity] = useState(Quantity);
@@ -145,13 +146,14 @@ const CartCard = ({
                   <div
                     className=" bg-yellow-300  text-center font-[900] QuantityIcon text-green-800  rounded-full cursor-pointer pillsMobile"
                     onClick={() => {
-                      if (quantity > 0) {
+                      if (quantity >0) {
                         setquantity(quantity - 1);
                         //  changequantaty(-1);
                         changequantity(-price);
                         changequantaty(-1)
                       } else {
                         setquantity(0);
+                       window.location.reload()
                       }
                     }}
                   >
