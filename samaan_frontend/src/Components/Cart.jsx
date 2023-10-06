@@ -4,8 +4,10 @@ import "./Cart.css";
 import AuthContext from "../context/Auth";
 import { set } from "mongoose";
 import { SkeletonCart } from "./Skeletons/Skeletons";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
-  const { authTokens } = React.useContext(AuthContext);
+  const navigate = useNavigate();
+  const { authTokens,updateToken } = React.useContext(AuthContext);
   const [cartdata, setCartdata] = React.useState([]);
   const [FetchState, setFetchState] = React.useState(false);
   const [total, setTotal] = React.useState(0);
@@ -22,9 +24,18 @@ const Cart = () => {
         }
       );
       const data = await response.json();
+      if (data["detail"])
+      {
+        
+        setFetchState(false);
+        await updateToken().then(()=>{fetchCart()})
+        
+      }
+      else{
       setFetchState(true);
       setCartdata(data);
       console.log(data);
+      }
     }
   };
 
@@ -58,7 +69,7 @@ const Cart = () => {
           <hr />
           <div className="CartWrapper">
             {FetchState ? (
-              cartdata.length !== 0 ? (
+              cartdata && cartdata.length !== 0 ? (
                 cartdata.map((item) => {
                   return (
                     <CartCard
@@ -68,6 +79,7 @@ const Cart = () => {
                       imagsrc={item["product"]["img_path"]}
                       Quantity={item["quantity"]}
                       changequantity = {changeSubtotal}
+                    
                     />
                   );
                 })
