@@ -53,7 +53,7 @@ const App = () => {
   return (
     <div className="  w-[100%] h-[100vh]   ">
 
-        <CartContext.Provider value={cart}>
+      
       <Routes>
         <Route to="/" element={<Main />}>
           <Route path="/" element={<Home />} />
@@ -66,7 +66,7 @@ const App = () => {
         <Route path="/forgotpasswordemail/:a/:b" element={<ForgetPassThroughEmail />} />
       
       </Routes>
-    </CartContext.Provider>
+
     </div>
   );
 };

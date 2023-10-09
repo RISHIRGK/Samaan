@@ -32,7 +32,7 @@ const Home = () => {
   //   // fetchdata();
   // }, []);
   return (
-    <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center mt-[8rem]  overflow-scroll  ">
+    <div className="w-[100%] h-[100%] max-w-screen-2xl mx-auto flex flex-col justify-start items-center md:mt-[8rem]  overflow-scroll  ">
       <div className=" w-[100%]    ">
         <Carousel />
       </div>
