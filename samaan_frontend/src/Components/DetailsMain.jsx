@@ -446,9 +446,10 @@ const DetailsMain = () => {
             <div className="RatingsWrap">
               <div className="RatingsStarDivWrap">
                 <div className="RatigsStars">
+                <div>
+
                   <h1 className="H1Ratings CustomerHeader">Ratings & Reviews</h1>
                   <h1 className="AverageStars">{averagereview}</h1>
-                  <div>
                     {[...Array(5)].map((star, index) => {
                       index += 1;
                       return (
@@ -491,7 +492,7 @@ const DetailsMain = () => {
                       })}
                     </div>
                     <div className="InputReview" >
-                      <textarea name="" id="" cols="30" rows="5" value={ReviewText} onChange={(e)=>setReviewText(e.target.value)}></textarea>
+                      <textarea name="" id="" cols="16" rows="2" value={ReviewText} onChange={(e)=>setReviewText(e.target.value)}></textarea>
                     </div>
                     <button className="WriteReviewButton" onClick={handleAddReview}>
                      {method==="PATCH"?"Edit The Review":"Post The Review"}

@@ -534,6 +534,20 @@
   max-width: 100%;
 }
 
+@media screen and (max-width:375px) {
+  .ProductDetailsDiv{
+    padding: 20px 20px;
+  }
+
+  .RatigsStars{
+    padding: 10px 20px !important;
+  }
+
+  .CustomerHeader{
+    font-size: large !important;
+  }
+}
+
 @media screen and (max-width:580px) {
   .RatingsWrap{
     padding: 10px 0px;
