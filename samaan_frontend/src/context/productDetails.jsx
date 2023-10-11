@@ -1,3 +1,3 @@
-import React,{useContext} from 'react'
+import React from 'react'
 const productDetails = React.createContext()
 export default productDetails

@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Header.css";
 import Logo from "./Logo.png";
-import { set } from "mongoose";
-import productDetails from "../context/productDetails";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/Auth";
@@ -291,7 +289,7 @@ const Header = () => {
                     <Link
                       onMouseDownCapture={() => {
                         navigate(`/onsearch/${item.id}`);
-                        window.location.reload();
+                      
                       }}
                       className="w-[100%] text-start  pl-7 hover:bg-yellow-300 hover:shadow-md transition-all duration-500  ease-in-out    border  "
                     >
@@ -358,7 +356,7 @@ const Header = () => {
                   <div
                     onClick={() => {
                       logoutUser();
-                      window.location.reload();
+                      
                     }}
                   >
                     <svg

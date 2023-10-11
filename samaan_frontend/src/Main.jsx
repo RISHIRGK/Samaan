@@ -1,22 +1,12 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Main from "./Main";
-import Signup from "./Components/forms/Signupform";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import OnSearch from "./Components/OnSearch";
 import DetailsMain from "./Components/DetailsMain";
 import Header from "./Components/Header";
-import DOD from "./Components/DOD";
-import Carousel from "./Components/Carousel";
 import "./App.css";
 import "./loader.css";
-import axios from "axios";
-import ProductCard from "./Components/ProductCard";
-import { IoIosArrowForward } from "react-icons/io";
 // import mongoose, { connect } from "mongoose";
-import Categories from "./Components/Categories";
 import Footer from "./Components/Footer";
-import ProductsDiv from "./Components/ProductsDiv";
-import productDetails from "./context/productDetails";
 import Cart from "./Components/Cart";
 import Home from "./Home";
 

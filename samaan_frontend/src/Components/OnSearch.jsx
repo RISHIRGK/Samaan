@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./OnSearch.css";
-import Header from "./Header";
-import Footer from "./Footer";
 import OnSearchLeft from "./OnSearchLeft";
 import OnSearchRight from "./OnSearchRight";
 import { useParams } from "react-router-dom";
-import { set } from "mongoose";
 
 const OnSearch = () => {
   const { id } = useParams();

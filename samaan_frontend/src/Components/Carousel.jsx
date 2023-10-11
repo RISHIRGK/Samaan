@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './Carousel.css'
 import I1 from './CarouselImages/image1.png'
 import I2 from './CarouselImages/image2.png'
 import I3 from './CarouselImages/image3.png'
 import I4 from './CarouselImages/image4.png'
 import I5 from './CarouselImages/image5.png'
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
+import { Splide, SplideSlide } from '@splidejs/react-splide'
+import '@splidejs/react-splide/css'
 // import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 
 // new Splide( '.splide' ).mount( { AutoScroll } );

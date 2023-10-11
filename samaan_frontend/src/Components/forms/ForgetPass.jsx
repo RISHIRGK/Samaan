@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthContext from "../../context/Auth";
-import { redirect,useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ForgetPass = () => {
   const { authTokens} = React.useContext(AuthContext);

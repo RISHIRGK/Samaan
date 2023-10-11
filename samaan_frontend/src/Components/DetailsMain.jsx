@@ -4,7 +4,7 @@ import AuthContext from "../context/Auth";
 import "./DetailsMain.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Skeletonprice, SkeletonImage } from "./Skeletons/Skeletons";
+import { Skeletonprice } from "./Skeletons/Skeletons";
 import jwtDecode from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import UserReviews from "./UserReviews";

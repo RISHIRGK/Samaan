@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { IoIosArrowForward } from "react-icons/io";
-import DealsDiv from './DealsDiv.jsx';  
+import DealsDiv from './DealsDiv.jsx';
 
 
 const ProductsDiv = ({title,Category}) => {

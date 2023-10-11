@@ -2,7 +2,6 @@ import React from "react";
 import CartCard from "./CartCard";
 import "./Cart.css";
 import AuthContext from "../context/Auth";
-import { set } from "mongoose";
 import { SkeletonCart } from "./Skeletons/Skeletons";
 import { useNavigate } from "react-router-dom";
 const Cart = () => {
