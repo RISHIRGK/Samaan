@@ -73,18 +73,18 @@ export const AuthProvider = ({children}) => {
     }
 
     let logoutUser =() => {
-        // e.preventDefault()
+
         localStorage.removeItem('userAuthToken')
         setAuthTokens(null)
         setUser(null)
         setIsAuthenticated(false)
-        // navigate('/',{replace:true})
+         navigate('/',{replace:true})
 
     }
 
     const updateToken = useCallback(async () => {
 
-        // console.log(authTokens)
+   
     try {
         
         if(authTokens){
@@ -105,10 +105,11 @@ export const AuthProvider = ({children}) => {
             setIsAuthenticated(true)
             localStorage.setItem('userAuthToken',JSON.stringify(data))
         } else {
-            // logoutUser()
+             logoutUser()
         }}
     } catch (error) {
         console.log(error)
+        alert(error)
     }
 
         if(loading){ 
@@ -124,7 +125,7 @@ export const AuthProvider = ({children}) => {
         isAuthenticated: isAuthenticated,
         signupuser:signupuser,
         updateToken:updateToken,
-        // vendor: vendor
+   
     }
 
     useEffect(()=>{
@@ -135,7 +136,7 @@ export const AuthProvider = ({children}) => {
         }
         else{
 
-        const REFRESH_INTERVAL = 1000 * 60 * 4 // 15 minutes
+        const REFRESH_INTERVAL = 1000 * 60 * 4 // 4 minutes
         let interval = setInterval(()=>{
             if(authTokens){
                 updateToken()
